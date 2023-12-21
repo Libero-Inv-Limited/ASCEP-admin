@@ -10,6 +10,7 @@ import AssignRole from "./AssignRole";
 import DeactivateAccount from "./DeactivateAccount";
 import DeleteAccount from "./DeleteAccount";
 import ResetPassword from "./ResetPassword";
+import Reset2FA from "./Reset2FA";
 
 export default function UserSettingsDropdownMenu() {
   return (
@@ -32,7 +33,7 @@ export default function UserSettingsDropdownMenu() {
             <ResetPassword />
           </DropdownMenuLabel>
           <DropdownMenuLabel>
-            <div className="table-menu">Reset 2FA</div>
+            <Reset2FA />
           </DropdownMenuLabel>
           <DropdownMenuLabel>
             <DeactivateAccount />
