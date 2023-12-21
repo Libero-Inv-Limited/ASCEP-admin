@@ -30,8 +30,6 @@ export default function AssignRole() {
 
   const { toast } = useToast();
 
-  console.log(error);
-
   useEffect(() => {
     if (selectedPermissions.length > 0) setError(null);
   }, [selectedPermissions]);
@@ -45,6 +43,7 @@ export default function AssignRole() {
       title: "Success!",
       variant: "success",
       description: `Assigned Role`,
+      duration: 1000,
     });
     onClose();
   };

@@ -21,7 +21,7 @@ export default function AdminsProfile() {
     },
   };
   return (
-    <div>
+    <div className="space-y-8">
       <div className="py-4 border-b border-[#F0F0F0] text-dark">
         Admin's Profile
       </div>

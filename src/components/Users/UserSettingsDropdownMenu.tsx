@@ -7,6 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import AssignRole from "./AssignRole";
+import DeactivateAccount from "./DeactivateAccount";
 
 export default function UserSettingsDropdownMenu() {
   return (
@@ -32,7 +33,7 @@ export default function UserSettingsDropdownMenu() {
             <div className="table-menu">Reset 2FA</div>
           </DropdownMenuLabel>
           <DropdownMenuLabel>
-            <div className="table-menu">Suspend account</div>
+            <DeactivateAccount />
           </DropdownMenuLabel>
           <DropdownMenuLabel>
             <div className="text-red-500 table-menu">Delete account</div>
