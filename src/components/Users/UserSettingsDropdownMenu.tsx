@@ -9,6 +9,7 @@ import {
 import AssignRole from "./AssignRole";
 import DeactivateAccount from "./DeactivateAccount";
 import DeleteAccount from "./DeleteAccount";
+import ResetPassword from "./ResetPassword";
 
 export default function UserSettingsDropdownMenu() {
   return (
@@ -28,7 +29,7 @@ export default function UserSettingsDropdownMenu() {
             <AssignRole />
           </DropdownMenuLabel>
           <DropdownMenuLabel>
-            <div className="table-menu">Reset Password </div>
+            <ResetPassword />
           </DropdownMenuLabel>
           <DropdownMenuLabel>
             <div className="table-menu">Reset 2FA</div>

@@ -33,8 +33,6 @@ export default function DeactivateAccount() {
     onClose();
   };
 
-  console.log(errors);
-
   return (
     <div>
       <div onClick={onOpen} className="table-menu">
