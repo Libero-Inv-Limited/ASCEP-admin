@@ -8,6 +8,7 @@ import {
 } from "../ui/dropdown-menu";
 import AssignRole from "./AssignRole";
 import DeactivateAccount from "./DeactivateAccount";
+import DeleteAccount from "./DeleteAccount";
 
 export default function UserSettingsDropdownMenu() {
   return (
@@ -36,7 +37,7 @@ export default function UserSettingsDropdownMenu() {
             <DeactivateAccount />
           </DropdownMenuLabel>
           <DropdownMenuLabel>
-            <div className="text-red-500 table-menu">Delete account</div>
+            <DeleteAccount />
           </DropdownMenuLabel>
         </DropdownMenuContent>
       </DropdownMenu>
