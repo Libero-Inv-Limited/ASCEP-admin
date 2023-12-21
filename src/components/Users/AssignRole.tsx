@@ -95,7 +95,11 @@ export default function AssignRole() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-end">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <p> Role not listed?</p>{" "}
+                  <p className="cursor-pointer text-primary">Create role</p>
+                </div>
                 <Button>Update Profile</Button>
               </div>
             </form>
