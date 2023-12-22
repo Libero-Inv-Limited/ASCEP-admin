@@ -67,19 +67,19 @@ export const sidebarLinks: NavLinkType[] = [
     module: "users",
   },
   {
-    title: "ASCEP Response",
+    title: "Response",
     Icon: <Messages1 size={25} />,
     path: "/response",
     module: "response",
   },
   {
-    title: "ASCEP Dialogue",
+    title: "Dialogue",
     Icon: <Profile2User size={25} />,
     path: "/dialogue",
     module: "dialogue",
   },
   {
-    title: "ASCEP Democracy",
+    title: "Democracy",
     Icon: <TickSquare size={25} />,
     path: "/democracy",
     module: "democracy",

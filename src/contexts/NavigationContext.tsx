@@ -14,6 +14,8 @@ interface NavigationContextProps {
   activeModule: string;
   setActiveModule: React.Dispatch<React.SetStateAction<string>>;
   location: LocationParams;
+  breadcrumbs: Breadcrumb[];
+  setBreadcrumbs: React.Dispatch<React.SetStateAction<Breadcrumb[]>>;
 }
 const NavigationContext = createContext({} as NavigationContextProps);
 interface NavigationContextProviderProps {
@@ -39,6 +41,7 @@ const NavigationContextProvider = ({
   const toggleSidebar = () => setOpenSidebar(!openSidebar);
   const toggleMobileNav = () => setOpenMobileNav(!openMobileNav);
   const [activeLink, setActiveLink] = useState<string>("");
+  const [breadcrumbs, setBreadcrumbs] = useState<Breadcrumb[]>([]);
 
   const location = useLocation();
   useEffect(() => {
@@ -60,6 +63,8 @@ const NavigationContextProvider = ({
         activeModule,
         setActiveModule,
         location,
+        breadcrumbs,
+        setBreadcrumbs,
       }}
     >
       {children}

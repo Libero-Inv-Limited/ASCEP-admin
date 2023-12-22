@@ -17,7 +17,7 @@ import {
   PublishDebatePage,
   StartProposalPage,
 } from "./Democracy";
-import { ActivityPage, DataView, MapView } from "./Response";
+import { ActivityPage, DataView, MapView, ResponsePage } from "./Response";
 import DebateProvider from "@/contexts/DebateContext";
 import { ContactUs, LandingPage } from "./Landing";
 import ProposalProvider from "@/contexts/ProposalContext";
@@ -93,7 +93,7 @@ const routes: RouterType[] = [
   },
   {
     path: "/response",
-    element: <Navigate to="/response/map-view" />,
+    element: <ResponsePage />,
     title: "response",
   },
 
