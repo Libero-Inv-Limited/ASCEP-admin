@@ -5,7 +5,7 @@ export default function UserSettingsOptions() {
   const { activeOption, setActiveOption } = useUserSettingsContext();
 
   return (
-    <div className="col-span-4 sticky top-0 left-0 z-10 bg-white p-6 rounded-[40px] h-fit">
+    <div className="col-span-4 sticky top-0 left-0 z-10 bg-white p-6 rounded-[24px] h-fit">
       {options?.map((option) => (
         <div
           key={option.title}

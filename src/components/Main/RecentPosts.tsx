@@ -135,7 +135,7 @@ export default function RecentPosts() {
 
         <p className="underline text-dark">See all</p>
       </div>
-      <div className="bg-white rounded-[30px] p-4">
+      <div className="p-4 bg-white rounded-lg">
         <DataTable columns={columns} data={tableData} />
       </div>
     </div>

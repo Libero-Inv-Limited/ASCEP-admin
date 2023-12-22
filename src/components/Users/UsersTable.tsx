@@ -109,7 +109,7 @@ export default function UsersTable() {
   }, []);
   return (
     <div className="space-y-4">
-      <div className="bg-white rounded-[30px] p-4 min-h-[70vh]">
+      <div className="bg-white rounded-lg p-4 min-h-[70vh]">
         <DataTable columns={columns} data={tableData} />
       </div>
       <TablePagination />

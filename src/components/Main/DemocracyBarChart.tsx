@@ -49,7 +49,7 @@ const data = [
 
 export default function DemocracyBarChart() {
   return (
-    <div className="bg-white w-full py-5 px-7 space-y-8 rounded-[30px]">
+    <div className="w-full py-5 space-y-8 bg-white rounded-lg px-7">
       <div className="flex items-center justify-between">
         <h3 className="mr-8 text-lg text-dark">Response</h3>
 

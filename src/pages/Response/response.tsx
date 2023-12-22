@@ -12,6 +12,7 @@ import { Messages1, Profile2User, TickSquare } from "iconsax-react";
 import { User } from "lucide-react";
 import { useEffect } from "react";
 import ResponseFilter from "./ResponseFilter";
+import { Link } from "react-router-dom";
 
 const responsePostsTabs = [
   {
@@ -84,18 +85,20 @@ export default function ResponsePage() {
 
             <div className="flex items-center gap-3 ml-auto">
               <ResponseFilter />
-              <p className="underline text-dark">See all</p>
+              <Link to="/response/view-all">
+                <p className="underline text-dark">See all</p>
+              </Link>
             </div>
           </TabsList>
 
           <TabsContent value="all">
-            <ResponsePosts />
+            <ResponsePosts data={data} />
           </TabsContent>
           <TabsContent value="recent-posts">
-            <ResponsePosts />
+            <ResponsePosts data={data} />
           </TabsContent>
           <TabsContent value="surveys">
-            <ResponsePosts />
+            <ResponsePosts data={data} />
           </TabsContent>
           <TablePagination />
         </Tabs>
@@ -103,3 +106,79 @@ export default function ResponsePage() {
     </div>
   );
 }
+
+const data: ResponsePost[] = [
+  {
+    id: "728ed52f",
+    postTitle: "Risk Management",
+    category: "Response",
+    user: "Joh doe",
+    date: "Jan 1st, 2022",
+    status: "published",
+    action: "User login",
+    location: "Umuleri, Anambra State",
+    sdgs: [
+      "/images/SDG/image 19.png",
+      "/images/SDG/image 21.png",
+      "/images/SDG/image 22.png",
+    ],
+  },
+  {
+    id: "123ub8u1",
+    postTitle: "Risk Management",
+    category: "Dialogue",
+    user: "Joh doe",
+    date: "Jan 1st, 2022",
+    status: "pending",
+    action: "User logout",
+    location: "Umuleri, Anambra State",
+    sdgs: [
+      "/images/SDG/image 19.png",
+      "/images/SDG/image 20.png",
+      "/images/SDG/image 21.png",
+      "/images/SDG/image 22.png",
+    ],
+  },
+  {
+    id: "nw901",
+    postTitle: "Risk Management",
+    category: "Democracy (Poll)",
+    user: "Joh doe",
+    date: "Jan 1st, 2022",
+    status: "survey",
+    action: "User login",
+    location: "Umuleri, Anambra State",
+    sdgs: [
+      "/images/SDG/image 20.png",
+      "/images/SDG/image 21.png",
+      "/images/SDG/image 22.png",
+    ],
+  },
+  {
+    id: "12dcu1",
+    postTitle: "Risk Management",
+    category: "Risk Management",
+    user: "Joh doe",
+    date: "Jan 1st, 2022",
+    status: "published",
+    action: "User logout",
+    location: "Umuleri, Anambra State",
+    sdgs: [
+      "/images/SDG/image 19.png",
+
+      "/images/SDG/image 21.png",
+      "/images/SDG/image 22.png",
+    ],
+  },
+  {
+    id: "xn180h2",
+    postTitle: "Risk Management",
+    category: "Democracy (Poll)",
+    user: "Joh doe",
+    date: "Jan 1st, 2022",
+    status: "published",
+    action: "User login",
+    location: "Umuleri, Anambra State",
+    sdgs: ["/images/SDG/image 21.png", "/images/SDG/image 22.png"],
+  },
+];
