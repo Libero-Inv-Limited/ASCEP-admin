@@ -4,12 +4,14 @@ import {
   ResponseCategories,
   ResponsePosts,
 } from "@/components/Response";
+import { TablePagination } from "@/components/custom";
 import { Tabs } from "@/components/ui/tabs";
 import { useNavigationContext } from "@/contexts/NavigationContext";
 import { TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import { Messages1, Profile2User, TickSquare } from "iconsax-react";
 import { User } from "lucide-react";
 import { useEffect } from "react";
+import ResponseFilter from "./ResponseFilter";
 
 const responsePostsTabs = [
   {
@@ -72,7 +74,7 @@ export default function ResponsePage() {
           <TabsList className="flex gap-4">
             {responsePostsTabs.map((tab) => (
               <TabsTrigger
-                className="data-[state=active]:border-b-[2px] border-primary data-[state=active]:text-dark text-subtle_text"
+                className="data-[state=active]:border-b-[3px] border-primary data-[state=active]:text-dark text-subtle_text/40"
                 key={tab.value}
                 value={tab.value}
               >
@@ -80,7 +82,8 @@ export default function ResponsePage() {
               </TabsTrigger>
             ))}
 
-            <div className="ml-auto">
+            <div className="flex items-center gap-3 ml-auto">
+              <ResponseFilter />
               <p className="underline text-dark">See all</p>
             </div>
           </TabsList>
@@ -94,6 +97,7 @@ export default function ResponsePage() {
           <TabsContent value="surveys">
             <ResponsePosts />
           </TabsContent>
+          <TablePagination />
         </Tabs>
       </div>
     </div>
