@@ -1,4 +1,3 @@
-export { default as MainStatsCard } from "./MainStatsCard";
 export { default as ResponseChart } from "./ResponseChart";
 export { default as DialogueBarChart } from "./DialogueBarChart";
 export { default as DemocracyBarChart } from "./DemocracyBarChart";

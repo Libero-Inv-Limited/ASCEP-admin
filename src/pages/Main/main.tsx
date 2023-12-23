@@ -3,10 +3,10 @@ import { Messages1, Profile2User, TickSquare, User } from "iconsax-react";
 import {
   DemocracyBarChart,
   DialogueBarChart,
-  MainStatsCard,
   RecentPosts,
   ResponseChart,
 } from "@/components/Main";
+import { StatsCard } from "@/components/custom";
 
 export default function MainPage() {
   return (
@@ -14,18 +14,18 @@ export default function MainPage() {
       <div className="mt-8 space-y-5">
         {/* MAIN STATS */}
         <div className="grid grid-cols-4 gap-6 ">
-          <MainStatsCard icon={<User />} title="Total Response" count={"32k"} />
-          <MainStatsCard
+          <StatsCard icon={<User />} title="Total Response" count={"32k"} />
+          <StatsCard
             icon={<Messages1 />}
             title="Total Response"
             count={"3.2k"}
           />
-          <MainStatsCard
+          <StatsCard
             icon={<Profile2User />}
             title="Total Dialogue "
             count={"1.2k"}
           />
-          <MainStatsCard
+          <StatsCard
             icon={<TickSquare />}
             title="Total Democracy"
             count={"1.9k"}

@@ -10,3 +10,4 @@ export { default as CategoriesMultiSelect } from "./CategoriesMultiSelect";
 export { default as TablePagination } from "./TablePagination";
 export { default as CustomMultiSelect } from "./CustomMultiSelect";
 export { default as Breadcrumb } from "./Breadcrumb";
+export { default as StatsCard } from "./StatsCard";

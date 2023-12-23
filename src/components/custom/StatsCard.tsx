@@ -1,17 +1,13 @@
 import { ReactNode } from "react";
-import { IconWrapper } from "../custom";
+import { IconWrapper } from ".";
 
-interface MainStatsCardProps {
+interface StatsCardProps {
   icon: ReactNode;
   title: string;
   count: number | string;
 }
 
-export default function MainStatsCard({
-  icon,
-  count,
-  title,
-}: MainStatsCardProps) {
+export default function StatsCard({ icon, count, title }: StatsCardProps) {
   return (
     <div className="flex items-center p-6 bg-secondary rounded-[20px] gap-4">
       <IconWrapper className="w-11 bg-[#FFC3341A] h-11 rounded-xl">

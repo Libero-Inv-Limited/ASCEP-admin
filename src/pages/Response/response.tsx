@@ -1,10 +1,9 @@
-import { MainStatsCard } from "@/components/Main";
 import {
   ResponseActions,
   ResponseCategories,
   ResponsePosts,
 } from "@/components/Response";
-import { TablePagination } from "@/components/custom";
+import { StatsCard, TablePagination } from "@/components/custom";
 import { Tabs } from "@/components/ui/tabs";
 import { useNavigationContext } from "@/contexts/NavigationContext";
 import { TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
@@ -50,18 +49,14 @@ export default function ResponsePage() {
       <div className="mt-8 space-y-5">
         {/* MAIN STATS */}
         <div className="grid grid-cols-4 gap-6 ">
-          <MainStatsCard icon={<User />} title="Total Reports" count={"32k"} />
-          <MainStatsCard
-            icon={<Messages1 />}
-            title="Total Survey"
-            count={"3.2k"}
-          />
-          <MainStatsCard
+          <StatsCard icon={<User />} title="Total Reports" count={"32k"} />
+          <StatsCard icon={<Messages1 />} title="Total Survey" count={"3.2k"} />
+          <StatsCard
             title="Total Democracy"
             icon={<Profile2User />}
             count={"1.2k"}
           />
-          <MainStatsCard
+          <StatsCard
             title="Reports Engagements"
             icon={<TickSquare />}
             count={"1.274m"}
