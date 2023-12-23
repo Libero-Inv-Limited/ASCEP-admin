@@ -13,7 +13,7 @@ export default function Reset2FA() {
       title: "Success!",
       variant: "success",
       description: `Password reset successful`,
-      duration: 1000,
+      duration: 2000,
     });
     onClose();
   };

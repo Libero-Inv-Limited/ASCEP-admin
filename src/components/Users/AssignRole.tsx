@@ -43,7 +43,7 @@ export default function AssignRole() {
       title: "Success!",
       variant: "success",
       description: `Assigned Role`,
-      duration: 1000,
+      duration: 2000,
     });
     onClose();
   };

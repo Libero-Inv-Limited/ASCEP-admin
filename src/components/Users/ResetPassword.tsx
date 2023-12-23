@@ -13,7 +13,7 @@ export default function ResetPassword() {
       title: "Success!",
       variant: "success",
       description: `Password reset successful`,
-      duration: 1000,
+      duration: 2000,
     });
     onClose();
   };

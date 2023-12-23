@@ -29,7 +29,7 @@ import { ContactUs, LandingPage } from "./Landing";
 import ProposalProvider from "@/contexts/ProposalContext";
 import { ViewPostPage } from "./Posts";
 import { UserDetailsPage, UsersPage } from "./Users";
-import { DialoguePage } from "./Dialogue";
+import { DialoguePage, ViewAllRequestsPage } from "./Dialogue";
 
 export const landingPages: RouterType[] = [
   {
@@ -54,6 +54,11 @@ const routes: RouterType[] = [
     path: "/dialogue",
     element: <DialoguePage />,
     title: "dialoge",
+  },
+  {
+    path: "/dialogue/view-all",
+    element: <ViewAllRequestsPage />,
+    title: "view-all",
   },
   {
     path: "/democracy",

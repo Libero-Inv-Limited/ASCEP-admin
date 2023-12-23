@@ -30,7 +30,7 @@ export default function ImportCSV({ isOpen, onClose }: ImportCSVProps) {
       title: "Success!",
       variant: "success",
       description: `Import Successful`,
-      duration: 1000,
+      duration: 2000,
     });
     onClose();
   };

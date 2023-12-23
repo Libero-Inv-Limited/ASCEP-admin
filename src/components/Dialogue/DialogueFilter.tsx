@@ -1,4 +1,3 @@
-import { FilterDropdown } from "@/components/custom";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -6,7 +5,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { BiFilterAlt } from "react-icons/bi";
-export default function ResponseFilter() {
+import { FilterDropdown } from "../custom";
+
+export default function DialogueFilter() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -21,24 +22,23 @@ export default function ResponseFilter() {
         align="end"
       >
         <div className="flex items-center gap-4 p-4 bg-white ">
-          <FilterDropdown title="Category" options={categories} />
+          <FilterDropdown title="Authority" options={authorities} />
           <FilterDropdown title="Date range" options={dateRanges} />
-          <FilterDropdown title="Locations" options={locations} />
+          <FilterDropdown title="Visibility" options={visibility} />
         </div>
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }
 
-const categories = [
-  "all",
-  "event",
-  "education",
-  "justice",
-  "violence",
-  "accident",
-  "build",
+export const authorities = [
+  "State Government",
+  "Police",
+  "State Assembly",
+  "High court",
+  "FRSC",
+  "NDLEA",
 ];
 const dateRanges = ["this weeek", "this month", "this year", "3 years"];
 
-const locations = ["Everywhere", "Abuja", "Lagos", "Kano", "Port-Harcout"];
+const visibility = ["All", "Public", "Private"];

@@ -28,7 +28,7 @@ export default function DeleteAccount() {
       title: "Success!",
       variant: "success",
       description: `User account deleted`,
-      duration: 1000,
+      duration: 2000,
     });
     onClose();
   };

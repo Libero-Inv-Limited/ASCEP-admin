@@ -4,10 +4,16 @@ import { IconWrapper } from ".";
 interface ActionCardProps {
   onClick: MouseEventHandler<HTMLDivElement> | undefined;
   title: string;
+  subtitle?: string;
   icon: ReactNode;
 }
 
-export default function ActionCard({ onClick, icon, title }: ActionCardProps) {
+export default function ActionCard({
+  onClick,
+  icon,
+  title,
+  subtitle,
+}: ActionCardProps) {
   return (
     <div
       onClick={onClick}
@@ -17,7 +23,10 @@ export default function ActionCard({ onClick, icon, title }: ActionCardProps) {
         {icon}
       </IconWrapper>
 
-      <p className="text-base font-medium">{title}</p>
+      <div className="space-y-1">
+        <p className="text-xs">{subtitle}</p>
+        <p className="text-base font-medium">{title}</p>
+      </div>
     </div>
   );
 }

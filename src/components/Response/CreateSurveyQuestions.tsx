@@ -37,7 +37,7 @@ export default function CreateSurvey({
       title: "Success!",
       variant: "success",
       description: `Survery creation Successful`,
-      duration: 1000,
+      duration: 2000,
     });
     onClose();
   };

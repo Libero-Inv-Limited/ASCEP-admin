@@ -28,7 +28,7 @@ export default function DeactivateAccount() {
       title: "Success!",
       variant: "success",
       description: `User account suspended`,
-      duration: 1000,
+      duration: 2000,
     });
     onClose();
   };
