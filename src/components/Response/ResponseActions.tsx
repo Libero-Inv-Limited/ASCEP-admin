@@ -1,10 +1,10 @@
-import ResponseAction from "./ResponseAction";
 import { Import } from "lucide-react";
 import { AddCircle, Export } from "iconsax-react";
 import useDisclosure from "@/hooks/useDisclosure";
 import { CreateSurvey, CreateSurveyQuestions, ImportCSV } from ".";
+import { ActionCard } from "../custom";
 
-export default function ResponseActions() {
+export default function ActionCards() {
   const {
     isOpen: isImportOpen,
     onOpen: onImportOpen,
@@ -23,17 +23,17 @@ export default function ResponseActions() {
   } = useDisclosure();
   return (
     <div className="flex gap-5">
-      <ResponseAction
+      <ActionCard
         title="Import CSV file"
         icon={<Import />}
         onClick={onImportOpen}
       />
-      <ResponseAction
+      <ActionCard
         title="Export CSV file"
         icon={<Export />}
         onClick={() => {}}
       />
-      <ResponseAction
+      <ActionCard
         title="Create Survey"
         icon={<AddCircle />}
         onClick={onSurveyOpen}

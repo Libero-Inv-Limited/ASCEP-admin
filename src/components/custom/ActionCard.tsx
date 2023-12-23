@@ -1,17 +1,13 @@
 import { MouseEventHandler, ReactNode } from "react";
-import { IconWrapper } from "../custom";
+import { IconWrapper } from ".";
 
-interface ResponseActionProps {
+interface ActionCardProps {
   onClick: MouseEventHandler<HTMLDivElement> | undefined;
   title: string;
   icon: ReactNode;
 }
 
-export default function ResponseAction({
-  onClick,
-  icon,
-  title,
-}: ResponseActionProps) {
+export default function ActionCard({ onClick, icon, title }: ActionCardProps) {
   return (
     <div
       onClick={onClick}
