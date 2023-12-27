@@ -11,7 +11,6 @@ import { Link } from "react-router-dom";
 
 export default function DialoguePage() {
   const { setBreadcrumbs, activeLink } = useNavigationContext();
-  // const [responsePostsTabs, setResponsePostsTabs] = {};
 
   useEffect(() => {
     setBreadcrumbs([

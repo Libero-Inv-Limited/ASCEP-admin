@@ -30,3 +30,8 @@ interface MultiSelectData {
   id: number | string;
   name: string;
 }
+
+interface SelectedImage {
+  image: File;
+  byteArray: ArrayBuffer | string | null;
+}

@@ -1,4 +1,3 @@
-import { Navigate } from "react-router-dom";
 import {
   ForgotPasswordPage,
   LoginPage,
@@ -8,15 +7,7 @@ import {
 } from "./Auth";
 import { MainPage } from "./Main";
 import { SettingsPage } from "./Settings";
-import {
-  DebatesHomePage,
-  DebatesInfoPage,
-  InitiativesHomePage,
-  ProposalsHomePage,
-  SDGsHomePage,
-  PublishDebatePage,
-  StartProposalPage,
-} from "./Democracy";
+import { DemocracyPage, ViewAllDemocracyPage } from "./Democracy";
 import {
   ActivityPage,
   DataView,
@@ -24,9 +15,7 @@ import {
   ResponsePage,
   ViewAllPage,
 } from "./Response";
-import DebateProvider from "@/contexts/DebateContext";
 import { ContactUs, LandingPage } from "./Landing";
-import ProposalProvider from "@/contexts/ProposalContext";
 import { ViewPostPage } from "./Posts";
 import { UserDetailsPage, UsersPage } from "./Users";
 import { AuthoritiesPage, DialoguePage, ViewAllRequestsPage } from "./Dialogue";
@@ -67,52 +56,15 @@ const routes: RouterType[] = [
   },
   {
     path: "/democracy",
-    element: <Navigate to="/democracy/debates" />,
+    element: <DemocracyPage />,
     title: "democracy",
   },
   {
-    path: "/democracy/debates",
-    element: (
-      <DebateProvider>
-        <DebatesHomePage />
-      </DebateProvider>
-    ),
-    title: "democracy-debates",
+    path: "/democracy/view-all",
+    element: <ViewAllDemocracyPage />,
+    title: "view-all",
   },
-  {
-    path: "/democracy/debates/:debateId",
-    element: <DebatesInfoPage />,
-    title: "democracy-debate-info",
-  },
-  {
-    path: "/democracy/debates/publish-debate",
-    element: <PublishDebatePage />,
-    title: "democracy-debate-start",
-  },
-  {
-    path: "/democracy/proposals",
-    element: (
-      <ProposalProvider>
-        <ProposalsHomePage />
-      </ProposalProvider>
-    ),
-    title: "democracy-proposals",
-  },
-  {
-    path: "/democracy/proposals/start-proposal",
-    element: <StartProposalPage />,
-    title: "democracy-proposals-start",
-  },
-  {
-    path: "/democracy/initiatives",
-    element: <InitiativesHomePage />,
-    title: "democracy-initiatives",
-  },
-  {
-    path: "/democracy/sdg",
-    element: <SDGsHomePage />,
-    title: "democracy-SDGs",
-  },
+
   {
     path: "/response",
     element: <ResponsePage />,

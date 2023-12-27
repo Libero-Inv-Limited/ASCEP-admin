@@ -30,7 +30,6 @@ const responsePostsTabs = [
 
 export default function ResponsePage() {
   const { setBreadcrumbs, activeLink } = useNavigationContext();
-  // const [responsePostsTabs, setResponsePostsTabs] = {};
 
   useEffect(() => {
     setBreadcrumbs([

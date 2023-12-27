@@ -16,10 +16,6 @@ interface CreatePostModalProps {
   onClose: () => void;
   isOpen: boolean;
 }
-interface SelectedImage {
-  image: File;
-  byteArray: ArrayBuffer | string | null;
-}
 
 export default function CreateReportModal({
   isOpen,

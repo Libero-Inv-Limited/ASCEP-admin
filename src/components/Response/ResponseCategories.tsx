@@ -1,4 +1,4 @@
-import ResponseCategory from "./ResponseCategory";
+import { CategoryCard } from "../custom";
 
 export default function ResponseCategories() {
   return (
@@ -10,12 +10,12 @@ export default function ResponseCategories() {
       </div>
 
       <div className="flex flex-wrap gap-5">
-        <ResponseCategory title="Accident" />
-        <ResponseCategory title="Event" />
-        <ResponseCategory title="Build" />
-        <ResponseCategory title="Education" />
-        <ResponseCategory title="French" />
-        <ResponseCategory title="Chruch" />
+        <CategoryCard title="Accident" />
+        <CategoryCard title="Event" />
+        <CategoryCard title="Build" />
+        <CategoryCard title="Education" />
+        <CategoryCard title="French" />
+        <CategoryCard title="Chruch" />
       </div>
     </div>
   );

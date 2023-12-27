@@ -14,7 +14,7 @@ interface AssignRoleProps {
   onClose: () => void;
 }
 
-export default function AssignRole({ isOpen, onClose }: AssignRoleProps) {
+export default function StatusUpdate({ isOpen, onClose }: AssignRoleProps) {
   const form = useForm<z.infer<typeof statusUpdateSchema>>({
     resolver: zodResolver(statusUpdateSchema),
   });
