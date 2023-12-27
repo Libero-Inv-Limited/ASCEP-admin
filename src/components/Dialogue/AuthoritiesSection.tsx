@@ -1,4 +1,4 @@
-import ResponseCategory from "../Response/ResponseCategory";
+import ResponseCategory from "../custom/CategoryCard";
 
 export default function AuthoritiesSection() {
   return (
