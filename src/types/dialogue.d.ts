@@ -15,3 +15,14 @@ interface DialogueRequest {
     | "FRSC"
     | "NDLEA";
 }
+
+interface Authorities {
+  id: string;
+  title: string;
+  date: string;
+
+  description: string;
+  engagements: string;
+  status: "active" | "inactive";
+  sdgs: string[];
+}

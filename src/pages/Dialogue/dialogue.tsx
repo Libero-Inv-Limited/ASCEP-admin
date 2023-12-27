@@ -4,10 +4,27 @@ import {
   DialogueRequests,
 } from "@/components/Dialogue";
 import { StatsCard } from "@/components/custom";
+import { useNavigationContext } from "@/contexts/NavigationContext";
 import { Messages1, Profile2User, TickSquare, User } from "iconsax-react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function DialoguePage() {
+  const { setBreadcrumbs, activeLink } = useNavigationContext();
+  // const [responsePostsTabs, setResponsePostsTabs] = {};
+
+  useEffect(() => {
+    setBreadcrumbs([
+      {
+        label: "main",
+        link: "/main",
+      },
+      {
+        label: "dialogue",
+        link: "/dialogue",
+      },
+    ]);
+  }, [activeLink]);
   return (
     <div className="space-y-8 page-wrapper">
       <div className="grid grid-cols-4 gap-6 ">
