@@ -13,3 +13,4 @@ export { default as Breadcrumb } from "./Breadcrumb";
 export { default as StatsCard } from "./StatsCard";
 export { default as ActionCard } from "./ActionCard";
 export { default as FilterDropdown } from "./FilterDropdown";
+export { default as CategoryCard } from "./CategoryCard";
