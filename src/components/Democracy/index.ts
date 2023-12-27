@@ -21,3 +21,11 @@ export { default as FormComboboxTarget } from "./common/FormComboboxTarget";
 export { default as Pagination } from "./common/Pagination";
 export { default as DebateCommentResponse } from "./debates/DebateCommentResponse";
 export { default as FormImageInput } from "./common/FormImageInput";
+
+export { default as DemocracyStats } from "./DemocracyStats";
+export { default as DemocracyActions } from "./DemocracyActions";
+export { default as DemocracySDG } from "./DemocracySDG";
+export { default as DemocracyDebateCategories } from "./DemocracyDebateCategories";
+export { default as DemocracyTable } from "./DemocracyTable";
+export { default as DemocracyDownloadModal } from "./DemocracyDownloadModal";
+export { default as DemocracyCreateSDGModal } from "./DemocracyCreateSDGModal";
