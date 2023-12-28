@@ -21,6 +21,7 @@ type FormInputProps<TFormValues extends FieldValues = FieldValues> = {
   name: Path<TFormValues>;
   label?: string;
   placeholder?: string;
+  isWhite?: boolean;
 
   errors?: Partial<DeepMap<TFormValues, FieldError>> | FieldErrors<TFormValues>;
 } & Omit<InputProps, "name">;
@@ -31,6 +32,7 @@ const FormTextArea = <TFormValues extends Record<string, unknown>>({
   name,
   placeholder,
   errors,
+  isWhite,
 }: FormInputProps<TFormValues>): JSX.Element => {
   const errorMessage = lodash.get(errors, name);
   const hasError = !!errors && errorMessage;
@@ -59,7 +61,11 @@ const FormTextArea = <TFormValues extends Record<string, unknown>>({
                 onFocus={() => setShowLabel(true)}
                 onBlurCapture={() => setShowLabel(false)}
                 // onBlur={() => setShowLabel(false)}
-                className={`bg-[#F5F5F5] text-base text-text focus-visible:ring-0 focus-visible:ring-primary border-none focus:border-none focus-visible:ring-offset-0 rounded-[20px] h-[140px] placeholder:text-base placeholder:text-subtle_text/30 placeholder:font-medium resize-none
+                className={`text-base text-text focus-visible:ring-0 focus-visible:ring-primary border-none focus:border-none focus-visible:ring-offset-0 rounded-[20px] h-[140px] placeholder:text-base placeholder:text-subtle_text/30 placeholder:font-medium resize-none
+                                 ${
+                                   isWhite ? "bg-white" : "bg-[#F5F5F5]"
+                                 }                 
+
                 ${showLabel ? "pt-4" : ""}`}
                 placeholder={placeholder}
                 {...field}

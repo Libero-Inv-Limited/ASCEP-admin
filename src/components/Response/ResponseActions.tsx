@@ -1,8 +1,9 @@
 import { Import } from "lucide-react";
 import { AddCircle, Export } from "iconsax-react";
 import useDisclosure from "@/hooks/useDisclosure";
-import { CreateSurvey, CreateSurveyQuestions, ImportCSV } from ".";
+import { ImportCSV } from ".";
 import { ActionCard } from "../custom";
+import { useNavigate } from "react-router-dom";
 
 export default function ActionCards() {
   const {
@@ -10,17 +11,8 @@ export default function ActionCards() {
     onOpen: onImportOpen,
     onClose: onImportClose,
   } = useDisclosure();
-  const {
-    isOpen: isSurveyOpen,
-    onOpen: onSurveyOpen,
-    onClose: onSurveyClose,
-  } = useDisclosure();
 
-  const {
-    isOpen: isSurveyQuestionsOpen,
-    onOpen: onSurveyQuestionsOpen,
-    onClose: onSurveyQuestionsClose,
-  } = useDisclosure();
+  const navigate = useNavigate();
   return (
     <div className="flex gap-5">
       <ActionCard
@@ -36,19 +28,10 @@ export default function ActionCards() {
       <ActionCard
         title="Create Survey"
         icon={<AddCircle />}
-        onClick={onSurveyOpen}
+        onClick={() => navigate("/response/create-survey")}
       />
 
       <ImportCSV isOpen={isImportOpen} onClose={onImportClose} />
-      <CreateSurvey
-        openNext={onSurveyQuestionsOpen}
-        isOpen={isSurveyOpen}
-        onClose={onSurveyClose}
-      />
-      <CreateSurveyQuestions
-        isOpen={isSurveyQuestionsOpen}
-        onClose={onSurveyQuestionsClose}
-      />
     </div>
   );
 }

@@ -5,21 +5,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "../ui/button";
-import { Dialog, DialogContent } from "../ui/dialog";
 import { useState } from "react";
 import FormTextArea from "../custom/FormTextArea";
 
 interface CreateSurveyProps {
-  isOpen: boolean;
-  onClose: () => void;
-  openNext: () => void;
+  next: () => void;
 }
 
-export default function CreateSurvey({
-  isOpen,
-  onClose,
-  openNext,
-}: CreateSurveyProps) {
+export default function CreateSurvey({ next }: CreateSurveyProps) {
   const [selectedCategories, setSelectedCategories] = useState<
     CollectionData[]
   >([]);
@@ -35,79 +28,78 @@ export default function CreateSurvey({
   } = form;
 
   const onSubmit = () => {
-    openNext();
-    onClose();
+    next();
   };
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent
-        className="min-w-[700px]"
-        style={{ borderRadius: 40, padding: 32 }}
-      >
-        <h4 className="pb-3 border-b border-dark/10 ">Create Survey</h4>
+    <Form {...form}>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 w-[670px]">
+        <div className="flex items-center justify-between ">
+          <p className="text-subtle_text">Title</p>
+          <div className=" w-full max-w-[380px]">
+            <FormInput
+              control={control}
+              name="title"
+              label="Title"
+              placeholder="Title"
+              errors={errors}
+              isWhite
+            />
+          </div>
+        </div>
+        <div className="flex items-center justify-between ">
+          <p className="text-subtle_text">Category</p>
+          <div className=" w-full max-w-[380px]">
+            <CategoriesMultiSelect
+              selected={selectedCategories}
+              setSelected={setSelectedCategories}
+              isWhite
+            />
+          </div>
+        </div>
+        <div className="flex items-center justify-between ">
+          <p className="text-subtle_text">Link to SDG (Optional)</p>
+          <div className=" w-full max-w-[380px]">
+            <SDGMultiSelect
+              selected={selectedSDGs}
+              setSelected={setSelectedSDGs}
+              isWhite
+            />
+          </div>
+        </div>
 
-        <Form {...form}>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            <div className="flex items-center justify-between ">
-              <p className="text-subtle_text">Title</p>
-              <div className=" w-full max-w-[350px]">
-                <FormInput
-                  control={control}
-                  name="title"
-                  placeholder="Title"
-                  errors={errors}
-                />
-              </div>
-            </div>
-            <div className="flex items-center justify-between ">
-              <p className="text-subtle_text">Category</p>
-              <div className=" w-full max-w-[350px]">
-                <CategoriesMultiSelect
-                  selected={selectedCategories}
-                  setSelected={setSelectedCategories}
-                />
-              </div>
-            </div>
-            <div className="flex items-center justify-between ">
-              <p className="text-subtle_text">Link to SDG (Optional)</p>
-              <div className=" w-full max-w-[350px]">
-                <SDGMultiSelect
-                  selected={selectedSDGs}
-                  setSelected={setSelectedSDGs}
-                />
-              </div>
-            </div>
+        <div className="flex items-center justify-between ">
+          <p className="text-subtle_text">Description</p>
+          <div className=" w-full max-w-[380px]">
+            <FormTextArea
+              control={control}
+              name="description"
+              placeholder="Title"
+              errors={errors}
+              isWhite
+            />
+          </div>
+        </div>
+        <div className="flex items-center justify-between ">
+          <p className="text-subtle_text">Start - End Date</p>
+          <div className=" w-full max-w-[380px]">
+            <FormInput
+              control={control}
+              name="dateRange"
+              placeholder="Title"
+              errors={errors}
+              type="date"
+              isWhite
+            />
+          </div>
+        </div>
 
-            <div className="flex items-center justify-between ">
-              <p className="text-subtle_text">Description</p>
-              <div className=" w-full max-w-[350px]">
-                <FormTextArea
-                  control={control}
-                  name="description"
-                  placeholder="Title"
-                  errors={errors}
-                />
-              </div>
-            </div>
-            <div className="flex items-center justify-between ">
-              <p className="text-subtle_text">Start - End Date</p>
-              <div className=" w-full max-w-[350px]">
-                <FormInput
-                  control={control}
-                  name="dateRange"
-                  placeholder="Title"
-                  errors={errors}
-                  type="date"
-                />
-              </div>
-            </div>
-
-            <div className="flex items-center justify-end">
-              <Button>Next</Button>
-            </div>
-          </form>
-        </Form>
-      </DialogContent>
-    </Dialog>
+        <div className="flex items-center justify-end gap-4">
+          <Button variant="outline-primary" className="w-[175px]">
+            Save as draft
+          </Button>
+          <Button className="w-[175px]">Next</Button>
+        </div>
+      </form>
+    </Form>
   );
 }

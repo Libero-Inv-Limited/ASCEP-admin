@@ -10,6 +10,7 @@ import { SettingsPage } from "./Settings";
 import { DemocracyPage, ViewAllDemocracyPage } from "./Democracy";
 import {
   ActivityPage,
+  CreateSurveyPage,
   DataView,
   MapView,
   ResponsePage,
@@ -74,6 +75,11 @@ const routes: RouterType[] = [
     path: "/response/view-all",
     element: <ViewAllPage />,
     title: "view-all",
+  },
+  {
+    path: "/response/create-survey",
+    element: <CreateSurveyPage />,
+    title: "create-survey",
   },
 
   {

@@ -4,3 +4,4 @@ export { default as ActivityPage } from "./activity";
 export { default as ViewResponsePage } from "./view-response";
 export { default as ResponsePage } from "./response";
 export { default as ViewAllPage } from "./view-all";
+export { default as CreateSurveyPage } from "./create-survey";

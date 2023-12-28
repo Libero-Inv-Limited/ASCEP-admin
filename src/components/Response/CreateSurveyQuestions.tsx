@@ -1,108 +1,190 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Form } from "../ui/form";
-import { FormInput, SDGMultiSelect } from "../custom";
-import { createSurveySchema } from "@/schemas/userSchemas";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { FormInput } from "../custom";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { useToast } from "../ui/use-toast";
 import { Button } from "../ui/button";
-import { Dialog, DialogContent } from "../ui/dialog";
-import { useState } from "react";
-import FormTextArea from "../custom/FormTextArea";
+import { Add, Location } from "iconsax-react";
+import { questionSchema } from "@/schemas/democracySchema";
+import FormSelect from "../Democracy/common/FormSelect";
+import { SelectItem } from "../ui/select";
+// import { zodResolver } from "@hookform/resolvers/zod";
 
-interface CreateSurveyQuestionsProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+export default function CreateSurvey() {
+  type Question = z.infer<typeof questionSchema>;
 
-export default function CreateSurvey({
-  isOpen,
-  onClose,
-}: CreateSurveyQuestionsProps) {
-  const [selectedSDGs, setSelectedSDGs] = useState<SDGData[]>([]);
+  const defaultValues: Question = {
+    question: "",
+    answerType: "Text",
+    options: null,
+  };
 
-  const form = useForm<z.infer<typeof createSurveySchema>>({
-    resolver: zodResolver(createSurveySchema),
+  interface FormData {
+    questions: Question[];
+  }
+
+  const form = useForm<FormData>({
+    // resolver: zodResolver(questionSchema),
+    defaultValues: {
+      questions: [defaultValues],
+    },
   });
+
   const {
-    control,
     handleSubmit,
+    register,
+    setValue,
+    watch,
     formState: { errors },
   } = form;
 
+  const questions = watch("questions");
+
+  const handleAddOption = (index: number) => {
+    // console.log(index);
+    setValue(`questions.${index}.options`, [
+      ...(questions[index]?.options || []),
+      "",
+    ]);
+  };
+
+  const handleAnswerTypeChange = (index: number, value: "Text" | "Option") => {
+    console.log("CHANGE");
+    setValue(`questions.${index}.answerType`, value);
+    if (value === "Option") {
+      // setValue(`questions.${index}.options`, [""]); // Add an initial option
+      handleAddOption(index);
+    } else {
+      setValue(`questions.${index}.options`, null);
+    }
+  };
+
   const { toast } = useToast();
 
-  const onSubmit = () => {
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    console.log("Submitted data:", data);
     toast({
       title: "Success!",
       variant: "success",
       description: `Survery creation Successful`,
       duration: 2000,
     });
-    onClose();
   };
+
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent
-        className="min-w-[700px]"
-        style={{ borderRadius: 40, padding: 32 }}
-      >
-        <h4 className="pb-3 border-b border-dark/10 ">Create Survey</h4>
+    <div className="w-[680px]">
+      <h4 className="pb-3 text-[32px] ">
+        Upgrade of the International Airport
+      </h4>
 
-        <Form {...form}>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            <div className="flex items-center justify-between ">
-              <p className="text-subtle_text">Title</p>
-              <div className=" w-full max-w-[350px]">
-                <FormInput
-                  control={control}
-                  name="title"
-                  placeholder="Title"
-                  errors={errors}
-                />
-              </div>
-            </div>
+      <div className="flex items-center gap-1 text-sm">
+        <p className="font-bold text-link">Development</p>
+        <Location color="black" size={14} />
+        <p>Umuleri, Anambra State</p>
+        <p>- 15th July, 2023 - 17th July, 2023.</p>
+      </div>
 
-            <div className="flex items-center justify-between ">
-              <p className="text-subtle_text">Link to SDG (Optional)</p>
-              <div className=" w-full max-w-[350px]">
-                <SDGMultiSelect
-                  selected={selectedSDGs}
-                  setSelected={setSelectedSDGs}
-                />
-              </div>
-            </div>
+      <p className="mt-4 font-medium text-darkw">
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam,...
+      </p>
 
-            <div className="flex items-center justify-between ">
-              <p className="text-subtle_text">Description</p>
-              <div className=" w-full max-w-[350px]">
-                <FormTextArea
-                  control={control}
-                  name="description"
-                  placeholder="Title"
-                  errors={errors}
-                />
+      <Form {...form}>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 mt-7 ">
+          {questions.map((question, index) => (
+            <div className="space-y-6" key={index}>
+              <div className="flex items-center justify-between ">
+                <p className="text-subtle_text">Title</p>
+                <div className=" w-full max-w-[380px]">
+                  <FormInput
+                    // @ts-ignore
+                    register={register}
+                    name={`questions.${index}.question`}
+                    placeholder="Question"
+                    isWhite
+                    requiredMessage="This field is required"
+                    errorMessage={errors?.questions?.[index]?.question?.message}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="flex items-center justify-between ">
-              <p className="text-subtle_text">Start - End Date</p>
-              <div className=" w-full max-w-[350px]">
-                <FormInput
-                  control={control}
-                  name="dateRange"
-                  placeholder="Title"
-                  errors={errors}
-                  type="date"
-                />
+              <div className="flex items-center justify-between ">
+                <p className="text-subtle_text">Title</p>
+                <div className=" w-full max-w-[380px]">
+                  <FormSelect
+                    // @ts-ignore
+                    register={register}
+                    name={`questions.${index}.answerType`}
+                    placeholder="Answer Type"
+                    isWhite
+                    required
+                    errorMessage={
+                      errors?.questions?.[index]?.answerType?.message
+                    }
+                    onValueChange={(e: "Text" | "Option") =>
+                      handleAnswerTypeChange(index, e)
+                    }
+                  >
+                    <SelectItem value="Text">Text</SelectItem>
+                    <SelectItem value="Option">Option</SelectItem>
+                  </FormSelect>
+                </div>
               </div>
-            </div>
 
-            <div className="flex items-center justify-end">
-              <Button>Create</Button>
+              {question.answerType === "Option" && (
+                <div className="flex gap-4 ">
+                  {question.options?.map((option, optionIndex) => (
+                    <div key={optionIndex} className="mb-2">
+                      <FormInput
+                        // @ts-ignore
+                        register={register}
+                        isWhite
+                        name={`questions.${index}.options.${optionIndex}`}
+                        placeholder={`Option ${optionIndex + 1}`}
+                        requiredMessage="This option is required"
+                        errorMessage={
+                          errors.questions?.[index]?.options?.[optionIndex]
+                            ?.message
+                        }
+                      />
+                    </div>
+                  ))}
+                  <Button
+                    type="button"
+                    onClick={() => handleAddOption(index)}
+                    className="mb-2"
+                  >
+                    Add Option
+                  </Button>
+                </div>
+              )}
             </div>
-          </form>
-        </Form>
-      </DialogContent>
-    </Dialog>
+          ))}
+
+          <div className="flex justify-end">
+            <Button
+              type="button"
+              onClick={() =>
+                setValue("questions", [...questions, defaultValues])
+              }
+              className="mb-4 bg-[#F2994A29] gap-1 text-[#F2994A] hover:bg-[#F2994A29] hover:text-[#F2994A]"
+            >
+              <Add size={20} /> Add Question
+            </Button>
+          </div>
+          <div className="flex items-center justify-end gap-4 ">
+            <Button
+              variant="outline-primary"
+              className="w-[175px]"
+              type="button"
+            >
+              Save to draft
+            </Button>
+            <Button className="w-[175px]">Publish</Button>
+          </div>
+        </form>
+      </Form>
+    </div>
   );
 }

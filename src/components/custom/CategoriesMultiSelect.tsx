@@ -20,11 +20,13 @@ import { useGetAllCategories } from "@/api/category";
 interface CategoriesMultiSelectProps {
   selected: CollectionData[];
   setSelected: React.Dispatch<React.SetStateAction<CollectionData[]>>;
+  isWhite?: boolean;
 }
 
 export default function CategoriesMultiSelect({
   selected,
   setSelected,
+  isWhite,
 }: CategoriesMultiSelectProps) {
   const [open, setOpen] = React.useState(false);
   const [renderedItems, setRenderedItems] = React.useState<CollectionData[]>(
@@ -68,7 +70,9 @@ export default function CategoriesMultiSelect({
           <Button
             role="combobox"
             aria-expanded={open}
-            className="bg-[#F5F5F5] text-base text-text focus-visible:ring-0 focus-visible:ring-primary border-none focus:border-none focus-visible:ring-offset-0 rounded-[20px] h-[50px] placeholder:text-base placeholder:text-subtle_text/30 placeholder:font-medium w-full hover:bg-[#f5f5f5] justify-between "
+            className={` text-base text-text focus-visible:ring-0 focus-visible:ring-primary border-none focus:border-none focus-visible:ring-offset-0 rounded-[20px] h-[50px] placeholder:text-base placeholder:text-subtle_text/30 placeholder:font-medium w-full hover:bg-[#f5f5f5] justify-between ${
+              isWhite ? "bg-white" : "bg-[#f5f5f5]"
+            } `}
           >
             {isLoading ? "Fetching Categories" : "Select Categories"}
             <ChevronsUpDown className="w-4 h-4 ml-2 opacity-50 shrink-0" />
