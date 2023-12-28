@@ -1,16 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ColumnDef } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { MoreHorizontal } from "lucide-react";
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+
 import { DataTable } from "@/components/custom/DataTable";
+import ResponsePostActions from "./ResponsePostActions";
 
 export const columns: ColumnDef<ResponsePost>[] = [
   {
@@ -90,7 +83,7 @@ export const columns: ColumnDef<ResponsePost>[] = [
           className={` rounded-[10px] text-xs font-semibold text-center w-fit px-2 py-[6px] capitalize ${
             status === "published"
               ? "bg-[#27AE60]/10 text-[#27AE60]"
-              : status === "survey"
+              : status === "completed"
               ? "bg-[#9747FF]/10 text-[#9747FF]"
               : "bg-[#F2994A]/10 text-[#F2994A]"
           } `}
@@ -103,31 +96,7 @@ export const columns: ColumnDef<ResponsePost>[] = [
   {
     id: "actions",
     header: "Actions",
-    cell: () => {
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button className="w-8 h-8 p-0 bg-transparent hover:bg-gray-200">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="w-4 h-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="px-2" align="end">
-            <DropdownMenuLabel>
-              <Link to="/posts/1">
-                <div className="table-menu">Download</div>
-              </Link>
-            </DropdownMenuLabel>
-            <DropdownMenuLabel>
-              <div className="table-menu">Edit Survey</div>
-            </DropdownMenuLabel>
-            <DropdownMenuLabel>
-              <div className="table-menu">Delete Survey</div>
-            </DropdownMenuLabel>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
+    cell: ({ row }) => <ResponsePostActions row={row} />,
   },
 ];
 

@@ -145,7 +145,7 @@ const data: ResponsePost[] = [
     category: "Democracy (Poll)",
     user: "Joh doe",
     date: "Jan 1st, 2022",
-    status: "survey",
+    status: "completed",
     action: "User login",
     location: "Umuleri, Anambra State",
     sdgs: [

@@ -15,9 +15,9 @@ import {
   MapView,
   ResponsePage,
   ViewAllPage,
+  ViewResponsePage,
 } from "./Response";
 import { ContactUs, LandingPage } from "./Landing";
-import { ViewPostPage } from "./Posts";
 import { UserDetailsPage, UsersPage } from "./Users";
 import { AuthoritiesPage, DialoguePage, ViewAllRequestsPage } from "./Dialogue";
 
@@ -77,6 +77,11 @@ const routes: RouterType[] = [
     title: "view-all",
   },
   {
+    path: "/response/posts/:postId",
+    element: <ViewResponsePage />,
+    title: "reponse-details",
+  },
+  {
     path: "/response/create-survey",
     element: <CreateSurveyPage />,
     title: "create-survey",
@@ -88,11 +93,11 @@ const routes: RouterType[] = [
     title: "ssettings",
   },
 
-  {
-    path: "/posts/:debateId",
-    element: <ViewPostPage />,
-    title: "democracy-debate-info",
-  },
+  // {
+  //   path: "/posts/:debateId",
+  //   element: <ViewPostPage />,
+  //   title: "democracy-debate-info",
+  // },
   {
     path: "/users",
     element: <UsersPage />,

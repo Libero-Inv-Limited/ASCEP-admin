@@ -1,16 +1,11 @@
-import { AddSquare } from "iconsax-react";
-import { useState } from "react";
-import { CommentInput } from "../custom";
-
 export default function ResponseComment() {
-  const [showInput, setShowInput] = useState(false);
   return (
     <div className="space-y-4">
       <div className="bg-white rounded-[24px] space-y-4 shadow-sm p-8">
         <div className="flex items-center gap-8">
           <div className="flex items-center gap-2">
             <img
-              src="images/profile-pic.png"
+              src="/images/profile-pic.png"
               className="w-10 h-10 rounded-full"
               alt=""
             />
@@ -28,18 +23,16 @@ export default function ResponseComment() {
           possible. Thank you.
         </p>
 
-        <div className="border-[1px] border-dark/20"></div>
-
-        <div
+        {/* <div
           onClick={() => setShowInput(!showInput)}
           className="flex items-center gap-2 font-medium cursor-pointer w-fit"
         >
           <AddSquare size="32" color="black" />
 
           <p>Add Response</p>
-        </div>
+        </div> */}
       </div>
-      {showInput && <CommentInput placeholder="Type your comment here" />}
+      {/* {showInput && <CommentInput placeholder="Type your comment here" />} */}
     </div>
   );
 }

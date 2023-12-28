@@ -6,7 +6,7 @@ type ResponsePost = {
   category: "Response" | "Dialogue" | "Democracy (Poll)" | "Risk Management";
   user: string;
   date: string;
-  status: "published" | "pending" | "survey";
+  status: "published" | "pending" | "completed";
   action: string;
   sdgs: string[];
 };

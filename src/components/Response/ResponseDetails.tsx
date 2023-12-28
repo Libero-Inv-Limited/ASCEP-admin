@@ -1,5 +1,4 @@
 import { Location } from "iconsax-react";
-import { CommentInput } from "../custom";
 
 export default function ResponseDetails() {
   return (
@@ -48,14 +47,6 @@ export default function ResponseDetails() {
         <img src="/images/SDG/image 21.png" alt="" />
         <img src="/images/SDG/image 22.png" alt="" />
         <img src="/images/SDG/image 23.png" alt="" />
-      </div>
-
-      <div className="h-[210px] bg-cover relative my-5 shadow-sm rounded-[40px] ">
-        <img src="/images/anambra.png" className="object-fill" alt="" />
-
-        <div className="absolute w-full px-20 bottom-10 ">
-          <CommentInput placeholder="Type your comment here" />
-        </div>
       </div>
     </div>
   );
