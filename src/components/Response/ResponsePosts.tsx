@@ -28,6 +28,13 @@ export const columns: ColumnDef<ResponsePost>[] = [
     },
   },
   {
+    accessorKey: "type",
+    header: "Type",
+    cell: ({ row }) => {
+      return <div className="capitalize">{row.getValue("type")}</div>;
+    },
+  },
+  {
     accessorKey: "category",
     header: "Category",
     cell: ({ row }) => {

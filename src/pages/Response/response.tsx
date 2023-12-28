@@ -43,6 +43,7 @@ export default function ResponsePage() {
       },
     ]);
   }, [activeLink]);
+
   return (
     <div className="page-wrapper">
       <div className="mt-8 space-y-5">
@@ -89,10 +90,12 @@ export default function ResponsePage() {
             <ResponsePosts data={data} />
           </TabsContent>
           <TabsContent value="recent-posts">
-            <ResponsePosts data={data} />
+            <ResponsePosts data={data.filter((post) => post.type === "Post")} />
           </TabsContent>
           <TabsContent value="surveys">
-            <ResponsePosts data={data} />
+            <ResponsePosts
+              data={data.filter((post) => post.type === "Survey")}
+            />
           </TabsContent>
           <TablePagination />
         </Tabs>
@@ -105,6 +108,7 @@ const data: ResponsePost[] = [
   {
     id: "728ed52f",
     postTitle: "Risk Management",
+    type: "Post",
     category: "Response",
     user: "Joh doe",
     date: "Jan 1st, 2022",
@@ -120,6 +124,7 @@ const data: ResponsePost[] = [
   {
     id: "123ub8u1",
     postTitle: "Risk Management",
+    type: "Survey",
     category: "Dialogue",
     user: "Joh doe",
     date: "Jan 1st, 2022",
@@ -136,6 +141,7 @@ const data: ResponsePost[] = [
   {
     id: "nw901",
     postTitle: "Risk Management",
+    type: "Survey",
     category: "Democracy (Poll)",
     user: "Joh doe",
     date: "Jan 1st, 2022",
@@ -151,6 +157,7 @@ const data: ResponsePost[] = [
   {
     id: "12dcu1",
     postTitle: "Risk Management",
+    type: "Post",
     category: "Risk Management",
     user: "Joh doe",
     date: "Jan 1st, 2022",
@@ -167,6 +174,7 @@ const data: ResponsePost[] = [
   {
     id: "xn180h2",
     postTitle: "Risk Management",
+    type: "Survey",
     category: "Democracy (Poll)",
     user: "Joh doe",
     date: "Jan 1st, 2022",
