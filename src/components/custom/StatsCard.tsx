@@ -14,7 +14,9 @@ export default function StatsCard({ icon, count, title }: StatsCardProps) {
         <div className="text-primary text-[24px]">{icon}</div>
       </IconWrapper>
       <div>
-        <h3 className="text-2xl font-bold text-white">{count}</h3>
+        <h3 className="text-2xl font-bold text-white">
+          {count.toLocaleString()}
+        </h3>
         <p className="text-[#F9F6FB]/50 text-sm">{title}</p>
       </div>
     </div>

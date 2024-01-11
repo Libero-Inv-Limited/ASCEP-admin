@@ -5,11 +5,13 @@ import {
 } from "@/components/layout-components";
 import { Toaster } from "@/components/ui/toaster";
 import NavigationContextProvider from "@/contexts/NavigationContext";
-import { Outlet } from "react-router-dom";
-export default function MainLayout() {
-  // const { isLoggedIn } = useAuthContext();
+import { useAuthContext } from "@/providers/AuthProvider";
+import { Navigate, Outlet } from "react-router-dom";
 
-  // if (!isLoggedIn) return <Navigate to="/auth/login" />;
+export default function MainLayout() {
+  const { isLoggedIn } = useAuthContext();
+
+  if (!isLoggedIn) return <Navigate to="/auth/login" />;
   return (
     <NavigationContextProvider>
       <div className="h-screen overflow-y-hidden">

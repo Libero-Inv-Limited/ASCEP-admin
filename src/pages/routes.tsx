@@ -20,6 +20,7 @@ import {
 import { ContactUs, LandingPage } from "./Landing";
 import { UserDetailsPage, UsersPage } from "./Users";
 import { AuthoritiesPage, DialoguePage, ViewAllRequestsPage } from "./Dialogue";
+import { Navigate } from "react-router-dom";
 
 export const landingPages: RouterType[] = [
   {
@@ -35,6 +36,11 @@ export const landingPages: RouterType[] = [
 ];
 
 const routes: RouterType[] = [
+  {
+    path: "",
+    element: <Navigate to="/main" />,
+    title: "main",
+  },
   {
     path: "/main",
     element: <MainPage />,

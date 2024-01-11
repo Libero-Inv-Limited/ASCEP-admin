@@ -9,8 +9,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "../ui/button";
 import { MoreHorizontal } from "lucide-react";
-import { TablePagination } from "../custom";
+import { CustomPagination, EmptyState, TableSkeleton } from "../custom";
 import { Link } from "react-router-dom";
+import { useGetUsersAnalytics } from "@/api/user";
 
 export type Post = {
   id: string;
@@ -20,7 +21,7 @@ export type Post = {
   phoneNumber: string;
 };
 
-export const columns: ColumnDef<Post>[] = [
+export const columns: ColumnDef<UserObj>[] = [
   {
     accessorKey: "id",
     header: "ID",
@@ -29,10 +30,24 @@ export const columns: ColumnDef<Post>[] = [
     },
   },
   {
-    accessorKey: "user",
-    header: "User",
+    accessorKey: "username",
+    header: "Username",
     cell: ({ row }) => {
-      return <div className="capitalize">{row.getValue("user")}</div>;
+      return <div className="capitalize">{row.getValue("username")}</div>;
+    },
+  },
+  {
+    accessorKey: "firstname",
+    header: "First Name",
+    cell: ({ row }) => {
+      return <div className="capitalize">{row.getValue("firstname")}</div>;
+    },
+  },
+  {
+    accessorKey: "lastname",
+    header: "Last Name",
+    cell: ({ row }) => {
+      return <div className="capitalize">{row.getValue("lastname")}</div>;
     },
   },
   {
@@ -43,18 +58,22 @@ export const columns: ColumnDef<Post>[] = [
     },
   },
   {
-    accessorKey: "phoneNumber",
-    header: "Phone Number",
+    accessorKey: "mobile",
+    header: "Mobile",
     cell: ({ row }) => {
-      return <div className="capitalize">{row.getValue("phoneNumber")}</div>;
+      return <div className="capitalize">{row.getValue("mobile")}</div>;
     },
   },
 
   {
-    accessorKey: "date",
+    accessorKey: "created_at",
     header: "Date Joined",
     cell: ({ row }) => {
-      return <div className="capitalize">{row.getValue("date")}</div>;
+      return (
+        <div className="capitalize">
+          {new Date(row.getValue("created_at")).toDateString()}
+        </div>
+      );
     },
   },
 
@@ -99,60 +118,34 @@ export const columns: ColumnDef<Post>[] = [
 ];
 
 export default function UsersTable() {
-  const [tableData, setTableData] = useState<Post[]>([]);
+  const [tableData, setTableData] = useState<UserObj[]>([]);
+  const [page, setPage] = useState(1);
+
+  const { data, isLoading } = useGetUsersAnalytics(page);
 
   useEffect(() => {
-    (async () => {
-      const data = await getData();
-      setTableData(data);
-    })();
-  }, []);
+    if (data?.users) {
+      setTableData(data.users);
+    }
+  }, [data]);
   return (
     <div className="space-y-4">
-      <div className="bg-white rounded-lg p-4 min-h-[70vh]">
-        <DataTable columns={columns} data={tableData} />
+      <div className="bg-white  rounded-lg p-4 min-h-[65vh]">
+        {isLoading ? (
+          <TableSkeleton />
+        ) : tableData ? (
+          <DataTable columns={columns} data={tableData} />
+        ) : (
+          <EmptyState height={"60vh"} />
+        )}
       </div>
-      <TablePagination />
+      {data && (
+        <CustomPagination
+          page={page}
+          setPage={setPage}
+          paginationData={data?.meta}
+        />
+      )}
     </div>
   );
-}
-
-async function getData(): Promise<Post[]> {
-  return [
-    {
-      id: "728ed52f",
-      email: "johndoe@demo.com",
-      phoneNumber: "07010722622",
-      user: "Joh doe",
-      date: "Jan 1st, 2022",
-    },
-    {
-      id: "123ub8u1",
-      email: "emekaike@demo.com",
-      phoneNumber: "07010722622",
-      user: "Joh doe",
-      date: "Jan 1st, 2022",
-    },
-    {
-      id: "nw901",
-      email: "emekaike@demo.com",
-      phoneNumber: "07010722622",
-      user: "Joh doe",
-      date: "Jan 1st, 2022",
-    },
-    {
-      id: "12dcu1",
-      email: "johndoe@demo.com",
-      phoneNumber: "07010722622",
-      user: "Joh doe",
-      date: "Jan 1st, 2022",
-    },
-    {
-      id: "xn180h2",
-      email: "johndoe@demo.com",
-      phoneNumber: "07010722622",
-      user: "Joh doe",
-      date: "Jan 1st, 2022",
-    },
-  ];
 }
