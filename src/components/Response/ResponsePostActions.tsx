@@ -1,4 +1,3 @@
-import { Row } from "@tanstack/react-table";
 import { useNavigate } from "react-router-dom";
 import {
   DropdownMenu,
@@ -10,12 +9,12 @@ import { Button } from "../ui/button";
 import { MoreHorizontal } from "lucide-react";
 
 export default function ResponsePostActions({
-  row,
+  report,
 }: {
-  row: Row<ResponsePost>;
+  report: ReportData;
 }) {
-  const status = row.getValue("status");
-  const type = row.getValue("type");
+  const status = report.reportStatus.name;
+  const type = report.report_type;
   const navigate = useNavigate();
   return (
     <DropdownMenu>

@@ -9,3 +9,17 @@ export const useGetResponseAnalytics = () => {
       axios.get(`${baseUrl}/analytic/response`).then((res) => res.data.data)
   );
 };
+
+export const useGetAllReports = ({ filtersString }: GetAllReportsQueryArgs) => {
+  return useQuery(
+    ["all-reports", filtersString],
+    (): Promise<ReportData[]> => {
+      return axios
+        .get(`${baseUrl}/report/all${filtersString}`)
+        .then((res) => res.data.data.reports);
+    },
+    {
+      retry: false,
+    }
+  );
+};

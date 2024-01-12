@@ -1,5 +1,6 @@
 import { useGetAllCategories } from "@/api/category";
 import { useGetAllSDGs } from "@/api/democracy/debates";
+import { useGetAllWards } from "@/api/locale";
 import {
   PropsWithChildren,
   createContext,
@@ -15,6 +16,8 @@ interface AppContextType {
   setTargets: React.Dispatch<React.SetStateAction<SDGTarget[]>>;
   fetchingCategories: boolean;
   categories: CategoryType[];
+  wards: WardsType[];
+  fetchingWards: boolean;
 }
 
 const AppContext = createContext<AppContextType>({
@@ -24,12 +27,16 @@ const AppContext = createContext<AppContextType>({
   setTargets: () => {},
   fetchingCategories: false,
   categories: [],
+  wards: [],
+  fetchingWards: false,
 });
 
 export const useAppContext = () => useContext(AppContext);
 
 export default function AppProvider({ children }: PropsWithChildren) {
   const { isLoading: fetchingSdgs, data: sdgData, isSuccess } = useGetAllSDGs();
+  const { isLoading: fetchingWards, data: wards } = useGetAllWards();
+
   const [targets, setTargets] = useState<SDGTarget[]>([]);
   const { isLoading: fetchingCategories, data: categories } =
     useGetAllCategories();
@@ -54,6 +61,8 @@ export default function AppProvider({ children }: PropsWithChildren) {
         targets,
         categories: categories ?? [],
         fetchingCategories,
+        wards: wards ?? [],
+        fetchingWards,
       }}
     >
       {children}

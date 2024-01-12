@@ -1,13 +1,8 @@
-import {
-  ReportsTable,
-  ResponseActions,
-  ResponseAnalytics,
-  ResponseCategories,
-} from "@/components/Response";
 import { useNavigationContext } from "@/contexts/NavigationContext";
 import { useEffect } from "react";
+import { ReportsTable } from "@/components/Response";
 
-export default function ResponsePage() {
+export default function AllReports() {
   const { setBreadcrumbs, activeLink } = useNavigationContext();
 
   useEffect(() => {
@@ -20,20 +15,15 @@ export default function ResponsePage() {
         label: "response",
         link: "/response",
       },
+      {
+        label: "All Reports",
+        link: "/response/all-reports",
+      },
     ]);
   }, [activeLink]);
-
   return (
-    <div className="page-wrapper">
-      <div className="mt-8 space-y-5">
-        {/* MAIN STATS */}
-        <ResponseAnalytics />
-
-        <ResponseActions />
-        <ResponseCategories />
-
-        <ReportsTable isSummary />
-      </div>
+    <div className="space-y-5 page-wrapper">
+      <ReportsTable />
     </div>
   );
 }

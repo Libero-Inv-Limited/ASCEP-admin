@@ -10,11 +10,11 @@ import { SettingsPage } from "./Settings";
 import { DemocracyPage, ViewAllDemocracyPage } from "./Democracy";
 import {
   ActivityPage,
+  AllReports,
   CreateSurveyPage,
   DataView,
   MapView,
   ResponsePage,
-  ViewAllPage,
   ViewResponsePage,
 } from "./Response";
 import { ContactUs, LandingPage } from "./Landing";
@@ -78,9 +78,9 @@ const routes: RouterType[] = [
     title: "response",
   },
   {
-    path: "/response/view-all",
-    element: <ViewAllPage />,
-    title: "view-all",
+    path: "/response/all-reports",
+    element: <AllReports />,
+    title: "all-reports",
   },
   {
     path: "/response/posts/:postId",
