@@ -17,3 +17,4 @@ export { default as CategoryCard } from "./CategoryCard";
 export { default as TableSkeleton } from "./TableSkeleton";
 export { default as CustomPagination } from "./CustomPagination";
 export { default as EmptyState } from "./EmptyState";
+export { default as ConfirmAction } from "./ConfirmAction";

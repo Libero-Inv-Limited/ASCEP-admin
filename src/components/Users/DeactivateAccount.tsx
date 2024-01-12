@@ -3,40 +3,66 @@ import { Dialog, DialogContent } from "../ui/dialog";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useToast } from "../ui/use-toast";
 import { reasonSchema } from "@/schemas/userSchemas";
 import { Form } from "../ui/form";
 import { FormInput } from "../custom";
 import { Button } from "../ui/button";
+// import { useUpdateProfile } from "@/api/auth";
+import { useUpdateUserStatus } from "@/api/user";
+import { useEffect } from "react";
 
-export default function DeactivateAccount() {
+export default function DeactivateAccount({
+  id,
+  status,
+}: {
+  id: number;
+  status: string;
+}) {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const form = useForm<z.infer<typeof reasonSchema>>({
     resolver: zodResolver(reasonSchema),
   });
 
-  const { toast } = useToast();
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = form;
 
+  const { mutate, isLoading, isSuccess } = useUpdateUserStatus();
+
+  useEffect(() => {
+    if (isSuccess) onClose();
+  }, [isSuccess]);
+
   const onSubmit = () => {
-    toast({
-      title: "Success!",
-      variant: "success",
-      description: `User account suspended`,
-      duration: 2000,
-    });
-    onClose();
+    // const payload = {
+    //   user_id: id,
+    //   status: "deactivated",
+    // };
+
+    const formData = new FormData();
+
+    formData.append("user_id", id.toString());
+    formData.append("status", "deactivated");
+
+    mutate(formData);
+  };
+
+  const handleActivate = () => {
+    const formData = new FormData();
+
+    formData.append("user_id", id.toString());
+    formData.append("status", "active");
+
+    mutate(formData);
   };
 
   return (
     <div>
       <div onClick={onOpen} className="table-menu">
-        Deactivate Account
+        {status === "deactivated" ? "Activate" : "Deactivate"} Account
       </div>
 
       <Dialog open={isOpen} onOpenChange={onClose}>
@@ -44,35 +70,46 @@ export default function DeactivateAccount() {
           className="min-w-[700px]"
           style={{ borderRadius: 40, padding: 32 }}
         >
-          <h4 className="pb-3 border-b border-dark/10 ">Suspend Account</h4>
+          <h4 className="pb-3 border-b border-dark/10 ">
+            {status === "deactivated" ? "Activate" : "Suspend"} Account
+          </h4>
 
           <p className="text-base text-subtle_text">
-            You are about to suspend “Dexter Olaniyi” this would prevent access
-            to this user’s account, but can be undone by activating it.
+            {status === "deactivated"
+              ? "Are you sure you want to activate this user accout?"
+              : " You are about to suspend “Dexter Olaniyi” this would prevent access  to this user’s account, but can be undone by activating it."}
           </p>
 
-          <Form {...form}>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-              <div className="flex items-center justify-between ">
-                <p className="text-subtle_text">Reason</p>
-                <div className=" w-full max-w-[350px]">
-                  <FormInput
-                    name="reason"
-                    control={control}
-                    label="Reason"
-                    placeholder="Enter text here"
-                    errors={errors}
-                  />
+          {status === "deactivated" ? (
+            <div className="flex justify-end">
+              <Button onClick={handleActivate} isLoading={isLoading}>
+                Suspend User
+              </Button>
+            </div>
+          ) : (
+            <Form {...form}>
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                <div className="flex items-center justify-between ">
+                  <p className="text-subtle_text">Reason</p>
+                  <div className=" w-full max-w-[350px]">
+                    <FormInput
+                      name="reason"
+                      control={control}
+                      label="Reason"
+                      placeholder="Enter text here"
+                      errors={errors}
+                    />
+                  </div>
                 </div>
-              </div>
 
-              <div className="flex items-center justify-end gap-4">
-                <p className=" text-dark">Suspend?</p>
+                <div className="flex items-center justify-end gap-4">
+                  <p className=" text-dark">Suspend?</p>
 
-                <Button>Suspend User</Button>
-              </div>
-            </form>
-          </Form>
+                  <Button isLoading={isLoading}>Suspend User</Button>
+                </div>
+              </form>
+            </Form>
+          )}
         </DialogContent>
       </Dialog>
     </div>

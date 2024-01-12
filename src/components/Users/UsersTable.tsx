@@ -12,6 +12,7 @@ import { MoreHorizontal } from "lucide-react";
 import { CustomPagination, EmptyState, TableSkeleton } from "../custom";
 import { Link } from "react-router-dom";
 import { useGetUsersAnalytics } from "@/api/user";
+import DeactivateAccount from "./DeactivateAccount";
 
 export type Post = {
   id: string;
@@ -78,9 +79,9 @@ export const columns: ColumnDef<UserObj>[] = [
   },
 
   {
-    id: "actions",
+    accessorKey: "id",
     header: "Actions",
-    cell: () => {
+    cell: ({ row }) => {
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -105,7 +106,10 @@ export const columns: ColumnDef<UserObj>[] = [
               <div className="table-menu">Reset 2FA</div>
             </DropdownMenuLabel>
             <DropdownMenuLabel>
-              <div className="table-menu">Deactivate account</div>
+              <DeactivateAccount
+                status={row.original.status}
+                id={row.getValue("id")}
+              />
             </DropdownMenuLabel>
             <DropdownMenuLabel>
               <div className="text-red-500 table-menu">Delete account</div>
