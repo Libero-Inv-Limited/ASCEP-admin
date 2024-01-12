@@ -2,6 +2,7 @@ import { useMutation, useQuery } from "react-query";
 import axios from "axios";
 import baseUrl from "./baseUrl";
 import { useToast } from "@/components/ui/use-toast";
+import { number } from "zod";
 
 export const useGetUsersAnalytics = (page: number) => {
   return useQuery(
@@ -13,12 +14,22 @@ export const useGetUsersAnalytics = (page: number) => {
   );
 };
 
-export const useGetSpecificUserAnalytics = (id: number) => {
+interface useGetSpecificUserAnalyticsProps {
+  id: string;
+  page: number;
+}
+
+export const useGetSpecificUserAnalytics = ({
+  id,
+  page,
+}: useGetSpecificUserAnalyticsProps) => {
   return useQuery(
-    ["users-analytics", id],
-    (): Promise<UsersData> =>
+    ["users-analytics", id, page],
+    (): Promise<UserActivitiesResponse> =>
       axios
-        .get(`${baseUrl}/user/activities?type=specific&user_id=${id}`)
+        .get(
+          `${baseUrl}/user/activities?type=specific&user_id=${id}&page=${page}`
+        )
         .then((res) => res.data.data)
   );
 };

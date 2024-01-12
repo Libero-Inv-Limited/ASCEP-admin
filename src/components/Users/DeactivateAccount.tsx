@@ -14,7 +14,7 @@ export default function DeactivateAccount({
   id,
   status,
 }: {
-  id: number;
+  id: number | string;
   status: string;
 }) {
   const { isOpen, onClose, onOpen } = useDisclosure();

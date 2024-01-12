@@ -53,3 +53,20 @@ interface TwoFactorAuthForm {
   type: "email" | "authenticator app" | "sms";
   email?: string;
 }
+
+interface UserActivitiesResponse {
+  activities: UserActivitiesType[];
+  meta: MetaDataType;
+}
+
+interface UserActivitiesType {
+  id: number;
+  user_id: number;
+  activity_type: string;
+  activity_details: string;
+  timestamp: any;
+  ip_address: string;
+  user_agent: string;
+  updatedAt: string;
+  createdAt: string;
+}

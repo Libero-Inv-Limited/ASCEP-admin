@@ -93,7 +93,7 @@ export const columns: ColumnDef<UserObj>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent className="px-2" align="end">
             <DropdownMenuLabel>
-              <Link to="/users/1">
+              <Link to={`/users/${row.getValue("id")}`}>
                 <div className="table-menu">View User</div>
               </Link>
             </DropdownMenuLabel>
