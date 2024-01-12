@@ -47,3 +47,10 @@ interface MetaDataType {
   next_page_url: any;
   previous_page_url: any;
 }
+
+interface CategoryType {
+  id: number;
+  name: string;
+  description: string;
+  type: string;
+}
