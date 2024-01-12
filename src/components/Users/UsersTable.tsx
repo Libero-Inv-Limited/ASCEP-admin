@@ -13,6 +13,7 @@ import { CustomPagination, EmptyState, TableSkeleton } from "../custom";
 import { Link } from "react-router-dom";
 import { useGetUsersAnalytics } from "@/api/user";
 import DeactivateAccount from "./DeactivateAccount";
+import DeleteAccount from "./DeleteAccount";
 
 export type Post = {
   id: string;
@@ -112,7 +113,7 @@ export const columns: ColumnDef<UserObj>[] = [
               />
             </DropdownMenuLabel>
             <DropdownMenuLabel>
-              <div className="text-red-500 table-menu">Delete account</div>
+              <DeleteAccount id={row.getValue("id")} />
             </DropdownMenuLabel>
           </DropdownMenuContent>
         </DropdownMenu>

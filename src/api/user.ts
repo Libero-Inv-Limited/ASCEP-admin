@@ -44,3 +44,24 @@ export const useUpdateUserStatus = () => {
     }
   );
 };
+
+export const useDeleteUserAccount = () => {
+  const { toast } = useToast();
+  return useMutation(
+    (id: string | number) => {
+      return axios
+        .delete(`${baseUrl}/user/account/${id}`)
+        .then((res) => res.data);
+    },
+    {
+      onSuccess: () => {
+        toast({
+          title: "Success!",
+          variant: "success",
+          description: `User account Deleted`,
+          duration: 2000,
+        });
+      },
+    }
+  );
+};

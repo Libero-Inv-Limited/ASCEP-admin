@@ -7,7 +7,6 @@ import { reasonSchema } from "@/schemas/userSchemas";
 import { Form } from "../ui/form";
 import { FormInput } from "../custom";
 import { Button } from "../ui/button";
-// import { useUpdateProfile } from "@/api/auth";
 import { useUpdateUserStatus } from "@/api/user";
 import { useEffect } from "react";
 
@@ -37,11 +36,6 @@ export default function DeactivateAccount({
   }, [isSuccess]);
 
   const onSubmit = () => {
-    // const payload = {
-    //   user_id: id,
-    //   status: "deactivated",
-    // };
-
     const formData = new FormData();
 
     formData.append("user_id", id.toString());

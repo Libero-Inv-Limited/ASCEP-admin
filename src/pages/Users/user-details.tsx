@@ -1,4 +1,3 @@
-// import { useGetSpecificUserAnalytics } from "@/api/user";
 import {
   ActiveUserSettingsOption,
   UserSettingsOptions,
@@ -29,8 +28,6 @@ export default function UserDetailsPage() {
       },
     ]);
   }, [activeLink]);
-
-  // const { data } = useGetSpecificUserAnalytics(userId);
 
   return (
     <UserSettingsProvider>

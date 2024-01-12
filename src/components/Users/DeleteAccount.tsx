@@ -3,34 +3,34 @@ import { Dialog, DialogContent } from "../ui/dialog";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useToast } from "../ui/use-toast";
 import { reasonSchema } from "@/schemas/userSchemas";
 import { Form } from "../ui/form";
 import { FormInput } from "../custom";
 import { Button } from "../ui/button";
+import { useDeleteUserAccount } from "@/api/user";
+import { useEffect } from "react";
 
-export default function DeleteAccount() {
+export default function DeleteAccount({ id }: { id: string }) {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const form = useForm<z.infer<typeof reasonSchema>>({
     resolver: zodResolver(reasonSchema),
   });
 
-  const { toast } = useToast();
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = form;
 
+  const { mutate, isLoading, isSuccess } = useDeleteUserAccount();
+
+  useEffect(() => {
+    if (isSuccess) onClose();
+  }, [isSuccess]);
+
   const onSubmit = () => {
-    toast({
-      title: "Success!",
-      variant: "success",
-      description: `User account deleted`,
-      duration: 2000,
-    });
-    onClose();
+    mutate(id);
   };
 
   return (
@@ -69,7 +69,7 @@ export default function DeleteAccount() {
               <div className="flex items-center justify-end gap-4">
                 <p className=" text-dark">Delete?</p>
 
-                <Button>Delete User</Button>
+                <Button isLoading={isLoading}>Delete User</Button>
               </div>
             </form>
           </Form>
