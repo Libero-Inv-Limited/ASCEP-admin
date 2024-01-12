@@ -11,3 +11,5 @@ export { default as CreateSurveyQuestions } from "./CreateSurveyQuestions";
 export { default as ResponseAnalytics } from "./ResponseAnalytics";
 export { default as StepIndicator } from "./StepIndicator";
 export { default as ReportsTable } from "./ReportsTable";
+export { default as SurveysTable } from "./SurveysTable";
+export { default as SurveyResponse } from "./SurveyResponse";

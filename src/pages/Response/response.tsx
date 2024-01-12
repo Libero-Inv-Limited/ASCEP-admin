@@ -3,6 +3,7 @@ import {
   ResponseActions,
   ResponseAnalytics,
   ResponseCategories,
+  SurveysTable,
 } from "@/components/Response";
 import { useNavigationContext } from "@/contexts/NavigationContext";
 import { useEffect } from "react";
@@ -33,6 +34,7 @@ export default function ResponsePage() {
         <ResponseCategories />
 
         <ReportsTable isSummary />
+        <SurveysTable />
       </div>
     </div>
   );

@@ -30,7 +30,7 @@ interface ReportData {
   latitude: number;
   location_meta: string;
   total_comments_cache: number;
-  reportSDGs: ReportSdg[];
+  reportSDGs: SDGObj[];
   reportCategory: ReportCategory;
   reporter: Reporter;
   reportImages: ReportImage[];
@@ -91,6 +91,11 @@ interface GetAllReportsQueryArgs {
   filtersString: string;
 }
 
+interface GetReportCommentsQueryArgs {
+  id: string;
+  page: number;
+}
+
 interface GetReportCommentsResonponsesQueryArgs {
   id: number;
   perPage: number;
@@ -100,4 +105,80 @@ interface PostCommentPayload {
   content: string;
   report_id: string;
   comment_reference?: number;
+}
+
+interface SurveyData {
+  id: number;
+  title: string;
+  description: string;
+  category_id: number;
+  start_date: string;
+  end_date: string;
+  status: string;
+  created_by: number;
+  updatedAt: string;
+  createdAt: string;
+  longitude: string;
+  latitude: string;
+  location_meta: string;
+  surveySDGs: SDGObj[];
+}
+
+interface SDGObj {
+  sdg_id: number;
+  survey_id: number;
+  sdg: Sdg;
+}
+
+interface SurveryInfoData {
+  id: number;
+  title: string;
+  description: string;
+  category_id: number;
+  start_date: string;
+  end_date: string;
+  status: string;
+  created_by: number;
+  updatedAt: string;
+  createdAt: string;
+  longitude: string;
+  latitude: string;
+  location_meta: string;
+  surveySDGs: SDGObj[];
+  questions: Question[];
+}
+
+interface Question {
+  id: number;
+  survey_id: number;
+  question_text: string;
+  response_type: string;
+  updatedAt: string;
+  createdAt: string;
+  question_options?: string[];
+  userAnswered: boolean;
+  userResponse: string | string[];
+}
+
+// RESPONSE COMMENTS
+
+interface ReportCommentsResponse {
+  meta: MetaDataType;
+  comments: ReportComment[];
+}
+
+interface ReportComment {
+  content: string;
+  id: number;
+  user_id: number;
+  comment_vote_cache: number;
+  comment_response_cache: number;
+  createdAt: string;
+  author: Author;
+}
+
+interface Author {
+  username: string;
+  profile_picture: string;
+  id: number;
 }

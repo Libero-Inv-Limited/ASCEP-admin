@@ -1,23 +1,17 @@
-import { ResponseComment } from "@/components/Response";
+import { SurveyResponse } from "@/components/Response";
 
-export default function QuestionResponse({ title }: { title: string }) {
+export default function QuestionResponse({ question }: { question: Question }) {
   return (
     <div className="space-y-6">
       <div>
-        <p className="text-dark font-bold">{title}</p>
-        <p className="text-dark font-medium mt-1">
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </p>
+        <p className="font-bold text-dark">{question.question_text}</p>
+        <p className="mt-1 font-medium text-dark"></p>
       </div>
 
       <p className="text-subtle_text ">Response</p>
 
       <div className="grid grid-cols-2 gap-6">
-        <ResponseComment />
-        <ResponseComment />
-        <ResponseComment />
-        <ResponseComment />
+        <SurveyResponse response={question.userResponse} />
       </div>
     </div>
   );

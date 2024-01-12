@@ -1,16 +1,13 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ColumnDef } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
-
 import { DataTable } from "@/components/custom/DataTable";
-import { useGetAllReports } from "@/api/response";
-import GroupedFiltersButton from "../custom/GroupedFiltersButton";
-import ResponseFilters from "./ResponseFilters";
+import { useGetAllSurveys } from "@/api/response";
 import { TableSkeleton } from "../custom";
 import { Link } from "react-router-dom";
-import ResponsePostActions from "./ResponsePostActions";
+import SurveyActions from "./SurveyActions";
 
-export const columns: ColumnDef<ReportData>[] = [
+export const columns: ColumnDef<SurveyData>[] = [
   {
     accessorKey: "createdAt",
     header: "Date",
@@ -40,31 +37,17 @@ export const columns: ColumnDef<ReportData>[] = [
     accessorKey: "reportCategory",
     header: "Category",
     cell: ({ row }) => {
-      return (
-        <div className="capitalize">
-          {row.original.reportCategory.categoryDetail.name}
-        </div>
-      );
+      return <div className="capitalize">{row.original.description}</div>;
     },
   },
   {
-    accessorKey: "reporter",
-    header: "User",
+    accessorKey: "start_date",
+    header: "Start - End dates",
     cell: ({ row }) => {
-      const user = row.original.reporter;
-
       return (
         <div className="flex items-center gap-3 ">
-          <img
-            src={user.profile_picture || "/images/profile-large.png"}
-            className="object-cover w-8 rounded-full"
-            alt="profile-pic"
-          />
-          <p>
-            {user.firstname
-              ? `${user.firstname} ${user.lastname}`
-              : user.username}
-          </p>
+          {new Date(row.original.start_date).toDateString()} -
+          {new Date(row.original.end_date).toDateString()}
         </div>
       );
     },
@@ -82,13 +65,13 @@ export const columns: ColumnDef<ReportData>[] = [
     },
   },
   {
-    accessorKey: "reportSDGs",
+    accessorKey: "surveySDGs",
     header: "SDGs",
     cell: ({ row }) => {
       return (
         <div className="flex gap-1">
           {/* @ts-ignore */}
-          {row.original.reportSDGs.map((sdg) => (
+          {row.original.surveySDGs.map((sdg) => (
             <img src={sdg.sdg.banner} key={sdg.sdg_id} className="w-7" />
           ))}
         </div>
@@ -100,7 +83,7 @@ export const columns: ColumnDef<ReportData>[] = [
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => {
-      const status = row.original.reportStatus.name;
+      const status = row.original.status;
       return (
         <div
           className={` rounded-[10px] text-xs font-semibold text-center w-fit px-2 py-[6px] capitalize ${
@@ -119,15 +102,14 @@ export const columns: ColumnDef<ReportData>[] = [
   {
     id: "actions",
     header: "Actions",
-    cell: ({ row }) => <ResponsePostActions report={row.original} />,
+    cell: ({ row }) => <SurveyActions survey={row.original} />,
   },
 ];
 
-export default function ReportsTable({ isSummary }: { isSummary?: boolean }) {
-  const [tableData, setTableData] = useState<ReportData[]>([]);
-  const [filtersString, setFiltersString] = useState("");
+export default function SurveysTable({ isSummary }: { isSummary?: boolean }) {
+  const [tableData, setTableData] = useState<SurveyData[]>([]);
 
-  const { data, isLoading } = useGetAllReports({ filtersString });
+  const { data, isLoading } = useGetAllSurveys();
 
   useEffect(() => {
     if (data) {
@@ -145,10 +127,6 @@ export default function ReportsTable({ isSummary }: { isSummary?: boolean }) {
         </p>
 
         <div className="flex items-center gap-3">
-          <GroupedFiltersButton variant="pill">
-            <ResponseFilters setFiltersString={setFiltersString} />
-          </GroupedFiltersButton>
-
           {isSummary && (
             <Link to="/response/all-reports" className="underline">
               See All

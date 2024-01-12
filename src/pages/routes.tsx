@@ -15,12 +15,13 @@ import {
   DataView,
   MapView,
   ResponsePage,
-  ViewResponsePage,
 } from "./Response";
 import { ContactUs, LandingPage } from "./Landing";
 import { UserDetailsPage, UsersPage } from "./Users";
 import { AuthoritiesPage, DialoguePage, ViewAllRequestsPage } from "./Dialogue";
 import { Navigate } from "react-router-dom";
+import ViewReportPage from "./Response/view-report";
+import ViewSurveyPage from "./Response/view-survey";
 
 export const landingPages: RouterType[] = [
   {
@@ -83,9 +84,14 @@ const routes: RouterType[] = [
     title: "all-reports",
   },
   {
-    path: "/response/posts/:postId",
-    element: <ViewResponsePage />,
-    title: "reponse-details",
+    path: "/response/reports/:reportId",
+    element: <ViewReportPage />,
+    title: "report-details-page",
+  },
+  {
+    path: "/response/surveys/:surveyId",
+    element: <ViewSurveyPage />,
+    title: "survey-details-page",
   },
   {
     path: "/response/create-survey",

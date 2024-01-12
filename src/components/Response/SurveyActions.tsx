@@ -8,13 +8,9 @@ import {
 import { Button } from "../ui/button";
 import { MoreHorizontal } from "lucide-react";
 
-export default function ResponsePostActions({
-  report,
-}: {
-  report: ReportData;
-}) {
-  const status = report.reportStatus.name;
-  const type = report.report_type;
+export default function SurveyActions({ survey }: { survey: SurveyData }) {
+  const status = survey.status;
+  //   const type = survey.ty;
   const navigate = useNavigate();
   return (
     <DropdownMenu>
@@ -27,16 +23,12 @@ export default function ResponsePostActions({
       <DropdownMenuContent className="px-2" align="end">
         <DropdownMenuLabel
           onClick={() =>
-            navigate(`/response/reports/${report.id}`, {
-              state: { status, type },
-            })
+            navigate(`/response/surveys/${survey.id}`, { state: { status } })
           }
         >
-          {/* <Link to={"/posts/1"}> */}
           <div className="table-menu">View</div>
-          {/* </Link> */}
         </DropdownMenuLabel>
-        <DropdownMenuLabel>
+        {/* <DropdownMenuLabel>
           <div className="table-menu">Download</div>
         </DropdownMenuLabel>
         <DropdownMenuLabel>
@@ -44,7 +36,7 @@ export default function ResponsePostActions({
         </DropdownMenuLabel>
         <DropdownMenuLabel>
           <div className="table-menu">Delete </div>
-        </DropdownMenuLabel>
+        </DropdownMenuLabel> */}
       </DropdownMenuContent>
     </DropdownMenu>
   );

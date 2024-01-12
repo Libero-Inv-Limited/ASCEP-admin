@@ -1,5 +1,4 @@
 import { FolderOpen } from "lucide-react";
-import React from "react";
 
 interface EmptyStateProps {
   height: string | number;
