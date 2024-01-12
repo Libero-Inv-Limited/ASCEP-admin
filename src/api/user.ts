@@ -2,7 +2,6 @@ import { useMutation, useQuery } from "react-query";
 import axios from "axios";
 import baseUrl from "./baseUrl";
 import { useToast } from "@/components/ui/use-toast";
-import { number } from "zod";
 
 export const useGetUsersAnalytics = (page: number) => {
   return useQuery(

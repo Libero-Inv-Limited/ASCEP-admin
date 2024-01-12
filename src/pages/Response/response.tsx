@@ -1,17 +1,16 @@
 import {
   ResponseActions,
+  ResponseAnalytics,
   ResponseCategories,
   ResponsePosts,
 } from "@/components/Response";
-import { StatsCard, TablePagination } from "@/components/custom";
+import { TablePagination } from "@/components/custom";
 import { Tabs } from "@/components/ui/tabs";
 import { useNavigationContext } from "@/contexts/NavigationContext";
 import { TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
-import { Messages1, Profile2User, TickSquare } from "iconsax-react";
-import { User } from "lucide-react";
-import { useEffect } from "react";
 import ResponseFilter from "./ResponseFilter";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 const responsePostsTabs = [
   {
@@ -48,20 +47,7 @@ export default function ResponsePage() {
     <div className="page-wrapper">
       <div className="mt-8 space-y-5">
         {/* MAIN STATS */}
-        <div className="grid grid-cols-4 gap-6 ">
-          <StatsCard icon={<User />} title="Total Reports" count={"32k"} />
-          <StatsCard icon={<Messages1 />} title="Total Survey" count={"3.2k"} />
-          <StatsCard
-            title="Total Democracy"
-            icon={<Profile2User />}
-            count={"1.2k"}
-          />
-          <StatsCard
-            title="Reports Engagements"
-            icon={<TickSquare />}
-            count={"1.274m"}
-          />
-        </div>
+        <ResponseAnalytics />
 
         <ResponseActions />
         <ResponseCategories />

@@ -9,4 +9,5 @@ export { default as ResponsePosts } from "./ResponsePosts";
 export { default as ImportCSV } from "./ImportCSV";
 export { default as CreateSurvey } from "./CreateSurvey";
 export { default as CreateSurveyQuestions } from "./CreateSurveyQuestions";
+export { default as ResponseAnalytics } from "./ResponseAnalytics";
 export { default as StepIndicator } from "./StepIndicator";

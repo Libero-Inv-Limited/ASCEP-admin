@@ -10,3 +10,10 @@ type ResponsePost = {
   action: string;
   sdgs: string[];
 };
+
+interface ResponseAnalyticsObj {
+  total_reports: string;
+  total_surveys: string;
+  total_active_reports: string;
+  engagements: string;
+}
