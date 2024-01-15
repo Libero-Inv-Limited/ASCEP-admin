@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { DataTable } from "@/components/custom/DataTable";
 import { useGetAllSurveys } from "@/api/response";
 import { TableSkeleton } from "../custom";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import SurveyActions from "./SurveyActions";
 
 export const columns: ColumnDef<SurveyData>[] = [
@@ -26,13 +26,7 @@ export const columns: ColumnDef<SurveyData>[] = [
       return <div className="capitalize">{row.getValue("title")}</div>;
     },
   },
-  {
-    accessorKey: "report_type",
-    header: "Type",
-    cell: ({ row }) => {
-      return <div className="capitalize">{row.getValue("report_type")}</div>;
-    },
-  },
+
   {
     accessorKey: "reportCategory",
     header: "Category",
@@ -123,15 +117,15 @@ export default function SurveysTable({ isSummary }: { isSummary?: boolean }) {
     <div className="space-y-4">
       <div className="flex justify-between">
         <p className="text-xl font-medium text-dark">
-          {isSummary ? "Reports" : ""}
+          {isSummary ? "Survey" : ""}
         </p>
 
         <div className="flex items-center gap-3">
-          {isSummary && (
+          {/* {isSummary && (
             <Link to="/response/all-reports" className="underline">
               See All
             </Link>
-          )}
+          )} */}
         </div>
       </div>
       <div className="p-4 bg-white rounded-lg">

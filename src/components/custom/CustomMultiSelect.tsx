@@ -46,24 +46,33 @@ export default function CustomMultiSelect({
     if (selected.length === 0 && !!data) {
       setRenderedItems(data);
     }
+    if (selected.length > 0 && !!data) {
+      setRenderedItems(
+        renderedItems.filter((renderedItem) =>
+          selected.some((selectedItem) => selectedItem.id !== renderedItem.id)
+        )
+      );
+    }
   }, [data, selected]);
 
-  const handleSelect = (collectionJson: string) => {
-    const collection = JSON.parse(collectionJson);
+  React.useEffect(() => {}, []);
+
+  const handleSelect = (selectedJson: string) => {
+    const selectedItem = JSON.parse(selectedJson);
 
     setSelected([
       ...selected,
       renderedItems.filter(
         (option) =>
           option.id.toString().toLowerCase() ==
-          collection.id.toString().toLowerCase()
+          selectedItem.id.toString().toLowerCase()
       )[0],
     ]);
     setRenderedItems(
       renderedItems.filter(
         (rendredItem) =>
           rendredItem.id.toString().toLowerCase() !==
-          collection.id.toString().toLowerCase()
+          selectedItem.id.toString().toLowerCase()
       )
     );
   };

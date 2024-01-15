@@ -1,3 +1,5 @@
+// import { ReactNode } from "react";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type SettingsOption =
   | "User Profile"
@@ -5,15 +7,27 @@ type SettingsOption =
   | "Enable 2FA"
   | "Verify 2FA OTP"
   | "Activities"
-  | "Edit Profile";
+  | "Edit Profile"
+  | "Roles & Permissions";
+
+type RolesOption = "Roles" | "Update Role" | "New Role";
+
+interface ActionButton {
+  text: string;
+  function: (arg: any) => void;
+}
 
 interface SettingsContextType {
   timeLimit: number;
   setTimeLimit: (arg: number) => void;
   activeOption: SettingsOption;
   setActiveOption: (arg: SettingsOption) => void;
+  activeTitle: string | null;
+  setActiveTitle: (arg: string | null) => void;
   setTwoFactorAuth: (arg: boolean) => void;
   twoFactorAuth: boolean;
+  actionButton: ActionButton | null;
+  setActionButton: (arg: ActionButton | null) => void;
 }
 
 interface SettingsOptionObj {
@@ -69,4 +83,27 @@ interface UserActivitiesType {
   user_agent: string;
   updatedAt: string;
   createdAt: string;
+}
+
+// ROLES AND PERMISSIONS
+
+interface Permission {
+  id: number;
+  name: string;
+  description: string;
+}
+
+interface Role {
+  id: number;
+  name: string;
+  description: string;
+  type: string;
+  rolePermission: RolePermission[];
+}
+
+interface RolePermission {
+  id: number;
+  role_id: number;
+  permission_id: number;
+  permission: Permission;
 }

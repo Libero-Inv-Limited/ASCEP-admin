@@ -6,7 +6,7 @@ export default function UserProfile() {
     <div className="space-y-6">
       <ProfileRow
         title="Full name"
-        value={`${data?.firstname} ${data?.lastname}`}
+        value={`${data?.firstname || ""} ${data?.lastname || ""}`}
       />
       <ProfileRow title="Email" value={data?.email || ""} />
       <ProfileRow title="Phone number" value={data?.mobile || ""} />

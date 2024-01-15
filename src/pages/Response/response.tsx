@@ -34,7 +34,7 @@ export default function ResponsePage() {
         <ResponseCategories />
 
         <ReportsTable isSummary />
-        <SurveysTable />
+        <SurveysTable isSummary />
       </div>
     </div>
   );

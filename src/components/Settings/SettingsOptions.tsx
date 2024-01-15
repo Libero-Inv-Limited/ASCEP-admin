@@ -54,6 +54,10 @@ const options: SettingsOptionObj[] = [
     subtitle: "Secure Account with Two-Factor Authentication",
   },
   {
+    title: "Roles & Permissions",
+    subtitle: "Manage user permissions and roles",
+  },
+  {
     title: "Activities",
     subtitle: "Monitor activities along medules",
   },

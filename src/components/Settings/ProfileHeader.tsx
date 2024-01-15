@@ -8,7 +8,7 @@ export default function ProfileHeader() {
 
   return (
     <div
-      className="relative h-[141px] w-full flex justify-end items-center p-5 "
+      className="relative h-[141px] w-full flex justify-end items-center p-5 rounded-[50px] "
       style={{
         backgroundImage: `url("/images/cover-photo.png")`,
         backgroundSize: "cover",
@@ -22,15 +22,18 @@ export default function ProfileHeader() {
       <div className="absolute -bottom-[120px] left-16 flex gap-5 items-end">
         <div className="rounded-full border-[#F9F6FB] border-[10px] w-[200px] h-[200px] ">
           {data?.profile_picture ? (
-            <img
-              src={data.profile_picture}
-              className="object-cover w-full h-full rounded-full"
-              alt="profile-photo"
-            />
+            <div className="bg-white rounded-full">
+              <img
+                src={data.profile_picture}
+                className="object-cover w-full h-full rounded-full"
+                alt="profile-photo"
+              />
+            </div>
           ) : (
             <div className="flex items-center justify-center w-full h-full rounded-full bg-primary ">
               <p className="h3">
-                {data?.firstname[0]} {data?.lastname[0]}
+                {data?.firstname &&
+                  `${data?.firstname[0]}  ${data?.lastname[0]}`}
               </p>
             </div>
           )}
@@ -38,7 +41,7 @@ export default function ProfileHeader() {
 
         <div className="pb-12">
           <p className="text-3xl font-bold text-text">
-            {data?.firstname} {data?.lastname}
+            {data?.firstname || ""} {data?.lastname || ""}
           </p>
           <p className="text-sm text-subtle_text">{data?.email}</p>
         </div>

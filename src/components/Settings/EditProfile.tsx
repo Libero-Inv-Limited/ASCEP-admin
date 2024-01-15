@@ -51,8 +51,6 @@ export default function EditProfile({
   const { mutate, isLoading } = useUpdateProfile();
 
   function onSubmit(values: z.infer<typeof editProfileSchema>) {
-    console.log(values);
-
     const formData = new FormData();
 
     Object.entries(values).forEach(([key, value]) => {
@@ -68,15 +66,18 @@ export default function EditProfile({
     <div className="space-y-6">
       <div className="flex items-center gap-6">
         {renderedImg || defaultValues.profile_picture ? (
-          <img
-            src={(renderedImg as string) || defaultValues.profile_picture}
-            className="w-[109px] h-[109px] rounded-full"
-            alt="profile-photo"
-          />
+          <div className="bg-white rounded-full">
+            <img
+              src={(renderedImg as string) || defaultValues.profile_picture}
+              className="w-[109px] h-[109px] rounded-full bg-white"
+              alt="profile-photo"
+            />
+          </div>
         ) : (
           <div className="flex items-center justify-center w-[109px] h-[109px] rounded-full bg-primary ">
             <p className="text-2xl font-bold ">
-              {defaultValues?.firstname[0]} {defaultValues?.lastname[0]}
+              {defaultValues?.firstname &&
+                `${defaultValues?.firstname[0]} ${defaultValues?.lastname[0]}`}
             </p>
           </div>
         )}

@@ -30,8 +30,10 @@ export default function ViewSurveyPage() {
 
   const { data, isLoading } = useGetSurveyInfo(surveyId!);
 
-  if (isLoading) <PageLoader />;
-  if (data)
+  if (isLoading) {
+    <PageLoader />;
+  }
+  if (data) {
     return (
       <div
         className="relative space-y-6 page-wrapper"
@@ -44,20 +46,22 @@ export default function ViewSurveyPage() {
           sdgs={data?.surveySDGs}
           title={data?.title}
         />
-        {data?.questions.map((question) => (
-          <QuestionResponse question={question} key={question.id} />
-        ))}
+        {data?.questions &&
+          data?.questions.map((question) => (
+            <QuestionResponse question={question} key={question.id} />
+          ))}
 
         {/* <div className="flex justify-end gap-3">
-          <Button className="px-6 h-[44px]" variant="outline-primary">
-            Reject post
-          </Button>
+        <Button className="px-6 h-[44px]" variant="outline-primary">
+          Reject post
+        </Button>
 
-          <Button className="px-6 h-[44px]">Approve post</Button>
-        </div> */}
+        <Button className="px-6 h-[44px]">Approve post</Button>
+      </div> */}
 
         <Button className="fixed bottom-10 right-10 ">Download Response</Button>
       </div>
     );
+  }
   return <EmptyState height="50vh" />;
 }

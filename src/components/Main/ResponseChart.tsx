@@ -153,7 +153,6 @@ export default function ResponseChart() {
 }
 
 const CustomTooltip = ({ active, payload }: any) => {
-  console.log(payload);
   if (active && payload) {
     // Customize the tooltip content here
     return (

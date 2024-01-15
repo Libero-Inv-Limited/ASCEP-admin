@@ -39,7 +39,7 @@ export const useGetAllSurveys = () => {
 
 export const useGetSurveyInfo = (id: number | string) => {
   return useQuery(
-    ["all-surveys"],
+    ["survey-info"],
     (): Promise<SurveryInfoData> => {
       return axios
         .get(`${baseUrl}/survey/info/${id}`)
@@ -53,7 +53,7 @@ export const useGetSurveyInfo = (id: number | string) => {
 
 export const useGetReportInfo = (id: string) => {
   return useQuery(
-    ["all-activities", id],
+    ["report-info", id],
     (): Promise<ReportData> => {
       return axios
         .get(`${baseUrl}/report/info/${id}`)
