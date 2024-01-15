@@ -1,28 +1,17 @@
-import { useNavigate } from "react-router-dom";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import axios from "axios";
 import baseUrl from "./baseUrl";
-import { signupSchema } from "@/schemas/AuthSchema";
-import { z } from "zod";
-import { useAuthContext } from "@/providers/AuthProvider";
+import { useToast } from "@/components/ui/use-toast";
 
 export const useCeatePermission = () => {
-  const navigate = useNavigate();
-  const { setEmail, email } = useAuthContext();
-
   return useMutation(
-    (values: z.infer<typeof signupSchema>) => {
-      setEmail(values.email);
+    (values) => {
       return axios
         .post(`${baseUrl}/user/register`, values)
         .then((res) => res.data);
     },
     {
-      onSuccess: (res) => {
-        navigate("/auth/otp", {
-          state: { email, timeLimit: res.data.timeLimit },
-        });
-      },
+      onSuccess: () => {},
     }
   );
 };
@@ -38,6 +27,33 @@ export const useGetAllPermissions = () => {
     },
     {
       retry: false,
+    }
+  );
+};
+
+interface AssignPermissionToUserType {
+  permissions: string[];
+  userId: number;
+}
+
+export const useAssignPermissionToUser = () => {
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+  return useMutation(
+    (values: AssignPermissionToUserType) => {
+      return axios
+        .put(`${baseUrl}/permission/assign-to-user`, values)
+        .then((res) => res.data);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("user-info");
+        toast({
+          title: "Success",
+          description: "User Permissions Updated",
+          variant: "success",
+        });
+      },
     }
   );
 };

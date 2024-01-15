@@ -1,10 +1,10 @@
 import { useUserSettingsContext } from "@/providers/UserSettingsProvider";
 import { Skeleton } from "../ui/skeleton";
-import { Button } from "../ui/button";
+import AssignPermssion from "./AssignPermssion";
 
 export default function Permissions() {
-  const { userObj, fetchingUserObj, setActiveOption } =
-    useUserSettingsContext();
+  const { userObj, fetchingUserObj } = useUserSettingsContext();
+
   return (
     <div>
       <div className="py-4 border-b border-t border-[#F0F0F0] text-dark">
@@ -19,18 +19,16 @@ export default function Permissions() {
           : userObj &&
             userObj.permissions.map((permission) => (
               <div
-                key={permission.name}
+                key={permission}
                 className="bg-[#6B6B6B33] px-2 py-1 rounded-lg text-xs font-medium text-center"
               >
-                {permission.name}
+                {permission}
               </div>
             ))}
       </div>
 
       <div className="flex justify-end mt-12">
-        <Button onClick={() => setActiveOption("Change Role")}>
-          Edit Role & Permissions
-        </Button>
+        <AssignPermssion />
       </div>
     </div>
   );

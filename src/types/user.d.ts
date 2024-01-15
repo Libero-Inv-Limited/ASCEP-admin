@@ -64,7 +64,7 @@ interface UserObj {
   educational_level: any;
   twoFA?: TwoFa;
   roleDetail: RoleDetail;
-  permissions: Permission[];
+  permissions: string[];
 }
 
 interface TwoFa {
