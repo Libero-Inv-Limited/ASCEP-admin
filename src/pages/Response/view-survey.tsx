@@ -30,9 +30,10 @@ export default function ViewSurveyPage() {
 
   const { data, isLoading } = useGetSurveyInfo(surveyId!);
 
-  if (isLoading) {
-    <PageLoader />;
-  }
+  console.log(isLoading);
+
+  if (isLoading) return <PageLoader />;
+
   if (data) {
     return (
       <div
@@ -63,5 +64,5 @@ export default function ViewSurveyPage() {
       </div>
     );
   }
-  return <EmptyState height="50vh" />;
+  // return <EmptyState height="50vh" />;
 }

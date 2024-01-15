@@ -77,7 +77,7 @@ export default function DeactivateAccount({
           {status === "deactivated" ? (
             <div className="flex justify-end">
               <Button onClick={handleActivate} isLoading={isLoading}>
-                Suspend User
+                Activate User
               </Button>
             </div>
           ) : (

@@ -10,14 +10,16 @@ import AssignRole from "./AssignRole";
 import DeactivateAccount from "./DeactivateAccount";
 import DeleteAccount from "./DeleteAccount";
 import ResetPassword from "./ResetPassword";
-import Reset2FA from "./Reset2FA";
+// import Reset2FA from "./Reset2FA";
 import { useParams } from "react-router-dom";
+import { useUserSettingsContext } from "@/providers/UserSettingsProvider";
 
 export default function UserSettingsDropdownMenu() {
   const { userId } = useParams();
+  const { userObj } = useUserSettingsContext();
   return (
     <div className="ml-auto">
-      {userId && (
+      {userId && userObj && (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button className="w-8 h-8 p-0 bg-transparent hover:bg-gray-200 ">
@@ -35,11 +37,11 @@ export default function UserSettingsDropdownMenu() {
             <DropdownMenuLabel>
               <ResetPassword />
             </DropdownMenuLabel>
-            <DropdownMenuLabel>
+            {/* <DropdownMenuLabel>
               <Reset2FA />
-            </DropdownMenuLabel>
+            </DropdownMenuLabel> */}
             <DropdownMenuLabel>
-              <DeactivateAccount id={userId} />
+              <DeactivateAccount id={userId} status={userObj.status} />
             </DropdownMenuLabel>
             <DropdownMenuLabel>
               <DeleteAccount id={userId} />

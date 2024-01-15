@@ -97,7 +97,7 @@ export const columns: ColumnDef<UserObj>[] = [
                 <div className="table-menu">View User</div>
               </Link>
             </DropdownMenuLabel>
-            <DropdownMenuLabel>
+            {/* <DropdownMenuLabel>
               <div className="table-menu">Assign role / privilege</div>
             </DropdownMenuLabel>
             <DropdownMenuLabel>
@@ -105,7 +105,7 @@ export const columns: ColumnDef<UserObj>[] = [
             </DropdownMenuLabel>
             <DropdownMenuLabel>
               <div className="table-menu">Reset 2FA</div>
-            </DropdownMenuLabel>
+            </DropdownMenuLabel> */}
             <DropdownMenuLabel>
               <DeactivateAccount
                 status={row.original.status}

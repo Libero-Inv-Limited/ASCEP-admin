@@ -27,8 +27,8 @@ export default function ViewReportPage() {
         link: "/response",
       },
       {
-        label: "surveys",
-        link: "/response/all-reports",
+        label: "report",
+        link: "/response/reports",
       },
     ]);
   }, [activeLink]);

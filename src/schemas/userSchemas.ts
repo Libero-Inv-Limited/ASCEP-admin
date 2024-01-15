@@ -33,3 +33,23 @@ export const createSurveySchema = z.object({
     .string({ required_error: "Start-End date is required" })
     .min(1, "Start-End date is required"),
 });
+
+export const resetUserPasswordSchema = z
+  .object({
+    password: z
+      .string({ required_error: "Password is required" })
+      .regex(
+        /((?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*\W)\w.{6,18}\w)/,
+        "Password should have at least one upper and lowercase, a number and a special character"
+      ),
+    confirmPassword: z.string(),
+  })
+  .refine(
+    (values) => {
+      return values.password === values.confirmPassword;
+    },
+    {
+      message: "Passwords must match!",
+      path: ["confirmPassword"],
+    }
+  );

@@ -62,7 +62,7 @@ export default function Select2FAType({ next }: Select2FATypeProps) {
           </div>
 
           <p className="text-sm text-subtle_text">
-            A mail will be sent to your mail box fro validation
+            A mail will be sent to your mail box for validation
           </p>
 
           <div className="flex items-center justify-end">
