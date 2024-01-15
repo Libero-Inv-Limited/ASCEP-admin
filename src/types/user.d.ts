@@ -1,6 +1,7 @@
 type UserSettingsOption =
   | "User Profile"
   | "Permissions"
+  | "Change Role"
   | "Posts"
   | "Device Log"
   | "User’s Activity"
@@ -63,6 +64,7 @@ interface UserObj {
   educational_level: any;
   twoFA?: TwoFa;
   roleDetail: RoleDetail;
+  permissions: Permission[];
 }
 
 interface TwoFa {

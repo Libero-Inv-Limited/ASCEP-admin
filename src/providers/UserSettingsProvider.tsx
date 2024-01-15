@@ -25,7 +25,7 @@ export default function UserSettingsProvider({ children }: PropsWithChildren) {
 
   const { data: userObj, isLoading: fetchingUserObj } = useGetUserInfo(userId!);
 
-  console.log(userObj);
+  // console.log(userObj);
   return (
     <UserSettingsContext.Provider
       value={{

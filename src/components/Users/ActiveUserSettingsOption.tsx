@@ -5,6 +5,7 @@ import UserActivities from "./UserActivities";
 import UserSettingsDropdownMenu from "./UserSettingsDropdownMenu";
 import UserProfile from "./UserProfile";
 import { Skeleton } from "../ui/skeleton";
+import AssignPermssion from "./AssignPermssion";
 
 export default function ActiveSettingsOption() {
   const { activeOption, fetchingUserObj, userObj } = useUserSettingsContext();
@@ -38,6 +39,7 @@ export default function ActiveSettingsOption() {
       {activeOption === "Permissions" && <Permissions />}
       {activeOption === "Device Log" && <DeviceLog />}
       {activeOption === "User’s Activity" && <UserActivities />}
+      {activeOption === "Change Role" && <AssignPermssion />}
     </div>
   );
 }

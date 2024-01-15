@@ -87,3 +87,30 @@ export const useUpdateRole = () => {
     }
   );
 };
+
+interface ChangeUserRoleType {
+  roleId: string;
+  userId: number;
+}
+
+export const useChangeUserRole = () => {
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+  return useMutation(
+    (values: ChangeUserRoleType) => {
+      return axios
+        .patch(`${baseUrl}/role/update-user`, values)
+        .then((res) => res.data);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("user-info");
+        toast({
+          title: "Success",
+          description: "Role Updated",
+          variant: "success",
+        });
+      },
+    }
+  );
+};

@@ -10,6 +10,12 @@ export const reasonSchema = z.object({
     .min(1, "Reason is required"),
 });
 
+export const changeRoleSchema = z.object({
+  roleId: z
+    .string({ required_error: "Role is required" })
+    .min(1, "Role is required"),
+});
+
 export const importSchema = z.object({
   title: z
     .string({ required_error: "Title is required" })
