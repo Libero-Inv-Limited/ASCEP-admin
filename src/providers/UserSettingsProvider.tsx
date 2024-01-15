@@ -1,4 +1,6 @@
+import { useGetUserInfo } from "@/api/user";
 import { PropsWithChildren, createContext, useContext, useState } from "react";
+import { useParams } from "react-router-dom";
 
 const UserSettingsContext = createContext<UserSettingsContextType>({
   activeOption: "User Profile",
@@ -7,6 +9,8 @@ const UserSettingsContext = createContext<UserSettingsContextType>({
   setTwoFactorAuth: () => {},
   timeLimit: 0,
   setTimeLimit: () => {},
+  userObj: undefined,
+  fetchingUserObj: false,
 });
 
 export const useUserSettingsContext = () => useContext(UserSettingsContext);
@@ -17,6 +21,11 @@ export default function UserSettingsProvider({ children }: PropsWithChildren) {
 
   const [timeLimit, setTimeLimit] = useState(0);
 
+  const { userId } = useParams();
+
+  const { data: userObj, isLoading: fetchingUserObj } = useGetUserInfo(userId!);
+
+  console.log(userObj);
   return (
     <UserSettingsContext.Provider
       value={{
@@ -26,6 +35,8 @@ export default function UserSettingsProvider({ children }: PropsWithChildren) {
         setTwoFactorAuth,
         timeLimit,
         setTimeLimit,
+        userObj,
+        fetchingUserObj,
       }}
     >
       {children}

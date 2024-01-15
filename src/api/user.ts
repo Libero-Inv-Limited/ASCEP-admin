@@ -13,6 +13,16 @@ export const useGetUsersAnalytics = (page: number) => {
   );
 };
 
+export const useGetUserInfo = (id: string) => {
+  return useQuery(
+    ["users-info", id],
+    (): Promise<UserObj> =>
+      axios
+        .get(`${baseUrl}/user/profile?page=${id}`)
+        .then((res) => res.data.data[0])
+  );
+};
+
 interface useGetSpecificUserAnalyticsProps {
   id: string;
   page: number;

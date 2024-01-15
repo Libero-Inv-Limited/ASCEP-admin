@@ -13,6 +13,8 @@ interface UserSettingsContextType {
   setActiveOption: (arg: UserSettingsOption) => void;
   setTwoFactorAuth: (arg: boolean) => void;
   twoFactorAuth: boolean;
+  userObj: UserObj | undefined;
+  fetchingUserObj: boolean;
 }
 
 interface UserSettingsOptionObj {

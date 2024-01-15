@@ -1,4 +1,4 @@
-import AdminsProfile from "./AdminsProfile";
+import AdminsProfile from "./UserProfile";
 import DeviceLog from "./DeviceLog";
 import Permissions from "./Permissions";
 import UserActivities from "./UserActivities";
