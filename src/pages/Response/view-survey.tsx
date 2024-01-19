@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useParams } from "react-router-dom";
 import QuestionResponse from "./QuestionResponse";
 import { useGetSurveyInfo } from "@/api/response";
-import { EmptyState, PageLoader } from "@/components/custom";
+import { PageLoader } from "@/components/custom";
 import { useEffect } from "react";
 import { useNavigationContext } from "@/contexts/NavigationContext";
 
@@ -22,15 +22,15 @@ export default function ViewSurveyPage() {
         link: "/response",
       },
       {
-        label: "surveys",
-        link: "/response/surveys",
+        label: "All Surveys",
+        link: "/response/all-surveys",
       },
     ]);
   }, [activeLink]);
 
   const { data, isLoading } = useGetSurveyInfo(surveyId!);
 
-  console.log(isLoading);
+  console.log(data);
 
   if (isLoading) return <PageLoader />;
 
@@ -46,6 +46,7 @@ export default function ViewSurveyPage() {
           locationMeta={data?.location_meta}
           sdgs={data?.surveySDGs}
           title={data?.title}
+          createdAt={data?.category_id}
         />
         {data?.questions &&
           data?.questions.map((question) => (

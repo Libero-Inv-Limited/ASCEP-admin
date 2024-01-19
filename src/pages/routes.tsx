@@ -11,6 +11,7 @@ import { DemocracyPage, ViewAllDemocracyPage } from "./Democracy";
 import {
   ActivityPage,
   AllReports,
+  AllSurveys,
   CreateSurveyPage,
   DataView,
   MapView,
@@ -82,6 +83,11 @@ const routes: RouterType[] = [
     path: "/response/all-reports",
     element: <AllReports />,
     title: "all-reports",
+  },
+  {
+    path: "/response/all-surveys",
+    element: <AllSurveys />,
+    title: "all-surveys",
   },
   {
     path: "/response/reports/:reportId",

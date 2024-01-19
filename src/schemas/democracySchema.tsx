@@ -12,6 +12,6 @@ export const createSDGSchema = z.object({
 
 export const questionSchema = z.object({
   question: z.string().min(1, "Question is required"),
-  answerType: z.enum(["Text", "Option"]),
+  answerType: z.enum(["text", "multiple_choice", "single_choice"]),
   options: z.array(z.string().min(1, "This is required")).nullable(),
 });

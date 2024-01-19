@@ -29,8 +29,11 @@ export const createSurveySchema = z.object({
   description: z
     .string({ required_error: "Description is required" })
     .min(1, "Description is required"),
-  dateRange: z
-    .string({ required_error: "Start-End date is required" })
+  start_date: z
+    .string({ required_error: "Start date is required" })
+    .min(1, "Start-End date is required"),
+  end_date: z
+    .string({ required_error: "End date is required" })
     .min(1, "Start-End date is required"),
 });
 

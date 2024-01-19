@@ -6,6 +6,7 @@ import { useGetAllSurveys } from "@/api/response";
 import { TableSkeleton } from "../custom";
 // import { Link } from "react-router-dom";
 import SurveyActions from "./SurveyActions";
+import { Link } from "react-router-dom";
 
 export const columns: ColumnDef<SurveyData>[] = [
   {
@@ -121,11 +122,11 @@ export default function SurveysTable({ isSummary }: { isSummary?: boolean }) {
         </p>
 
         <div className="flex items-center gap-3">
-          {/* {isSummary && (
-            <Link to="/response/all-reports" className="underline">
+          {isSummary && (
+            <Link to="/response/all-surveys" className="underline">
               See All
             </Link>
-          )} */}
+          )}
         </div>
       </div>
       <div className="p-4 bg-white rounded-lg">

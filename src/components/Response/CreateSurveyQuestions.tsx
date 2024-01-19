@@ -3,20 +3,22 @@ import { Form } from "../ui/form";
 import { FormInput } from "../custom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
-import { useToast } from "../ui/use-toast";
 import { Button } from "../ui/button";
 import { Add, Location } from "iconsax-react";
-import { questionSchema } from "@/schemas/democracySchema";
 import FormSelect from "../Democracy/common/FormSelect";
 import { SelectItem } from "../ui/select";
-// import { zodResolver } from "@hookform/resolvers/zod";
+import { surveyQuestionSchema } from "@/schemas/responseSchemas";
+import { useLocation } from "react-router-dom";
+import { useAddSurveyQuestion } from "@/api/response";
 
 export default function CreateSurvey() {
-  type Question = z.infer<typeof questionSchema>;
+  type Question = z.infer<typeof surveyQuestionSchema>;
+
+  const { state } = useLocation();
 
   const defaultValues: Question = {
     question: "",
-    answerType: "Text",
+    response_type: "text",
     options: null,
   };
 
@@ -49,10 +51,10 @@ export default function CreateSurvey() {
     ]);
   };
 
-  const handleAnswerTypeChange = (index: number, value: "Text" | "Option") => {
+  const handleAnswerTypeChange = (index: number, value: SurveyQuestionType) => {
     console.log("CHANGE");
-    setValue(`questions.${index}.answerType`, value);
-    if (value === "Option") {
+    setValue(`questions.${index}.response_type`, value);
+    if (value === "text") {
       // setValue(`questions.${index}.options`, [""]); // Add an initial option
       handleAddOption(index);
     } else {
@@ -60,16 +62,16 @@ export default function CreateSurvey() {
     }
   };
 
-  const { toast } = useToast();
+  const { mutate, isLoading } = useAddSurveyQuestion();
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log("Submitted data:", data);
-    toast({
-      title: "Success!",
-      variant: "success",
-      description: `Survery creation Successful`,
-      duration: 2000,
-    });
+    const questions = data.questions.map((question) => ({
+      ...question,
+      survey_id: state.survey_id,
+    }));
+
+    const payload = { questions };
+    mutate(payload);
   };
 
   return (
@@ -115,26 +117,30 @@ export default function CreateSurvey() {
                   <FormSelect
                     // @ts-ignore
                     register={register}
-                    name={`questions.${index}.answerType`}
+                    name={`questions.${index}.response_type`}
                     placeholder="Answer Type"
                     isWhite
                     required
                     errorMessage={
-                      errors?.questions?.[index]?.answerType?.message
+                      errors?.questions?.[index]?.response_type?.message
                     }
-                    onValueChange={(e: "Text" | "Option") =>
+                    onValueChange={(e: SurveyQuestionType) =>
                       handleAnswerTypeChange(index, e)
                     }
                   >
-                    <SelectItem value="Text">Text</SelectItem>
-                    <SelectItem value="Option">Option</SelectItem>
+                    <SelectItem value="text">Text</SelectItem>
+                    <SelectItem value="single_choice">Single Choice</SelectItem>
+                    <SelectItem value="multiple_choice">
+                      Multiple Choice
+                    </SelectItem>
                   </FormSelect>
                 </div>
               </div>
 
-              {question.answerType === "Option" && (
-                <div className="flex gap-4 ">
-                  {question.options?.map((option, optionIndex) => (
+              {(question.response_type === "single_choice" ||
+                question.response_type === "multiple_choice") && (
+                <div className="flex flex-wrap gap-4 ">
+                  {question.options?.map((_, optionIndex) => (
                     <div key={optionIndex} className="mb-2">
                       <FormInput
                         // @ts-ignore
@@ -174,14 +180,16 @@ export default function CreateSurvey() {
             </Button>
           </div>
           <div className="flex items-center justify-end gap-4 ">
-            <Button
+            {/* <Button
               variant="outline-primary"
               className="w-[175px]"
               type="button"
             >
               Save to draft
+            </Button> */}
+            <Button isLoading={isLoading} className="w-[175px]">
+              Publish
             </Button>
-            <Button className="w-[175px]">Publish</Button>
           </div>
         </form>
       </Form>

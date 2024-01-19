@@ -48,7 +48,7 @@ const FormComboboxTarget: React.FC<FormComboboxTargetProps> = ({
             {targets.map((target) => (
               <CommandItem
                 key={target.id}
-                value={target.id}
+                value={target.id.toString()}
                 onSelect={() => {
                   setOpen(false);
                   setTarget(target.id);

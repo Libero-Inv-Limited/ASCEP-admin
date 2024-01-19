@@ -1,6 +1,8 @@
-import { useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import axios from "axios";
 import baseUrl from "./baseUrl";
+import { useToast } from "@/components/ui/use-toast";
+import { useNavigate } from "react-router-dom";
 
 export const useGetResponseAnalytics = () => {
   return useQuery(
@@ -47,6 +49,26 @@ export const useGetSurveyInfo = (id: number | string) => {
     },
     {
       retry: false,
+    }
+  );
+};
+export const useGetSurveyResponse = ({
+  id,
+  page,
+}: GetReportCommentsQueryArgs) => {
+  return useQuery(
+    [id, page],
+    (): Promise<SurveyResponseResponse> => {
+      return axios
+        .get(
+          `${baseUrl}/survey/question-responses?question_id=${id}&page=${page}&perPage=2`
+        )
+        .then((res) => res.data.data);
+    },
+    {
+      retry: false,
+      enabled: false,
+      refetchOnWindowFocus: false,
     }
   );
 };
@@ -97,6 +119,51 @@ export const useGetReportCommentsResonponses = ({
     {
       retry: false,
       enabled: !!id,
+    }
+  );
+};
+
+export const useCreateSurvey = () => {
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+  return useMutation(
+    (values: CreateSurveyPayload) => {
+      return axios
+        .post(`${baseUrl}/survey/compose`, values)
+        .then((res) => res.data);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("surveys");
+        toast({
+          title: "Success",
+          description: "Survey created, add question",
+          variant: "success",
+        });
+      },
+    }
+  );
+};
+export const useAddSurveyQuestion = () => {
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  return useMutation(
+    (values: any) => {
+      return axios
+        .put(`${baseUrl}/survey/add-question`, values)
+        .then((res) => res.data);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("surveys");
+        navigate("/response");
+        toast({
+          title: "Success",
+          description: "Question Added. Survery Creation Complete",
+          variant: "success",
+        });
+      },
     }
   );
 };

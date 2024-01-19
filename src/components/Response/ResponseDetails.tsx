@@ -5,6 +5,7 @@ interface ResponseDetailsProps {
   description: string;
   sdgs: SDGObj[];
   locationMeta: string;
+  createdAt: number;
 }
 
 export default function ResponseDetails({
@@ -12,6 +13,7 @@ export default function ResponseDetails({
   description,
   sdgs,
   locationMeta,
+  createdAt,
 }: ResponseDetailsProps) {
   return (
     <div>
@@ -19,8 +21,10 @@ export default function ResponseDetails({
       <div className="flex items-center gap-1 text-sm">
         <Location color="black" size={14} />
         <p>{locationMeta}</p>
-        <p className="font-bold text-link">Posted by</p>
-        <p>David Olaniyi on Oct 28, 2023/</p>
+
+        <p className="font-medium text-link">
+          Posted on {new Date(createdAt).toDateString()}
+        </p>
       </div>
 
       <div className="my-5 font-medium text-dark">

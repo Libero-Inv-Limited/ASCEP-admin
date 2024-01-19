@@ -182,3 +182,40 @@ interface Author {
   profile_picture: string;
   id: number;
 }
+
+interface CreateSurveyPayload {
+  sdgs?: number[];
+  category: number;
+  location_meta: string | undefined;
+  latitude: number | undefined;
+  longitude: number | undefined;
+  title: string;
+  description: string;
+  start_date: string;
+  end_date: string;
+}
+
+type SurveyQuestionType = "text" | "single_choice" | "multiple_choice";
+
+interface SurveyResponseResponse {
+  responses: SurveyResponse[];
+  meta: MetaDataType;
+}
+
+interface SurveyResponse {
+  id: number;
+  question_id: number;
+  user_id: number;
+  response_text: string[];
+  updatedAt: string;
+  createdAt: string;
+  user: SurveyUser;
+}
+
+interface SurveyUser {
+  firstname: string;
+  lastname: string;
+  username: string;
+  profile_picture: string;
+  id: number;
+}

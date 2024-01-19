@@ -17,3 +17,24 @@ export function getPastDays(days: number) {
 
   return isoDate;
 }
+
+export interface SelectedOption {
+  alphabet: string;
+  option: string;
+}
+
+export function generateSelectedOptionsWithAlphabet(
+  options: string[],
+  selectedOptions: string[]
+): SelectedOption[] {
+  return selectedOptions.map((selected) => {
+    const index = options.indexOf(selected);
+    const alphabet =
+      index > -1 ? String.fromCharCode("A".charCodeAt(0) + index) : "";
+
+    return {
+      alphabet,
+      option: selected,
+    };
+  });
+}

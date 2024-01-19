@@ -34,14 +34,14 @@ const options: UserSettingsOptionObj[] = [
     title: "Permissions",
     subtitle: "Modify User’s permissions",
   },
-  {
-    title: "Posts",
-    subtitle: "See users posts",
-  },
-  {
-    title: "Device Log",
-    subtitle: "Devices used by Admin",
-  },
+  // {
+  //   title: "Posts",
+  //   subtitle: "See users posts",
+  // },
+  // {
+  //   title: "Device Log",
+  //   subtitle: "Devices used by Admin",
+  // },
   {
     title: "User’s Activity",
     subtitle: "Monitor admin’s activity",

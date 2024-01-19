@@ -15,7 +15,7 @@ export default function ActionCards() {
   const navigate = useNavigate();
   return (
     <div className="flex gap-5">
-      <ActionCard
+      {/* <ActionCard
         title="Import CSV file"
         icon={<Import />}
         onClick={onImportOpen}
@@ -24,7 +24,7 @@ export default function ActionCards() {
         title="Export CSV file"
         icon={<Export />}
         onClick={() => {}}
-      />
+      /> */}
       <ActionCard
         title="Create Survey"
         icon={<AddCircle />}
