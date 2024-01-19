@@ -49,6 +49,7 @@ export const useGetSurveyInfo = (id: number | string) => {
     },
     {
       retry: false,
+      refetchOnWindowFocus: false,
     }
   );
 };

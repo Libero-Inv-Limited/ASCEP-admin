@@ -27,10 +27,7 @@ export default function ViewSurveyPage() {
       },
     ]);
   }, [activeLink]);
-
   const { data, isLoading } = useGetSurveyInfo(surveyId!);
-
-  console.log(data);
 
   if (isLoading) return <PageLoader />;
 
