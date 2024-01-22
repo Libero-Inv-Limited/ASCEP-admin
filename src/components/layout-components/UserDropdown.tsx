@@ -12,6 +12,7 @@ import {
 } from "iconsax-react";
 import { IconWrapper } from "../custom";
 import { useAppContext } from "@/contexts/AppContext";
+import UserAvatar from "../custom/UserAvatar";
 
 export default function UserDropdown() {
   const { logout } = useAuthContext();
@@ -29,7 +30,7 @@ export default function UserDropdown() {
 
           {user && (
             <div className="flex items-center gap-3 cursor-pointer">
-              <img src="/images/profile-pic.png" className="w-10 h-10" alt="" />
+              <UserAvatar size={40} user={user} />
               <div>
                 <p className="text-sm font-bold">
                   {user?.firstname

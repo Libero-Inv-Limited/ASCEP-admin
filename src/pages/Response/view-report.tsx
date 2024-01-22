@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import {
   ResponseComment,
   ResponseDetails,
@@ -12,7 +13,6 @@ import { CustomPagination, EmptyState, PageLoader } from "@/components/custom";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function ViewReportPage() {
-  const { state } = useLocation();
   const { reportId } = useParams();
   const { setBreadcrumbs, activeLink } = useNavigationContext();
 
@@ -28,10 +28,10 @@ export default function ViewReportPage() {
       },
       {
         label: "report",
-        link: "/response/reports",
+        link: `/response/all-reports/`,
       },
     ]);
-  }, [activeLink]);
+  }, [activeLink, reportId]);
   const { data, isLoading } = useGetReportInfo(reportId!);
 
   const [page, setPage] = useState(1);
@@ -47,12 +47,14 @@ export default function ViewReportPage() {
         style={{ paddingBottom: 100 }}
       >
         <h3 className="text-2xl">View Response</h3>
-        {state.type === "Post" && <ResponseImageSelect />}
+        <ResponseImageSelect />
         <ResponseDetails
           description={data?.description}
           locationMeta={data?.location_meta}
           sdgs={data?.reportSDGs}
           title={data?.title}
+          // @ts-ignore
+          createdAt={data?.createdAt}
         />
 
         {/* Comments  */}
@@ -92,11 +94,11 @@ export default function ViewReportPage() {
           <Button className="px-6 h-[44px]">Approve post</Button>
         </div>
 
-        {state.status !== "pending" && (
+        {/* {state.status !== "pending" && (
           <Button className="fixed bottom-10 right-10 ">
             Download Response
           </Button>
-        )}
+        )} */}
       </div>
     );
   return <EmptyState height={"80vh"} />;

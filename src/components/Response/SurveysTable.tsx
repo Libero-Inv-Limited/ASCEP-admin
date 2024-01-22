@@ -14,7 +14,7 @@ export const columns: ColumnDef<SurveyData>[] = [
     header: "Date",
     cell: ({ row }) => {
       return (
-        <div className="capitalize">
+        <div className="flex-1 text-xs capitalize text-nowrap">
           {new Date(row.getValue("createdAt")).toDateString()}
         </div>
       );
@@ -24,7 +24,11 @@ export const columns: ColumnDef<SurveyData>[] = [
     accessorKey: "title",
     header: "Post Title",
     cell: ({ row }) => {
-      return <div className="capitalize">{row.getValue("title")}</div>;
+      return (
+        <div className="capitalize text-sm w-full max-w-[200px]">
+          {row.getValue("title")}
+        </div>
+      );
     },
   },
 
@@ -32,7 +36,11 @@ export const columns: ColumnDef<SurveyData>[] = [
     accessorKey: "reportCategory",
     header: "Category",
     cell: ({ row }) => {
-      return <div className="capitalize">{row.original.description}</div>;
+      return (
+        <div className="capitalize  text-sm line-clamp-1 w-full max-w-[280px]">
+          {row.original.description}
+        </div>
+      );
     },
   },
   {
@@ -40,8 +48,8 @@ export const columns: ColumnDef<SurveyData>[] = [
     header: "Start - End dates",
     cell: ({ row }) => {
       return (
-        <div className="flex items-center gap-3 ">
-          {new Date(row.original.start_date).toDateString()} -
+        <div className="flex text-xs items-center gap-3 w-[220px] ">
+          From {new Date(row.original.start_date).toDateString()} -
           {new Date(row.original.end_date).toDateString()}
         </div>
       );
@@ -53,7 +61,7 @@ export const columns: ColumnDef<SurveyData>[] = [
     header: "Location",
     cell: ({ row }) => {
       return (
-        <div className="capitalize max-w-[100px]">
+        <div className="capitalize max-w-[100px] text-sm">
           {row.original.location_meta}
         </div>
       );

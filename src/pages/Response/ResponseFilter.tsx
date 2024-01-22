@@ -1,4 +1,4 @@
-import { FilterDropdown } from "@/components/custom";
+// import { FilterDropdown } from "@/components/custom";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -21,24 +21,24 @@ export default function ResponseFilter() {
         align="end"
       >
         <div className="flex items-center gap-4 p-4 bg-white ">
-          <FilterDropdown title="Category" options={categories} />
+          {/* <FilterDropdown title="Category" options={categories} />
           <FilterDropdown title="Date range" options={dateRanges} />
-          <FilterDropdown title="Locations" options={locations} />
+          <FilterDropdown title="Locations" options={locations} /> */}
         </div>
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }
 
-const categories = [
-  "all",
-  "event",
-  "education",
-  "justice",
-  "violence",
-  "accident",
-  "build",
-];
-const dateRanges = ["this weeek", "this month", "this year", "3 years"];
+// const categories = [
+//   "all",
+//   "event",
+//   "education",
+//   "justice",
+//   "violence",
+//   "accident",
+//   "build",
+// ];
+// const dateRanges = ["this weeek", "this month", "this year", "3 years"];
 
-const locations = ["Everywhere", "Abuja", "Lagos", "Kano", "Port-Harcout"];
+// const locations = ["Everywhere", "Abuja", "Lagos", "Kano", "Port-Harcout"];

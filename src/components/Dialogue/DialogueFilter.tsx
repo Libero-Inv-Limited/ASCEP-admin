@@ -6,8 +6,54 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { BiFilterAlt } from "react-icons/bi";
 import { FilterDropdown } from "../custom";
+import { Dispatch } from "react";
+import { getPastDays } from "@/utils/helper";
 
-export default function DialogueFilter() {
+const dateRange: FilterOption[] = [
+  {
+    label: "All",
+    value: "",
+  },
+  {
+    label: "Today",
+    value: getPastDays(0),
+  },
+  {
+    label: "Past One Week",
+    value: getPastDays(7),
+  },
+  {
+    label: "Past One Month",
+    value: getPastDays(31),
+  },
+  {
+    label: "Past One Year",
+    value: getPastDays(366),
+  },
+];
+
+interface DialogueFilterProps {
+  dialogueFilter: GetFIORequestsPayload;
+  setDialogueFilter: Dispatch<React.SetStateAction<GetFIORequestsPayload>>;
+}
+
+export default function DialogueFilter({
+  dialogueFilter,
+  setDialogueFilter,
+}: DialogueFilterProps) {
+  const handleSetDateRange = (date: FilterOption) => {
+    setDialogueFilter({
+      ...dialogueFilter,
+      filter: {
+        ...dialogueFilter.filter,
+        datetimeRange: {
+          startDate: date.value.toString(),
+          endDate: getPastDays(0),
+        },
+      },
+    });
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -22,9 +68,13 @@ export default function DialogueFilter() {
         align="end"
       >
         <div className="flex items-center gap-4 p-4 bg-white ">
-          <FilterDropdown title="Authority" options={authorities} />
-          <FilterDropdown title="Date range" options={dateRanges} />
-          <FilterDropdown title="Visibility" options={visibility} />
+          {/* <FilterDropdown title="Authority" options={authorities} /> */}
+          <FilterDropdown
+            title="Date range"
+            options={dateRange}
+            onSelect={handleSetDateRange}
+          />
+          {/* <FilterDropdown title="Visibility" options={visibility} /> */}
         </div>
       </DropdownMenuContent>
     </DropdownMenu>
@@ -39,6 +89,7 @@ export const authorities = [
   "FRSC",
   "NDLEA",
 ];
-const dateRanges = ["this weeek", "this month", "this year", "3 years"];
 
-const visibility = ["All", "Public", "Private"];
+// const dateRanges = ["this weeek", "this month", "this year", "3 years"];
+
+// const visibility = ["All", "Public", "Private"];

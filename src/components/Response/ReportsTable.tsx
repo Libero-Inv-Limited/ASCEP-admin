@@ -9,6 +9,7 @@ import ResponseFilters from "./ResponseFilters";
 import { TableSkeleton } from "../custom";
 import { Link } from "react-router-dom";
 import ResponsePostActions from "./ResponsePostActions";
+import UserAvatar from "../custom/UserAvatar";
 
 export const columns: ColumnDef<ReportData>[] = [
   {
@@ -16,7 +17,7 @@ export const columns: ColumnDef<ReportData>[] = [
     header: "Date",
     cell: ({ row }) => {
       return (
-        <div className="capitalize">
+        <div className="flex-1 text-xs capitalize text-nowrap">
           {new Date(row.getValue("createdAt")).toDateString()}
         </div>
       );
@@ -26,14 +27,20 @@ export const columns: ColumnDef<ReportData>[] = [
     accessorKey: "title",
     header: "Post Title",
     cell: ({ row }) => {
-      return <div className="capitalize">{row.getValue("title")}</div>;
+      return (
+        <div className="capitalize text-sm w-full max-w-[200px]">
+          {row.getValue("title")}
+        </div>
+      );
     },
   },
   {
     accessorKey: "report_type",
     header: "Type",
     cell: ({ row }) => {
-      return <div className="capitalize">{row.getValue("report_type")}</div>;
+      return (
+        <div className="text-sm capitalize">{row.getValue("report_type")}</div>
+      );
     },
   },
   {
@@ -41,7 +48,7 @@ export const columns: ColumnDef<ReportData>[] = [
     header: "Category",
     cell: ({ row }) => {
       return (
-        <div className="capitalize">
+        <div className="text-sm capitalize">
           {row.original.reportCategory.categoryDetail.name}
         </div>
       );
@@ -54,12 +61,10 @@ export const columns: ColumnDef<ReportData>[] = [
       const user = row.original.reporter;
 
       return (
-        <div className="flex items-center gap-3 ">
-          <img
-            src={user.profile_picture || "/images/profile-large.png"}
-            className="object-cover w-8 rounded-full"
-            alt="profile-pic"
-          />
+        <div className="flex items-center gap-3 text-xs ">
+          <div className="flex-1">
+            <UserAvatar user={user} size={36} />
+          </div>
           <p>
             {user.firstname
               ? `${user.firstname} ${user.lastname}`
@@ -75,7 +80,7 @@ export const columns: ColumnDef<ReportData>[] = [
     header: "Location",
     cell: ({ row }) => {
       return (
-        <div className="capitalize max-w-[100px]">
+        <div className="capitalize text-sm max-w-[100px]">
           {row.original.location_meta}
         </div>
       );

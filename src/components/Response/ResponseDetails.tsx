@@ -27,7 +27,7 @@ export default function ResponseDetails({
         </p>
       </div>
 
-      <div className="my-5 font-medium text-dark">
+      <div className="my-5 leading-7 text-text">
         <p>{description}</p>
       </div>
 
