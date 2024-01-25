@@ -41,7 +41,7 @@ export default function StatusUpdate({ isOpen, onClose }: AssignRoleProps) {
         className="min-w-[700px]"
         style={{ borderRadius: 40, padding: 32 }}
       >
-        <h4 className="pb-3 border-b border-dark/10 ">Change Role</h4>
+        <h4 className="pb-3 border-b border-dark/10 ">Status Update</h4>
 
         <p className="text-subtle_text">
           Set the number of days before the status of every request is updated

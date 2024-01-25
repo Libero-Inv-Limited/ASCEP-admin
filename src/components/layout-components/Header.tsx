@@ -1,9 +1,12 @@
 import { Breadcrumb } from "../custom";
 import { useNavigationContext } from "@/contexts/NavigationContext";
 import UserDropdown from "./UserDropdown";
+import { useAppContext } from "@/contexts/AppContext";
 
 const Header = () => {
-  const { activeModule, breadcrumbs, activeLink } = useNavigationContext();
+  const { activeModule, breadcrumbs, activeLink, topBarComponents } =
+    useNavigationContext();
+  const { user } = useAppContext();
 
   return (
     <div className="sticky top-0 z-10 items-center justify-between hidden px-8 py-4 md:flex bg-light">
@@ -25,7 +28,10 @@ const Header = () => {
         </p>
       </div>
 
-      <UserDropdown />
+      <div className="flex items-center gap-6">
+        {user && topBarComponents}
+        <UserDropdown />
+      </div>
     </div>
   );
 };

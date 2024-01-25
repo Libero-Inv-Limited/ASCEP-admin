@@ -1,16 +1,16 @@
 import { Dialog, DialogContent } from "../ui/dialog";
-import FormSelect from "../Democracy/common/FormSelect";
 import { Form } from "../ui/form";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SelectItem } from "../ui/select";
-import { useToast } from "../ui/use-toast";
 import { Button } from "../ui/button";
-import { createAuthoritySchema } from "@/schemas/dialogueSchemas";
-import { SDGMultiSelect } from "../custom";
-import { useState } from "react";
-import { authorities } from "./DialogueFilter";
+import {
+  CreateAuthoritySchema,
+  createAuthoritySchema,
+} from "@/schemas/dialogueSchemas";
+import { FormInput } from "../custom";
+import FormTextArea from "../custom/FormTextArea";
+import { useCeateAuthority } from "@/api/dialogue";
+import { useEffect } from "react";
 
 interface AddAuthorityProps {
   isOpen: boolean;
@@ -18,9 +18,7 @@ interface AddAuthorityProps {
 }
 
 export default function AddAuthority({ isOpen, onClose }: AddAuthorityProps) {
-  const [selectedSDGs, setSelectedSDGs] = useState<SDGData[]>([]);
-
-  const form = useForm<z.infer<typeof createAuthoritySchema>>({
+  const form = useForm<CreateAuthoritySchema>({
     resolver: zodResolver(createAuthoritySchema),
   });
   const {
@@ -29,16 +27,14 @@ export default function AddAuthority({ isOpen, onClose }: AddAuthorityProps) {
     formState: { errors },
   } = form;
 
-  const { toast } = useToast();
+  const { mutate, isLoading, data } = useCeateAuthority();
 
-  const onSubmit = () => {
-    toast({
-      title: "Success!",
-      variant: "success",
-      description: `Authority Added`,
-      duration: 2000,
-    });
-    onClose();
+  useEffect(() => {
+    if (data) onClose();
+  }, [data]);
+
+  const onSubmit = (data: CreateAuthoritySchema) => {
+    mutate(data);
   };
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -51,34 +47,44 @@ export default function AddAuthority({ isOpen, onClose }: AddAuthorityProps) {
         <Form {...form}>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div className="flex items-center justify-between ">
-              <p className="text-subtle_text">Authority</p>
+              <p className="text-subtle_text">Title</p>
               <div className=" w-full max-w-[350px]">
-                <FormSelect
-                  name="authority"
+                <FormInput
+                  name="name"
+                  label="Title"
                   control={control}
-                  placeholder="Authority"
+                  placeholder="Enter title"
                   errors={errors}
-                >
-                  {authorities.map((authority) => (
-                    <SelectItem key={authority} value={authority}>
-                      {authority}
-                    </SelectItem>
-                  ))}
-                </FormSelect>
+                />
               </div>
             </div>
-            <div className="flex items-center justify-between ">
-              <p className="text-subtle_text">Link to SDG (Optional)</p>
+            <div className="flex items-start justify-between ">
+              <p className="text-subtle_text">Description</p>
               <div className=" w-full max-w-[350px]">
-                <SDGMultiSelect
-                  selected={selectedSDGs}
-                  setSelected={setSelectedSDGs}
+                <FormTextArea
+                  name="description"
+                  label="Description"
+                  control={control}
+                  placeholder="Enter description"
+                  errors={errors}
+                />
+              </div>
+            </div>
+            <div className="flex items-start justify-between ">
+              <p className="text-subtle_text">Contact Info</p>
+              <div className=" w-full max-w-[350px]">
+                <FormTextArea
+                  name="contact_info"
+                  label="Contact Info"
+                  control={control}
+                  placeholder="Enter contact info"
+                  errors={errors}
                 />
               </div>
             </div>
 
             <div className="flex justify-end">
-              <Button>Update Status</Button>
+              <Button isLoading={isLoading}>Update Status</Button>
             </div>
           </form>
         </Form>

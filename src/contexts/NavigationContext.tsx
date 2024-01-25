@@ -3,6 +3,8 @@ import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
 interface NavigationContextProps {
+  topBarComponents: ReactNode | null;
+  SetTopBarComponents: React.Dispatch<React.SetStateAction<ReactNode | null>>;
   openSidebar: boolean;
   setOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>;
   toggleSidebar: () => void;
@@ -42,6 +44,9 @@ const NavigationContextProvider = ({
   const toggleMobileNav = () => setOpenMobileNav(!openMobileNav);
   const [activeLink, setActiveLink] = useState<string>("");
   const [breadcrumbs, setBreadcrumbs] = useState<Breadcrumb[]>([]);
+  const [topBarComponents, SetTopBarComponents] = useState<ReactNode | null>(
+    null
+  );
 
   const location = useLocation();
   useEffect(() => {
@@ -65,6 +70,8 @@ const NavigationContextProvider = ({
         location,
         breadcrumbs,
         setBreadcrumbs,
+        topBarComponents,
+        SetTopBarComponents,
       }}
     >
       {children}

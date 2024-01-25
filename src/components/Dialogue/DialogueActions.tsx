@@ -34,7 +34,9 @@ export default function DialogueActions() {
       </div>
       {/* MODALS */}
       <StatusUpdate isOpen={isUpdateOpen} onClose={onUpdateClose} />
-      <AddAuthority isOpen={isAuthorityOpen} onClose={onAuthorityClose} />
+      {isAuthorityOpen && (
+        <AddAuthority isOpen={isAuthorityOpen} onClose={onAuthorityClose} />
+      )}
     </div>
   );
 }

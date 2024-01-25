@@ -16,20 +16,24 @@ import { useGetAllDialogueRequests } from "@/api/dialogue";
 import SearchDialogueRequests from "./SearchDialogueRequests";
 import { searchRequestSchema } from "@/schemas/dialogueSchemas";
 import { z } from "zod";
+import DialogueVisibilityTag from "./DialogueVisibilityTag";
+import DialogueStatusTag from "./DialogueStatusTag";
 
 export const columns: ColumnDef<FOIRequest>[] = [
   {
     accessorKey: "title",
     header: "Title",
     cell: ({ row }) => {
-      return <div className="capitalize">{row.original.title}</div>;
+      return <div className="text-xs capitalize">{row.original.title}</div>;
     },
   },
   {
     accessorKey: "author",
     header: "Author",
     cell: ({ row }) => {
-      return <div className="capitalize">{row.original.author.username}</div>;
+      return (
+        <div className="text-xs capitalize">{row.original.author.username}</div>
+      );
     },
   },
   {
@@ -37,7 +41,7 @@ export const columns: ColumnDef<FOIRequest>[] = [
     header: "Description",
     cell: ({ row }) => {
       return (
-        <div className="capitalize line-clamp-1 max-w-[140px]">
+        <div className="capitalize text-xs line-clamp-1 max-w-[140px]">
           {row.original.description}
         </div>
       );
@@ -48,14 +52,18 @@ export const columns: ColumnDef<FOIRequest>[] = [
     accessorKey: "authority",
     header: "Authority",
     cell: ({ row }) => {
-      return <div className="capitalize">{row.original.authority.name}</div>;
+      return (
+        <div className="text-xs capitalize">{row.original.authority.name}</div>
+      );
     },
   },
   {
     accessorKey: "authority",
     header: "Authority",
     cell: ({ row }) => {
-      return <div className="capitalize">{row.original.authority.name}</div>;
+      return (
+        <div className="text-xs capitalize">{row.original.authority.name}</div>
+      );
     },
   },
   {
@@ -63,7 +71,7 @@ export const columns: ColumnDef<FOIRequest>[] = [
     header: "Date",
     cell: ({ row }) => {
       return (
-        <div className="capitalize">
+        <div className="text-xs capitalize">
           {new Date(row.original.createdAt).toDateString()}
         </div>
       );
@@ -74,19 +82,7 @@ export const columns: ColumnDef<FOIRequest>[] = [
     header: "Status",
     cell: ({ row }) => {
       const status = row.original.status;
-      return (
-        <div
-          className={` rounded-[10px] text-xs font-semibold text-center w-fit px-2 py-[6px] capitalize ${
-            status === "fulfilled" || status === "closed"
-              ? "bg-[#27AE60]/10 text-[#27AE60]"
-              : status === "rejected"
-              ? "bg-[#E43F40]/10 text-[#E43F40]"
-              : "bg-[#F2994A]/10 text-[#F2994A]"
-          } `}
-        >
-          {row.original.status}
-        </div>
-      );
+      return <DialogueStatusTag status={status} />;
     },
   },
 
@@ -95,24 +91,15 @@ export const columns: ColumnDef<FOIRequest>[] = [
     header: "Visibility",
     cell: ({ row }) => {
       const visibility = row.original.public_identifier;
-      return (
-        <div
-          className={` rounded-[10px] text-xs font-semibold text-center w-fit px-2 py-[6px] capitalize ${
-            visibility === "public"
-              ? "bg-[#27AE60]/10 text-[#27AE60]"
-              : "bg-[#F2994A]/10 text-[#F2994A]"
-          } `}
-        >
-          {row.original.public_identifier}
-        </div>
-      );
+      return <DialogueVisibilityTag visibility={visibility} />;
     },
   },
 
   {
-    id: "actions",
+    accessorKey: "id",
     header: "Actions",
-    cell: () => {
+    cell: ({ row }) => {
+      const id = row.original.id;
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -123,7 +110,9 @@ export const columns: ColumnDef<FOIRequest>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent className="px-2" align="end">
             <DropdownMenuLabel>
-              <div className="table-menu">View Request</div>
+              <Link to={`/dialogue/view-request/${id}`} className="table-menu">
+                View Request
+              </Link>
             </DropdownMenuLabel>
             <DropdownMenuLabel>
               <div className="table-menu">Edit Request</div>
@@ -168,12 +157,15 @@ export default function DialogueRequests({
     mutateAsync({ page: page, perPage: 10, filter: filterOptions });
   }, [filterOptions]);
 
-  console.log(data);
-
   useEffect(() => {
     if (data?.foi_requests) {
-      const tableData = data?.foi_requests;
-      setTableData(tableData);
+      if (isSummary) {
+        const tableData = data.foi_requests.slice(0, 3);
+        setTableData(tableData);
+      } else {
+        const tableData = data?.foi_requests;
+        setTableData(tableData);
+      }
     }
   }, [data]);
   return (
@@ -197,11 +189,13 @@ export default function DialogueRequests({
       {data && (
         <div className="p-4 bg-white rounded-lg">
           <DataTable columns={columns} data={tableData} />
-          <CustomPagination
-            page={page}
-            paginationData={data?.meta}
-            setPage={setPage}
-          />
+          {!isSummary && (
+            <CustomPagination
+              page={page}
+              paginationData={data?.meta}
+              setPage={setPage}
+            />
+          )}
         </div>
       )}
     </div>

@@ -91,8 +91,6 @@ const SearchDialogueRequests: React.FC<SearchRequestProp> = ({
       })
     );
 
-    console.log(values);
-
     setFilterOptions((prevState) => ({
       ...prevState,
       ...getFiltersWithValues,
@@ -110,8 +108,6 @@ const SearchDialogueRequests: React.FC<SearchRequestProp> = ({
   const filterByButton = (value: string) => {
     setFilterOptions((options) => ({ ...options, status: value }));
   };
-
-  console.log(isLoading);
 
   return (
     <div className="space-y-11">

@@ -19,7 +19,12 @@ import {
 } from "./Response";
 import { ContactUs, LandingPage } from "./Landing";
 import { UserDetailsPage, UsersPage } from "./Users";
-import { AuthoritiesPage, DialoguePage, ViewAllRequestsPage } from "./Dialogue";
+import {
+  AuthoritiesPage,
+  DialoguePage,
+  ViewAllRequestsPage,
+  ViewRequestPage,
+} from "./Dialogue";
 import { Navigate } from "react-router-dom";
 import ViewReportPage from "./Response/view-report";
 import ViewSurveyPage from "./Response/view-survey";
@@ -56,6 +61,11 @@ const routes: RouterType[] = [
   {
     path: "/dialogue/view-all",
     element: <ViewAllRequestsPage />,
+    title: "view-all",
+  },
+  {
+    path: "/dialogue/view-request/:requestId",
+    element: <ViewRequestPage />,
     title: "view-all",
   },
   {

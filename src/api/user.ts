@@ -4,12 +4,12 @@ import baseUrl from "./baseUrl";
 import { useToast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
 
-export const useGetUsersAnalytics = (page: number) => {
+export const useGetUsersAnalytics = (page: number, perPage?: number) => {
   return useQuery(
-    ["users-analytics", page],
+    ["users-analytics", page, perPage],
     (): Promise<UsersData> =>
       axios
-        .get(`${baseUrl}/user/analytics?page=${page}`)
+        .get(`${baseUrl}/user/analytics?page=${page}&perPage=${perPage || 10}`)
         .then((res) => res.data.data)
   );
 };

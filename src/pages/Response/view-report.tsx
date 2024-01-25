@@ -5,7 +5,7 @@ import {
   ResponseImageSelect,
 } from "@/components/Response";
 import { Button } from "@/components/ui/button";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useNavigationContext } from "@/contexts/NavigationContext";
 import { useEffect, useState } from "react";
 import { useGetReportComments, useGetReportInfo } from "@/api/response";
@@ -27,8 +27,8 @@ export default function ViewReportPage() {
         link: "/response",
       },
       {
-        label: "report",
-        link: `/response/all-reports/`,
+        label: `Report - ${reportId}`,
+        link: `/response/reports/${reportId}`,
       },
     ]);
   }, [activeLink, reportId]);

@@ -4,7 +4,9 @@ export const statusUpdateSchema = z.object({
   update: z.string({ required_error: "Current Role is required" }),
 });
 export const createAuthoritySchema = z.object({
-  authority: z.string({ required_error: "Authority  is required" }),
+  name: z.string({ required_error: "Title  is required" }),
+  description: z.string({ required_error: "Description  is required" }),
+  contact_info: z.string({ required_error: "Contact info  is required" }),
 });
 
 export const searchRequestSchema = z.object({
@@ -55,3 +57,4 @@ export const getFioRequestsSchema = z.object({
 });
 
 export type GetFIORequestsFilters = z.infer<typeof getFioRequestsSchema>;
+export type CreateAuthoritySchema = z.infer<typeof createAuthoritySchema>;

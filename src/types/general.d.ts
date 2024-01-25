@@ -15,7 +15,7 @@ interface SdgTarget {
 }
 
 interface SelectOption {
-  value: string;
+  value: string | number;
   label: string;
 }
 
@@ -74,4 +74,10 @@ interface WardsType {
   lga: string;
   ward: string;
   ward_code: string;
+}
+
+interface PaginationWithId {
+  page: number;
+  perPage?: number;
+  id: string | number;
 }

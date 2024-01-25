@@ -20,3 +20,4 @@ export { default as EmptyState } from "./EmptyState";
 export { default as ConfirmAction } from "./ConfirmAction";
 export { default as FormCalendar } from "./FormCalendar";
 export { default as SelectLocation } from "./SelectLocation";
+export { default as SearchSelect } from "./SearchSelect";
