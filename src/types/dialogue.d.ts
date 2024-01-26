@@ -8,6 +8,8 @@ type DialogueStatus =
 
 type DiablogueVisibility = "public" | "private";
 
+type FIORequestAction = "publish" | "decline" | "set_to_public" | "close";
+
 interface Authorities {
   id: string;
   title: string;
@@ -30,7 +32,7 @@ interface FOIRequest {
   request_date: any;
   status: DialogueStatus;
 
-  public_identifier: DialogueVisibility;
+  public_identifier: DiablogueVisibility;
   updatedAt: string;
   createdAt: string;
   shareable_id: string;
@@ -102,4 +104,9 @@ interface ResponseUser {
   profile_picture: string;
   username: string;
   id: number;
+}
+
+interface UpdateDialogueRequestStatusPayload {
+  action: FIORequestAction;
+  request_id: number;
 }

@@ -11,7 +11,6 @@ import { useToast } from "@/components/ui/use-toast";
 // GET ALL REQUESTS
 export const useGetAllDialogueRequests = () => {
   return useMutation(
-    ["get-requests"],
     (
       values: z.infer<typeof getFioRequestsSchema>
     ): Promise<FOIRequestsResponse> => {
@@ -98,6 +97,27 @@ export const useAddModerator = () => {
           title: "Success!",
           variant: "success",
           description: `Moderator Added`,
+          duration: 2000,
+        });
+      },
+    }
+  );
+};
+export const useUpdateRequstStatus = () => {
+  const { toast } = useToast();
+
+  return useMutation(
+    (values: UpdateDialogueRequestStatusPayload) => {
+      return axios
+        .put(`${baseUrl}/dialogue/update-request-status`, values)
+        .then((res) => res.data);
+    },
+    {
+      onSuccess: () => {
+        toast({
+          title: "Success!",
+          variant: "success",
+          description: `Status updated`,
           duration: 2000,
         });
       },
