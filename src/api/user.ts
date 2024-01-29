@@ -22,7 +22,7 @@ export const useGetUserInfo = (id: string) => {
   );
 };
 
-interface useGetSpecificUserAnalyticsProps {
+export interface useGetSpecificUserAnalyticsProps {
   id: string;
   page: number;
 }

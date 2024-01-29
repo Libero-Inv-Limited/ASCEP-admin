@@ -28,8 +28,9 @@ export default function DemocracyPage() {
       <DemocracyStats />
       <DemocracyActions />
       <DemocracySDG />
-      <DemocracyDebateCategories />
-
+      <div>
+        <DemocracyDebateCategories />
+      </div>
       <DemocracyTableSection />
     </div>
   );

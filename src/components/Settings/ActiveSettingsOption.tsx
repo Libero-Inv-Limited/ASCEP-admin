@@ -1,4 +1,3 @@
-import { UserProfile } from ".";
 import { useSettingsContext } from "@/providers/SettingsProvider";
 import ChangePassword from "./ChangePassword";
 import EditProfile from "./EditProfile";
@@ -8,6 +7,7 @@ import Activities from "./Activities";
 import { useGetUserProfile } from "@/api/auth";
 import RolesSteps from "./Roles/RolesSteps";
 import { Button } from "../ui/button";
+import UserProfile from "./UserProfile";
 
 export default function ActiveSettingsOption() {
   const { activeOption, actionButton } = useSettingsContext();

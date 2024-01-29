@@ -80,8 +80,6 @@ export default function UserActivities() {
     page,
   });
 
-  console.log(data?.activities);
-
   useEffect(() => {
     if (data) {
       setTableData(data?.activities);
@@ -109,48 +107,3 @@ export default function UserActivities() {
     </div>
   );
 }
-
-// async function getData(): Promise<Payment[]> {
-//   return [
-//     {
-//       id: "728ed52f",
-//       deviceType: "Mobile",
-//       device: "iPhone 13 Pro",
-//       date: "Jan 1st, 2022",
-//       time: "12:55 AM",
-//       action: "User login",
-//     },
-//     {
-//       id: "123ub8u1",
-//       deviceType: "PC",
-//       device: "Apple Mac",
-//       date: "Jan 1st, 2022",
-//       time: "12:55 AM",
-//       action: "User logout",
-//     },
-//     {
-//       id: "nw901",
-//       deviceType: "Mobile",
-//       device: "iPhone 13 Pro",
-//       date: "Jan 1st, 2022",
-//       time: "12:55 AM",
-//       action: "User login",
-//     },
-//     {
-//       id: "12dcu1",
-//       deviceType: "PC",
-//       device: "Apple Mac",
-//       date: "Jan 1st, 2022",
-//       time: "12:55 AM",
-//       action: "User logout",
-//     },
-//     {
-//       id: "xn180h2",
-//       deviceType: "Mobile",
-//       device: "iPhone 13 Pro",
-//       date: "Jan 1st, 2022",
-//       time: "12:55 AM",
-//       action: "User login",
-//     },
-//   ];
-// }

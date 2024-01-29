@@ -8,6 +8,7 @@ import { useAuthContext } from "@/providers/AuthProvider";
 import { useToast } from "@/components/ui/use-toast";
 import { useForgotPasswordContext } from "@/providers/ForgotPasswordProvider";
 import { useSettingsContext } from "@/providers/SettingsProvider";
+import { useGetSpecificUserAnalyticsProps } from "./user";
 
 export const useRegister = () => {
   const navigate = useNavigate();
@@ -33,6 +34,7 @@ export const useRegister = () => {
 export const useLogin = () => {
   const { login } = useAuthContext();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   return useMutation(
     (values: z.infer<typeof loginSchema>) => {
@@ -51,7 +53,10 @@ export const useLogin = () => {
           navigate("/auth/2fa-login", {
             state: res.data,
           });
-        } else login(res.data);
+        } else {
+          queryClient.invalidateQueries("user-profile");
+          login(res.data);
+        }
       },
     }
   );
@@ -329,5 +334,18 @@ export const useLogin2fa = () => {
         login(res.data);
       },
     }
+  );
+};
+
+export const useGetMyActivities = ({
+  id,
+  page,
+}: useGetSpecificUserAnalyticsProps) => {
+  return useQuery(
+    ["my-activities", id, page],
+    (): Promise<UserActivitiesResponse> =>
+      axios
+        .get(`${baseUrl}/user/activities?type=user&page=${page}&perPage=10`)
+        .then((res) => res.data.data)
   );
 };

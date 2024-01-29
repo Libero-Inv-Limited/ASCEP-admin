@@ -49,6 +49,8 @@ export default function AppProvider({ children }: PropsWithChildren) {
   const [user, setUser] = useState<UserData | null>(null);
 
   const { data, isLoading: fetchingUser } = useGetUserProfile();
+
+  
   useEffect(() => {
     if (data) setUser(data);
   }, [data]);
