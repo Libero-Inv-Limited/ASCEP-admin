@@ -60,8 +60,6 @@ export default function DialogueRequestActions({
     onOpen();
   };
 
-  console.log(data);
-
   useEffect(() => {
     if (data) onClose();
   }, [data]);

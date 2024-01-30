@@ -23,7 +23,6 @@ export default function Testimonials() {
     }
   };
 
-  console.log(activeIndex);
   return (
     <div
       className="grid grid-cols-11 py-20"

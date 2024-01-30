@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import FormTextArea from "../custom/FormTextArea";
 import { useCreateSurvey } from "@/api/response";
 import FormSelectCategory from "../Democracy/common/FormSelectCategories";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface CreateSurveyProps {
   next: () => void;
@@ -36,9 +36,7 @@ export default function CreateSurvey({ next }: CreateSurveyProps) {
 
   const { mutate, isLoading, data } = useCreateSurvey();
 
-  const { state } = useLocation();
-
-  console.log(state);
+  // const { state } = useLocation();
 
   useEffect(() => {
     if (data && data.status === "success") {

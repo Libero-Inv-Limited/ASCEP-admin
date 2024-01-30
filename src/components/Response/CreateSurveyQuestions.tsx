@@ -44,7 +44,6 @@ export default function CreateSurvey() {
   const questions = watch("questions");
 
   const handleAddOption = (index: number) => {
-    // console.log(index);
     setValue(`questions.${index}.options`, [
       ...(questions[index]?.options || []),
       "",

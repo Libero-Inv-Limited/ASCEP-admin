@@ -26,9 +26,8 @@ export default function NewApi({ setActiveIntegrationStep }: NewApiProps) {
 
   const onSubmit = (data: NewApiSchema) => {
     console.log(data);
+    console.log(setActiveIntegrationStep);
   };
-
-  console.log(setActiveIntegrationStep);
 
   return (
     <Form {...form}>

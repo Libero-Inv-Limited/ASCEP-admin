@@ -81,8 +81,6 @@ export default function Activities() {
     id: user!.id.toString(),
   });
 
-  console.log(data);
-
   useEffect(() => {
     if (data?.activities) {
       setTableData(data?.activities);
