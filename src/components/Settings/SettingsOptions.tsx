@@ -61,4 +61,12 @@ const options: SettingsOptionObj[] = [
     title: "Activities",
     subtitle: "Monitor activities along medules",
   },
+  {
+    title: "API Integration",
+    subtitle: "List of working Apis",
+  },
+  {
+    title: "System Configurations",
+    subtitle: "Monitor activities along modules",
+  },
 ];

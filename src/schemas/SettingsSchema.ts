@@ -73,12 +73,26 @@ export const createRoleSchema = z.object({
   name: z.string({ required_error: "Title is required" }).min(3, {
     message: "Title must be at least 3 characters.",
   }),
-  description: z
-    .string({ required_error: "Description is required is required" })
-    .min(3, {
-      message: "Description is required must be at least 3 characters.",
-    }),
+  description: z.string({ required_error: "Description is required" }).min(3, {
+    message: "Description must be at least 3 characters.",
+  }),
   type: z.string({ required_error: "Type is required" }).min(0, {
     message: "Type is required",
   }),
+});
+
+export const newApiSchema = z.object({
+  title: z.string({ required_error: "Title is required" }).min(1, {
+    message: "Title is required.",
+  }),
+  link: z.string({ required_error: "API Link is required" }).min(1, {
+    message: "API Link is required.",
+  }),
+});
+
+export const updateConfigSchema = z.object({
+  config_value: z.union([
+    z.string({ required_error: "Value is required" }),
+    z.boolean({ required_error: "Value is required" }),
+  ]),
 });

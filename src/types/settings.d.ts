@@ -8,9 +8,13 @@ type SettingsOption =
   | "Verify 2FA OTP"
   | "Activities"
   | "Edit Profile"
-  | "Roles & Permissions";
+  | "Roles & Permissions"
+  | "API Integration"
+  | "System Configurations";
 
 type RolesOption = "Roles" | "Update Role" | "New Role";
+
+type APIIntegrationOption = "API Integration" | "New API";
 
 interface ActionButton {
   text: string;
@@ -106,4 +110,24 @@ interface RolePermission {
   role_id: number;
   permission_id: number;
   permission: Permission;
+}
+
+// API Integrations
+
+// SYSTEM CONFIGURATIONS
+
+interface SystemConfigItem {
+  id: number;
+  config_key: string;
+  config_value: string;
+  modified_by: any;
+  updated_at: string;
+  created_at: string;
+  slug: string;
+  input_field: string;
+}
+
+interface UpdateSystemConfigPayload {
+  slug: string;
+  config_value: string;
 }
