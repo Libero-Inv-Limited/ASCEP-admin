@@ -202,7 +202,7 @@ interface SurveyResponseResponse {
   meta: MetaDataType;
 }
 
-interface SurveyResponse {
+interface SurveyResponseItem {
   id: number;
   question_id: number;
   user_id: number;

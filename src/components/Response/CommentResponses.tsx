@@ -1,6 +1,6 @@
 import { useGetReportCommentsResonponses } from "@/api/response";
 import React, { useEffect, useState } from "react";
-import { ResponseComment } from ".";
+import ResponseComment from "./ResponseComment";
 import {
   Accordion,
   AccordionContent,

@@ -27,7 +27,11 @@ export default function ViewSurveyPage() {
       },
     ]);
   }, [activeLink]);
-  const { data, isLoading } = useGetSurveyInfo(surveyId!);
+  const { data, isLoading, remove } = useGetSurveyInfo(surveyId!);
+
+  useEffect(() => {
+    return () => remove();
+  }, []);
 
   if (isLoading) return <PageLoader />;
 

@@ -5,11 +5,11 @@ import {
 import { useEffect, useState } from "react";
 
 interface SurveyResponseProps {
-  response: SurveyResponse;
+  response: SurveyResponseItem;
   options: string[] | undefined;
 }
 
-export default function SurveryResponse({
+export default function SurveyResponse({
   response,
   options,
 }: SurveyResponseProps) {

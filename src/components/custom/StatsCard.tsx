@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { IconWrapper } from ".";
+import IconWrapper from "./IconWrapper";
 
 interface StatsCardProps {
   icon: ReactNode;

@@ -13,3 +13,4 @@ export { default as StepIndicator } from "./StepIndicator";
 export { default as ReportsTable } from "./ReportsTable";
 export { default as SurveysTable } from "./SurveysTable";
 export { default as SurveyResponse } from "./SurveyResponse";
+export { default as SurveyResponseTable } from "./SurveyResponseTable";
