@@ -1,15 +1,15 @@
 import { ActionCard } from "@/components/custom";
-import StatusUpdate from "./StatusUpdate";
+// import StatusUpdate from "./StatusUpdate";
 import AddAuthority from "./AddAuthority";
 import useDisclosure from "@/hooks/useDisclosure";
-import { AddCircle, Timer } from "iconsax-react";
+import { AddCircle } from "iconsax-react";
 
 export default function DialogueActions() {
-  const {
-    isOpen: isUpdateOpen,
-    onClose: onUpdateClose,
-    onOpen: onUpdateOpen,
-  } = useDisclosure();
+  // const {
+  //   isOpen: isUpdateOpen,
+  //   onClose: onUpdateClose,
+  //   onOpen: onUpdateOpen,
+  // } = useDisclosure();
   const {
     isOpen: isAuthorityOpen,
     onClose: onAuthorityClose,
@@ -20,12 +20,12 @@ export default function DialogueActions() {
     <div>
       <p className="mb-4 text-lg text-subtle_text">Actions</p>
       <div className="flex gap-4">
-        <ActionCard
+        {/* <ActionCard
           icon={<Timer />}
           onClick={onUpdateOpen}
           title="3days"
           subtitle="Status Update"
-        />
+        /> */}
         <ActionCard
           icon={<AddCircle />}
           onClick={onAuthorityOpen}
@@ -33,7 +33,7 @@ export default function DialogueActions() {
         />
       </div>
       {/* MODALS */}
-      <StatusUpdate isOpen={isUpdateOpen} onClose={onUpdateClose} />
+      {/* <StatusUpdate isOpen={isUpdateOpen} onClose={onUpdateClose} /> */}
       {isAuthorityOpen && (
         <AddAuthority isOpen={isAuthorityOpen} onClose={onAuthorityClose} />
       )}

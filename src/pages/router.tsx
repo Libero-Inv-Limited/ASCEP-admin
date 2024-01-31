@@ -10,6 +10,7 @@ import { AuthPagesLayout, MainLayout, ResponseLayout } from "@/layouts";
 import config from "@/utils/config";
 import { useToast } from "@/components/ui/use-toast";
 import useAutoLogout from "@/hooks/useAuthoLogout";
+import { useAuthContext } from "@/providers/AuthProvider";
 
 const Router = () => {
   const pageRoutes = routes.map(({ path, title, element }: RouterType) => {
@@ -35,6 +36,7 @@ const Router = () => {
   );
 
   const { toast } = useToast();
+  const { logout } = useAuthContext();
 
   useAutoLogout();
 
@@ -58,6 +60,7 @@ const Router = () => {
       if (error.response) {
         if (error?.response?.status === 401) {
           // SIGNOUT LOGIC
+          logout();
         } else {
           if (error?.response?.status === 500) {
             toast({
