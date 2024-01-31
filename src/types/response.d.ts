@@ -219,3 +219,17 @@ interface SurveyUser {
   profile_picture: string;
   id: number;
 }
+
+interface CategoryModeratorType {
+  id: number;
+  user_id: number;
+  category_id: number;
+  user: ModeratorUser;
+}
+
+interface ModeratorUser {
+  firstname: string;
+  lastname: string;
+  profile_picture: any;
+  id: number;
+}

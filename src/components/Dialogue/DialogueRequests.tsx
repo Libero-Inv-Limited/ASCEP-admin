@@ -169,7 +169,7 @@ export default function DialogueRequests({
         <p className="text-lg text-subtle_text">Requests</p>
         <div className="flex items-center gap-3 ml-auto">
           {isSummary && (
-            <Link to="/dialogue/view-all">
+            <Link to="/dialogue/requests">
               <p className="underline text-dark">See all</p>
             </Link>
           )}

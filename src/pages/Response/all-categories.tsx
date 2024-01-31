@@ -17,7 +17,7 @@ export default function AllCategoriesPage() {
       },
       {
         label: "all categories",
-        link: "/response/all-categories",
+        link: "/response/categories",
       },
     ]);
   }, [activeLink]);

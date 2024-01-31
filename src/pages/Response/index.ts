@@ -6,3 +6,4 @@ export { default as AllReports } from "./all-reports";
 export { default as AllSurveys } from "./all-surveys";
 export { default as CreateSurveyPage } from "./create-survey";
 export { default as AllCategoriesPage } from "./all-categories";
+export { default as ViewCategoryPage } from "./view-category";

@@ -20,7 +20,7 @@ export default function ResponseCategories() {
           <Button onClick={onOpen} variant="primary" size="xs">
             + Create Category
           </Button>
-          <Link to="/response/all-categories" className="underline text-dark">
+          <Link to="/response/categories" className="underline text-dark">
             See all
           </Link>
         </div>

@@ -1,5 +1,5 @@
 import {
-  AddModerator,
+  AddDialogueModerator,
   DialogueRequestInfo,
   DialogueRequestResponses,
 } from "@/components/Dialogue";
@@ -13,9 +13,9 @@ export default function ViewRequestPage() {
   const { requestId } = useParams();
 
   useEffect(() => {
-    setActiveLink(`/dialogue/view-request/${requestId}`);
+    setActiveLink(`/dialogue/requests/${requestId}`);
 
-    SetTopBarComponents(<AddModerator />);
+    SetTopBarComponents(<AddDialogueModerator />);
 
     return () => SetTopBarComponents(null);
   }, [requestId]);
@@ -31,8 +31,8 @@ export default function ViewRequestPage() {
         link: "/dialogue",
       },
       {
-        label: `view Request - ${requestId}`,
-        link: `/dialogue/view-request/${requestId}`,
+        label: `Request - ${requestId}`,
+        link: `/dialogue/requests/${requestId}`,
       },
     ]);
   }, [activeLink]);

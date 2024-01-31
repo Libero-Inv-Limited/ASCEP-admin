@@ -17,7 +17,7 @@ export default function AllReports() {
       },
       {
         label: "All Reports",
-        link: "/response/all-reports",
+        link: "/response/reports",
       },
     ]);
   }, [activeLink]);

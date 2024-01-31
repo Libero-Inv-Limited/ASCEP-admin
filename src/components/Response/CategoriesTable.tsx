@@ -3,8 +3,7 @@ import { EmptyState, TableSkeleton } from "../custom";
 import { DataTable } from "../custom/DataTable";
 import { useGetAllCategories } from "@/api/category";
 import { ColumnDef } from "@tanstack/react-table";
-import { Trash2Icon } from "lucide-react";
-import DeleteCategory from "./DeleteCategory";
+import CategoryDropdownMenu from "./CategoryDropdownMenu";
 
 export const columns: ColumnDef<CollectionData>[] = [
   {
@@ -40,14 +39,7 @@ export const columns: ColumnDef<CollectionData>[] = [
     accessorKey: "id",
     header: "Actions",
     cell: ({ row }) => {
-      return (
-        <DeleteCategory
-          trigger={
-            <Trash2Icon size={16} className="text-red-500 cursor-pointer " />
-          }
-          categoryid={row.original.id}
-        />
-      );
+      return <CategoryDropdownMenu category={row.original} />;
     },
   },
 ];

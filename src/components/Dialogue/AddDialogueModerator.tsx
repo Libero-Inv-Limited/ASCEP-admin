@@ -7,9 +7,9 @@ import { useGetUsersAnalytics } from "@/api/user";
 import { useEffect, useState } from "react";
 import UserAvatar from "../custom/UserAvatar";
 import { useGetAllAuthorities } from "@/api/authorities";
-import { useAddModerator } from "@/api/dialogue";
+import { useAddDialogueModerator } from "@/api/dialogue";
 
-export default function AddModerator() {
+export default function AddDialogueModerator() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [users, setUsers] = useState<SelectOption[]>([]);
   const [authorities, setAuthorities] = useState<SelectOption[]>([]);
@@ -51,7 +51,11 @@ export default function AddModerator() {
     if (selectedUser?.length) setSelectedUser(selectedUser[0]);
   };
 
-  const { mutate, isLoading: creating, data: successResp } = useAddModerator();
+  const {
+    mutate,
+    isLoading: creating,
+    data: successResp,
+  } = useAddDialogueModerator();
 
   useEffect(() => {
     if (successResp) onClose();

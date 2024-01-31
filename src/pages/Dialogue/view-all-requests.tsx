@@ -16,8 +16,8 @@ export default function ViewAllRequestsPage() {
         link: "/dialogue",
       },
       {
-        label: "view all",
-        link: "/dialogue/view-all",
+        label: "Requests",
+        link: "/dialogue/requests",
       },
     ]);
   }, [activeLink]);

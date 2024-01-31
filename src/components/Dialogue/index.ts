@@ -5,4 +5,4 @@ export { default as DialogueFilter } from "./DialogueFilter";
 export { default as DialogueAnalytics } from "./DialogueAnalytics";
 export { default as DialogueRequestInfo } from "./DialogueRequestInfo";
 export { default as DialogueRequestResponses } from "./DialogueRequestResponses";
-export { default as AddModerator } from "./AddModerator";
+export { default as AddDialogueModerator } from "./AddDialogueModerator";

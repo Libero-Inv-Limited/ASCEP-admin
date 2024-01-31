@@ -80,7 +80,7 @@ export const useCeateAuthority = () => {
   );
 };
 
-export const useAddModerator = () => {
+export const useAddDialogueModerator = () => {
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
@@ -103,6 +103,7 @@ export const useAddModerator = () => {
     }
   );
 };
+
 export const useUpdateRequstStatus = () => {
   const { toast } = useToast();
 

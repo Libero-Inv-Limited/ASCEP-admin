@@ -7,6 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import DeleteCategory from "./DeleteCategory";
+import { Link } from "react-router-dom";
 
 export default function CategoryDropdownMenu({
   category,
@@ -27,7 +28,9 @@ export default function CategoryDropdownMenu({
           align="end"
         >
           <DropdownMenuLabel>
-            <p>View Category</p>
+            <Link to={`/response/categories/${category.id}`}>
+              View Category
+            </Link>
           </DropdownMenuLabel>
           {/* <DropdownMenuLabel>
             <p>Edit Category</p>

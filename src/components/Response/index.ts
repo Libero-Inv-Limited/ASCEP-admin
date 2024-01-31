@@ -15,3 +15,5 @@ export { default as SurveysTable } from "./SurveysTable";
 export { default as SurveyResponse } from "./SurveyResponse";
 export { default as SurveyResponseTable } from "./SurveyResponseTable";
 export { default as CategoriesTable } from "./CategoriesTable";
+export { default as AddCategoryModerator } from "./AddCategoryModerator";
+export { default as CategoryModeratorTable } from "./CategoryModeratorTable";

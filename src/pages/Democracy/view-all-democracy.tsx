@@ -18,7 +18,7 @@ export default function ViewAllDemocracyPage() {
       },
       {
         label: "view all",
-        link: "/democracy/view-all",
+        link: "/democracy/requests",
       },
     ]);
   }, [activeLink]);

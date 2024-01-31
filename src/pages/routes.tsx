@@ -17,6 +17,7 @@ import {
   DataView,
   MapView,
   ResponsePage,
+  ViewCategoryPage,
 } from "./Response";
 import { ContactUs, LandingPage } from "./Landing";
 import { UserDetailsPage, UsersPage } from "./Users";
@@ -60,12 +61,12 @@ const routes: RouterType[] = [
     title: "dialoge",
   },
   {
-    path: "/dialogue/view-all",
+    path: "/dialogue/requests",
     element: <ViewAllRequestsPage />,
     title: "view-all",
   },
   {
-    path: "/dialogue/view-request/:requestId",
+    path: "/dialogue/requests/:requestId",
     element: <ViewRequestPage />,
     title: "view-all",
   },
@@ -91,7 +92,7 @@ const routes: RouterType[] = [
     title: "response",
   },
   {
-    path: "/response/all-reports",
+    path: "/response/reports",
     element: <AllReports />,
     title: "all-reports",
   },
@@ -117,9 +118,14 @@ const routes: RouterType[] = [
   },
 
   {
-    path: "/response/all-categories",
+    path: "/response/categories",
     element: <AllCategoriesPage />,
     title: "all-categories",
+  },
+  {
+    path: "/response/categories/:categoryId",
+    element: <ViewCategoryPage />,
+    title: "view-category",
   },
 
   {

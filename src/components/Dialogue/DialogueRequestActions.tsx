@@ -79,7 +79,7 @@ export default function DialogueRequestActions({
         </DropdownMenuTrigger>
         <DropdownMenuContent className="px-2" align="end">
           <DropdownMenuLabel>
-            <Link to={`/dialogue/view-request/${id}`} className="table-menu">
+            <Link to={`/dialogue/requests/${id}`} className="table-menu">
               View Request
             </Link>
           </DropdownMenuLabel>

@@ -155,7 +155,7 @@ export default function ReportsTable({ isSummary }: { isSummary?: boolean }) {
           </GroupedFiltersButton>
 
           {isSummary && (
-            <Link to="/response/all-reports" className="underline">
+            <Link to="/response/reports" className="underline">
               See All
             </Link>
           )}
