@@ -3,6 +3,8 @@ import { EmptyState, TableSkeleton } from "../custom";
 import { DataTable } from "../custom/DataTable";
 import { useGetAllCategories } from "@/api/category";
 import { ColumnDef } from "@tanstack/react-table";
+import { Trash2Icon } from "lucide-react";
+import DeleteCategory from "./DeleteCategory";
 
 export const columns: ColumnDef<CollectionData>[] = [
   {
@@ -34,47 +36,20 @@ export const columns: ColumnDef<CollectionData>[] = [
     },
   },
 
-  //   {
-  //     accessorKey: "id",
-  //     header: "Actions",
-  //     cell: ({ row }) => {
-  //       return (
-  //         <DropdownMenu>
-  //           <DropdownMenuTrigger asChild>
-  //             <Button className="w-8 h-8 p-0 bg-transparent hover:bg-gray-200">
-  //               <span className="sr-only">Open menu</span>
-  //               <MoreHorizontal className="w-4 h-4" />
-  //             </Button>
-  //           </DropdownMenuTrigger>
-  //           <DropdownMenuContent className="px-2" align="end">
-  //             <DropdownMenuLabel>
-  //               <Link to={`/users/${row.getValue("id")}`}>
-  //                 <div className="table-menu">View User</div>
-  //               </Link>
-  //             </DropdownMenuLabel>
-  //             {/* <DropdownMenuLabel>
-  //               <div className="table-menu">Assign role / privilege</div>
-  //             </DropdownMenuLabel>
-  //             <DropdownMenuLabel>
-  //               <div className="table-menu">Reset Password </div>
-  //             </DropdownMenuLabel>
-  //             <DropdownMenuLabel>
-  //               <div className="table-menu">Reset 2FA</div>
-  //             </DropdownMenuLabel> */}
-  //             <DropdownMenuLabel>
-  //               <DeactivateAccount
-  //                 status={row.original.status}
-  //                 id={row.getValue("id")}
-  //               />
-  //             </DropdownMenuLabel>
-  //             <DropdownMenuLabel>
-  //               <DeleteAccount id={row.getValue("id")} />
-  //             </DropdownMenuLabel>
-  //           </DropdownMenuContent>
-  //         </DropdownMenu>
-  //       );
-  //     },
-  //   },
+  {
+    accessorKey: "id",
+    header: "Actions",
+    cell: ({ row }) => {
+      return (
+        <DeleteCategory
+          trigger={
+            <Trash2Icon size={16} className="text-red-500 cursor-pointer " />
+          }
+          categoryid={row.original.id}
+        />
+      );
+    },
+  },
 ];
 
 export default function CategoriesTable() {

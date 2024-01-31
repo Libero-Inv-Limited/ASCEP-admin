@@ -6,8 +6,13 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import DeleteCategory from "./DeleteCategory";
 
-export default function CategoryDropdownMenu() {
+export default function CategoryDropdownMenu({
+  category,
+}: {
+  category: CollectionData;
+}) {
   return (
     <div className="ml-auto">
       <DropdownMenu>
@@ -24,11 +29,14 @@ export default function CategoryDropdownMenu() {
           <DropdownMenuLabel>
             <p>View Category</p>
           </DropdownMenuLabel>
-          <DropdownMenuLabel>
+          {/* <DropdownMenuLabel>
             <p>Edit Category</p>
-          </DropdownMenuLabel>
+          </DropdownMenuLabel> */}
           <DropdownMenuLabel>
-            <p>Delete Category</p>
+            <DeleteCategory
+              trigger={<p>Delete Category</p>}
+              categoryid={category.id}
+            />
           </DropdownMenuLabel>
         </DropdownMenuContent>
       </DropdownMenu>
