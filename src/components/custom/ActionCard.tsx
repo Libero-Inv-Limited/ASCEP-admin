@@ -1,5 +1,5 @@
 import { MouseEventHandler, ReactNode } from "react";
-import { IconWrapper } from ".";
+import IconWrapper from "./IconWrapper";
 
 interface ActionCardProps {
   onClick: MouseEventHandler<HTMLDivElement> | undefined;
