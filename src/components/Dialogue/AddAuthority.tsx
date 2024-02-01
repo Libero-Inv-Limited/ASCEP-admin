@@ -9,17 +9,23 @@ import {
 } from "@/schemas/dialogueSchemas";
 import { FormInput } from "../custom";
 import FormTextArea from "../custom/FormTextArea";
-import { useCeateAuthority } from "@/api/dialogue";
 import { useEffect } from "react";
+import { useCeateAuthority } from "@/api/authorities";
 
 interface AddAuthorityProps {
   isOpen: boolean;
   onClose: () => void;
+  authority?: AuthorityType;
 }
 
-export default function AddAuthority({ isOpen, onClose }: AddAuthorityProps) {
+export default function AddAuthority({
+  isOpen,
+  onClose,
+  authority,
+}: AddAuthorityProps) {
   const form = useForm<CreateAuthoritySchema>({
     resolver: zodResolver(createAuthoritySchema),
+    defaultValues: authority,
   });
   const {
     control,
@@ -34,7 +40,7 @@ export default function AddAuthority({ isOpen, onClose }: AddAuthorityProps) {
   }, [data]);
 
   const onSubmit = (data: CreateAuthoritySchema) => {
-    mutate(data);
+    mutate({ ...data, ...(authority && { id: authority?.id }) });
   };
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -42,7 +48,9 @@ export default function AddAuthority({ isOpen, onClose }: AddAuthorityProps) {
         className="min-w-[700px]"
         style={{ borderRadius: 40, padding: 32 }}
       >
-        <h4 className="pb-3 border-b border-dark/10 ">Add Authority</h4>
+        <h4 className="pb-3 border-b border-dark/10 ">
+          {authority ? "Edit" : "Add"} Authority
+        </h4>
 
         <Form {...form}>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -84,7 +92,9 @@ export default function AddAuthority({ isOpen, onClose }: AddAuthorityProps) {
             </div>
 
             <div className="flex justify-end">
-              <Button isLoading={isLoading}>Update Status</Button>
+              <Button isLoading={isLoading}>
+                {authority ? "Edit" : `Add`} Authority
+              </Button>
             </div>
           </form>
         </Form>
