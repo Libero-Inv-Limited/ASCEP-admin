@@ -25,6 +25,7 @@ import {
   AuthoritiesPage,
   DialoguePage,
   ViewAllRequestsPage,
+  ViewAuthorityPage,
   ViewRequestPage,
 } from "./Dialogue";
 import { Navigate } from "react-router-dom";
@@ -63,12 +64,18 @@ const routes: RouterType[] = [
   {
     path: "/dialogue/requests",
     element: <ViewAllRequestsPage />,
-    title: "view-all",
+    title: "view-requests",
   },
   {
     path: "/dialogue/requests/:requestId",
     element: <ViewRequestPage />,
-    title: "view-all",
+    title: "view-request",
+  },
+
+  {
+    path: "/dialogue/authorities/:authorityId",
+    element: <ViewAuthorityPage />,
+    title: "view-authority",
   },
   {
     path: "/dialogue/authorities",

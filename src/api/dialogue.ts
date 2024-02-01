@@ -2,10 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import axios from "axios";
 import baseUrl from "./baseUrl";
 import { z } from "zod";
-import {
-  CreateAuthoritySchema,
-  getFioRequestsSchema,
-} from "../schemas/dialogueSchemas";
+import { getFioRequestsSchema } from "../schemas/dialogueSchemas";
 import { useToast } from "@/components/ui/use-toast";
 
 // GET ALL REQUESTS
@@ -56,30 +53,6 @@ export const useGetDialogueRequestResponses = (queries: PaginationWithId) => {
   );
 };
 
-export const useCeateAuthority = () => {
-  const queryClient = useQueryClient();
-  const { toast } = useToast();
-
-  return useMutation(
-    (values: CreateAuthoritySchema) => {
-      return axios
-        .post(`${baseUrl}/authority/create`, values)
-        .then((res) => res.data);
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries("authorities");
-        toast({
-          title: "Success!",
-          variant: "success",
-          description: `Authority Added`,
-          duration: 2000,
-        });
-      },
-    }
-  );
-};
-
 export const useAddDialogueModerator = () => {
   const queryClient = useQueryClient();
   const { toast } = useToast();
@@ -92,7 +65,9 @@ export const useAddDialogueModerator = () => {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("moderators");
+        queryClient.invalidateQueries("dialogue-authority-moderators");
+        queryClient.invalidateQueries("dialogue-request-info");
+        queryClient.invalidateQueries("authority-info");
         toast({
           title: "Success!",
           variant: "success",
@@ -119,6 +94,31 @@ export const useUpdateRequstStatus = () => {
           title: "Success!",
           variant: "success",
           description: `Status updated`,
+          duration: 2000,
+        });
+      },
+    }
+  );
+};
+
+export const useDeleteDialogueAuthorityModerator = () => {
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+  return useMutation(
+    ({ user, authority }: { user: number; authority: string }) => {
+      return axios
+        .delete(`${baseUrl}/authority/moderator/${user}/${authority}`)
+        .then((res) => res.data);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("dialogue-authority-moderators");
+        queryClient.invalidateQueries("dialogue-request-info");
+        queryClient.invalidateQueries("authority-info");
+        toast({
+          title: "Success!",
+          variant: "success",
+          description: `Moderator Deleted`,
           duration: 2000,
         });
       },

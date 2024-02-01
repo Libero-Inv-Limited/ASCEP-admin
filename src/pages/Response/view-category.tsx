@@ -19,8 +19,6 @@ export default function ViewCategoryPage() {
     return () => SetTopBarComponents(null);
   }, [categoryId]);
 
-  console.log(categoryId);
-
   useEffect(() => {
     setBreadcrumbs([
       {
@@ -37,8 +35,6 @@ export default function ViewCategoryPage() {
       },
     ]);
   }, [activeLink]);
-
-  useEffect(() => {}, []);
 
   return (
     <div className="page-wrapper">

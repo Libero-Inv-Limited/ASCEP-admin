@@ -10,22 +10,26 @@ import { Link } from "react-router-dom";
 import { ConfirmAction } from "../custom";
 import useDisclosure from "@/hooks/useDisclosure";
 import { useEffect } from "react";
-import { useDeleteCategoryModerator } from "@/api/category";
+import { useDeleteDialogueAuthorityModerator } from "@/api/dialogue";
 
-export default function CategoryModeratorDropdownMenu({
-  category,
-}: {
-  category: CategoryModeratorType;
-}) {
+interface DialogueAuthorityModeratorDropdownMenuProps {
+  authrority: CategoryModeratorType;
+  authorityId: string | undefined;
+}
+
+export default function DialogueAuthorityModeratorDropdownMenu({
+  authrority,
+  authorityId,
+}: DialogueAuthorityModeratorDropdownMenuProps) {
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const { data, isLoading, mutate } = useDeleteCategoryModerator();
+  const { data, isLoading, mutate } = useDeleteDialogueAuthorityModerator();
 
   useEffect(() => {
     data && onClose();
   }, [data]);
 
   const onContinue = () => {
-    mutate({ user: category.user_id, category: category.id });
+    mutate({ user: authrority.user_id, authority: authorityId! });
   };
   return (
     <div className="ml-auto">
@@ -41,10 +45,10 @@ export default function CategoryModeratorDropdownMenu({
           align="end"
         >
           <DropdownMenuLabel className="cursor-pointer">
-            <Link to={`/users/${category.user_id}`}>View user</Link>
+            <Link to={`/users/${authrority.user_id}`}>View user</Link>
           </DropdownMenuLabel>
           {/* <DropdownMenuLabel>
-            <p>Edit Category</p>
+            <p>Edit authrority</p>
           </DropdownMenuLabel> */}
           <DropdownMenuLabel className="cursor-pointer" onClick={onOpen}>
             <p>Delete Moderator</p>

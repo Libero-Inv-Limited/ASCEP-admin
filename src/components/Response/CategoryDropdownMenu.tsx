@@ -32,9 +32,6 @@ export default function CategoryDropdownMenu({
               View Category
             </Link>
           </DropdownMenuLabel>
-          {/* <DropdownMenuLabel>
-            <p>Edit Category</p>
-          </DropdownMenuLabel> */}
           <DropdownMenuLabel>
             <DeleteCategory
               trigger={<p>Delete Category</p>}

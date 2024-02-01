@@ -1,24 +1,23 @@
 import {
-  AddDialogueModerator,
-  DialogueRequestInfo,
-  DialogueRequestResponses,
-} from "@/components/Dialogue";
+  AddCategoryModerator,
+  CategoryModeratorTable,
+} from "@/components/Response";
 import { useNavigationContext } from "@/contexts/NavigationContext";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-export default function ViewRequestPage() {
+export default function ViewAuthorityPage() {
   const { setBreadcrumbs, activeLink, setActiveLink, SetTopBarComponents } =
     useNavigationContext();
-  const { requestId } = useParams();
+  const { categoryId } = useParams();
 
   useEffect(() => {
-    setActiveLink(`/dialogue/requests/${requestId}`);
+    setActiveLink(`/response/categories/${categoryId}`);
 
-    SetTopBarComponents(<AddDialogueModerator />);
+    SetTopBarComponents(<AddCategoryModerator categoryId={categoryId!} />);
 
     return () => SetTopBarComponents(null);
-  }, [requestId]);
+  }, [categoryId]);
 
   useEffect(() => {
     setBreadcrumbs([
@@ -27,20 +26,21 @@ export default function ViewRequestPage() {
         link: "/main",
       },
       {
-        label: "dialogue",
-        link: "/dialogue",
+        label: "response",
+        link: "/response",
       },
       {
-        label: `Request - ${requestId}`,
-        link: `/dialogue/requests/${requestId}`,
+        label: "view category",
+        link: `/response/categories/${categoryId}`,
       },
     ]);
   }, [activeLink]);
 
   return (
-    <div className="space-y-8 page-wrapper">
-      <DialogueRequestInfo />
-      <DialogueRequestResponses />
+    <div className="page-wrapper">
+      {/* <h3>{}</h3> */}
+
+      <CategoryModeratorTable id={categoryId!} />
     </div>
   );
 }

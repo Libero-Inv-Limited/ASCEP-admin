@@ -228,6 +228,7 @@ interface CategoryModeratorType {
 }
 
 interface ModeratorUser {
+  username: ReactNode;
   firstname: string;
   lastname: string;
   profile_picture: any;
