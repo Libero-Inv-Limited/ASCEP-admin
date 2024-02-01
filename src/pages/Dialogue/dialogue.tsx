@@ -1,6 +1,7 @@
 import {
   DialogueActions,
   DialogueAnalytics,
+  DialogueAuthorities,
   DialogueRequests,
 } from "@/components/Dialogue";
 import { useNavigationContext } from "@/contexts/NavigationContext";
@@ -25,6 +26,7 @@ export default function DialoguePage() {
     <div className="space-y-8 page-wrapper">
       <DialogueAnalytics />
       <DialogueActions />
+      <DialogueAuthorities />
       <DialogueRequests isSummary />
     </div>
   );

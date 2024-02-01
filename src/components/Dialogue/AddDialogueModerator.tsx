@@ -9,7 +9,13 @@ import UserAvatar from "../custom/UserAvatar";
 import { useGetAllAuthorities } from "@/api/authorities";
 import { useAddDialogueModerator } from "@/api/dialogue";
 
-export default function AddDialogueModerator() {
+interface AddDialogueModeratorProps {
+  authorityId?: string;
+}
+
+export default function AddDialogueModerator({
+  authorityId,
+}: AddDialogueModeratorProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [users, setUsers] = useState<SelectOption[]>([]);
   const [authorities, setAuthorities] = useState<SelectOption[]>([]);
@@ -65,7 +71,7 @@ export default function AddDialogueModerator() {
     if (selectedUser?.id) {
       const payload = {
         user: selectedUser?.id,
-        authority: selectedAutority as string,
+        authority: authorityId || (selectedAutority as string),
       };
 
       mutate(payload);
@@ -102,19 +108,22 @@ export default function AddDialogueModerator() {
                   />
                 </div>
               </div>
-              <div className="flex items-center justify-between">
-                <p className="text-base text-subtitle_text">Select authority</p>
+              {!authorityId && (
+                <div className="flex items-center justify-between">
+                  <p className="text-base text-subtitle_text">
+                    Select authority
+                  </p>
 
-                <div className="w-[350px]">
-                  <SearchSelect
-                    isLoading={fetchingAuthorities}
-                    options={authorities}
-                    handleSelect={(e) => setSelectedAuthority(e)}
-                    placeholder="Search Authorities"
-                  />
+                  <div className="w-[350px]">
+                    <SearchSelect
+                      isLoading={fetchingAuthorities}
+                      options={authorities}
+                      handleSelect={(e) => setSelectedAuthority(e)}
+                      placeholder="Search Authorities"
+                    />
+                  </div>
                 </div>
-              </div>
-
+              )}
               <div className="flex items-center justify-between">
                 <div></div>
                 {selectedUser && (
@@ -138,7 +147,9 @@ export default function AddDialogueModerator() {
 
               <div className="flex justify-end">
                 <Button
-                  disabled={!selectedUser || !selectedAutority}
+                  disabled={
+                    !selectedUser || (!authorityId && !selectedAutority)
+                  }
                   className="w-[175px]"
                   isLoading={creating}
                   onClick={handleSubmit}
