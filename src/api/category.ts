@@ -114,7 +114,7 @@ export const useDeleteCategoryModerator = () => {
   return useMutation(
     ({ user, category }: { user: number; category: number }) => {
       return axios
-        .delete(`${baseUrl}/category/remove-moderatorx/${user}/${category}`)
+        .delete(`${baseUrl}/category/remove-moderator/${user}/${category}`)
         .then((res) => res.data);
     },
     {

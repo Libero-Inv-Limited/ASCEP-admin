@@ -1,5 +1,8 @@
 import baseUrl from "../baseUrl";
 
+export const CREATE_AUTHORITY = baseUrl + "/authority/create";
+export const DELETE_AUTHORITY = (id: string) =>
+  baseUrl + `/authority/remove/${id}`;
 export const GET_ALL_AUTHORITIES_ENDPOINT = baseUrl + "/authority/all";
 export const SEARCH_AUTHORITIES_ENDPOINT = (searchTerm: string) =>
   baseUrl + `/authority/search?query=${searchTerm}`;
