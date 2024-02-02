@@ -6,7 +6,7 @@ import { useToast } from "@/components/ui/use-toast";
 export const useGetAllSDGs = () => {
   return useQuery(
     ["all-sdgs"],
-    (): Promise<SDGData> => {
+    (): Promise<SDGData[]> => {
       return axios.get(`${baseUrl}/sdg/all`).then((res) => res.data.data);
     },
     {
