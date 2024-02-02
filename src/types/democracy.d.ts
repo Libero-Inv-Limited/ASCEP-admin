@@ -164,3 +164,10 @@ interface DemocracyTableData {
   status: "published" | "pending" | "unavailable";
   action: string;
 }
+
+interface DemocracyAnalyticsType {
+  total_debates: string;
+  total_proposals: string;
+  total_sdgs: string;
+  total_initiatives: string;
+}
