@@ -4,6 +4,9 @@ export const createSDGSchema = z.object({
   title: z
     .string({ required_error: "Title is required" })
     .min(1, { message: "Title is required" }),
+  official_link: z
+    .string({ required_error: "Official link is required" })
+    .min(1, { message: "Official link is required" }),
   description: z
     .string({ required_error: "Description is required" })
     .min(1, { message: "Description is required" }),
@@ -15,3 +18,5 @@ export const questionSchema = z.object({
   answerType: z.enum(["text", "multiple_choice", "single_choice"]),
   options: z.array(z.string().min(1, "This is required")).nullable(),
 });
+
+export type CreateSDGSchema = z.infer<typeof createSDGSchema>;

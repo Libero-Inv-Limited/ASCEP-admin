@@ -1,14 +1,14 @@
 import { Dialog, DialogContent } from "../ui/dialog";
 import { Form } from "../ui/form";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useToast } from "../ui/use-toast";
 import { Button } from "../ui/button";
 import { FormInput } from "../custom";
 import FormTextArea from "./common/FormTextArea";
-import { ChangeEvent, useRef, useState } from "react";
-import { createSDGSchema } from "@/schemas/democracySchema";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { CreateSDGSchema, createSDGSchema } from "@/schemas/democracySchema";
+import { useCreateSDG } from "@/api/sdg";
+import { IoLink } from "react-icons/io5";
 
 interface DemocracyCreateSDGModalProps {
   isOpen: boolean;
@@ -21,7 +21,7 @@ export default function DemocracyCreateSDGModal({
 }: DemocracyCreateSDGModalProps) {
   const [selectedImage, setSelectedImage] = useState<SelectedImage>();
   const inputRef = useRef<HTMLInputElement>(null);
-  const form = useForm<z.infer<typeof createSDGSchema>>({
+  const form = useForm<CreateSDGSchema>({
     resolver: zodResolver(createSDGSchema),
   });
   const {
@@ -29,8 +29,6 @@ export default function DemocracyCreateSDGModal({
     handleSubmit,
     formState: { errors },
   } = form;
-
-  const { toast } = useToast();
 
   const handleFileSelection = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files![0];
@@ -46,14 +44,23 @@ export default function DemocracyCreateSDGModal({
     }
   };
 
-  const onSubmit = () => {
-    toast({
-      title: "Success!",
-      variant: "success",
-      description: `SDG created`,
-      duration: 2000,
+  const { mutate, isLoading, data } = useCreateSDG();
+
+  useEffect(() => {
+    if (data) onClose();
+  }, [data]);
+
+  const onSubmit = (data: CreateSDGSchema) => {
+    const formData = new FormData();
+
+    Object.entries(data).forEach(([key, value]) => {
+      formData.append(key, value);
     });
-    onClose();
+    if (selectedImage) {
+      formData.append("banner", selectedImage.image);
+    }
+
+    mutate(formData);
   };
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -74,6 +81,19 @@ export default function DemocracyCreateSDGModal({
                   control={control}
                   placeholder="Enter title"
                   errors={errors}
+                />
+              </div>
+            </div>
+            <div className="flex items-center justify-between ">
+              <p className="text-subtle_text">Official Link</p>
+              <div className=" w-full max-w-[350px]">
+                <FormInput
+                  name="official_link"
+                  label="Official Link"
+                  control={control}
+                  placeholder="Paste Link here"
+                  errors={errors}
+                  rightElement={<IoLink />}
                 />
               </div>
             </div>
@@ -115,7 +135,7 @@ export default function DemocracyCreateSDGModal({
               </div>
             </div>
             <div className="flex justify-end">
-              <Button>Create</Button>
+              <Button isLoading={isLoading}>Create</Button>
             </div>
           </form>
         </Form>
