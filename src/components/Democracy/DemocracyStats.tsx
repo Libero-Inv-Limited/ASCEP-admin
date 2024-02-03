@@ -6,8 +6,6 @@ import { Skeleton } from "../ui/skeleton";
 export default function DemocracyStats() {
   const { data, isLoading } = useGetDemocracyAnalytics();
 
-  console.log(data);
-
   return (
     <div className="grid grid-cols-4 gap-6 ">
       {isLoading

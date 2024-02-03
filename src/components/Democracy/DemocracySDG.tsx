@@ -3,8 +3,6 @@ import { useGetAllSDGs } from "@/api/sdg";
 export default function DemocracySDG() {
   const { data } = useGetAllSDGs();
 
-  console.log(data);
-
   return (
     <div>
       <p className="mb-4 text-lg text-subtle_text">SDGs</p>
