@@ -5,3 +5,4 @@ export { default as Recommendation } from "./Recommendation";
 export { default as ResponseActivity } from "./ResponseActivity";
 export { default as PopularPoll } from "./PopularPoll";
 export { default as RecentPosts } from "./RecentPosts";
+export { default as MainAnalytics } from "./MainAnalytics";
