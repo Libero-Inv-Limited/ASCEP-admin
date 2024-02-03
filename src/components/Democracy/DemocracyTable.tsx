@@ -40,7 +40,7 @@ export const columns: ColumnDef<DemocracyTableData>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex items-center gap-3 ">
-          <img src="/public/images/avatar.png" className="w-8" alt="" />
+          <img src="/images/avatar.png" className="w-8" alt="" />
           <p>{row.getValue("user")}</p>
         </div>
       );

@@ -54,10 +54,10 @@ const tabs = [
     value: "Voting",
     label: "Voting",
   },
-  {
-    value: "Participatory budgeting",
-    label: "Participatory budgeting",
-  },
+  // {
+  //   value: "Participatory budgeting",
+  //   label: "Participatory budgeting",
+  // },
   {
     value: "SDG",
     label: "SDG",

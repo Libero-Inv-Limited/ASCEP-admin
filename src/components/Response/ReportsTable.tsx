@@ -47,9 +47,10 @@ export const columns: ColumnDef<ReportData>[] = [
     accessorKey: "reportCategory",
     header: "Category",
     cell: ({ row }) => {
+      console.log(row.original.reportCategory);
       return (
         <div className="text-sm capitalize">
-          {row.original.reportCategory.categoryDetail.name}
+          {row.original?.reportCategory?.categoryDetail?.name}
         </div>
       );
     },
