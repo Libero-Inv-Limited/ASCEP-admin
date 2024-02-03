@@ -57,6 +57,10 @@ export default function ViewReportPage() {
           createdAt={data?.createdAt}
         />
 
+        <p className="text-xl font-bold text-text">
+          Total Comments ({data.total_comments_cache})
+        </p>
+
         {/* Comments  */}
         {loadingComments
           ? Array.from({ length: 2 }).map(() => (
