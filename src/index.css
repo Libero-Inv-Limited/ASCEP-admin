@@ -18,7 +18,7 @@
     @apply text-[24px] font-bold;
   }
   body {
-    @apply bg-light;
+    @apply h-screen overflow-y-hidden bg-light;
   }
 }
 
@@ -59,7 +59,7 @@
   }
 
   .page-wrapper {
-    @apply w-full px-8 pt-8 pb-12  bg-[#F9F6FB] overflow-x-hidden overflow-y-hidden;
+    @apply w-full  px-8 pt-8 pb-12  bg-[#F9F6FB] overflow-x-hidden overflow-y-scroll;
   }
 }
 

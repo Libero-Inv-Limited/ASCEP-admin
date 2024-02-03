@@ -24,13 +24,11 @@ export default function DemocracyPage() {
     ]);
   }, [activeLink]);
   return (
-    <div className="space-y-8 page-wrapper">
+    <div className="space-y-8 page-wrapper ">
       <DemocracyStats />
       <DemocracyActions />
       <DemocracySDG />
-      <div>
-        <DemocracyDebateCategories />
-      </div>
+      <DemocracyDebateCategories />
       <DemocracyTableSection />
     </div>
   );
