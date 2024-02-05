@@ -137,11 +137,9 @@ const columns: ColumnDef<DebateType>[] = [
   },
 ];
 
-export default function DebatesTable() {
+export default function DebatesTable({ isSummary }: { isSummary: boolean }) {
   const [tableData, setTableData] = useState<DebateType[]>([]);
   const {
-    view,
-    setView,
     fetchingDebates,
     fetchedDebatesData,
     filterByButton,
@@ -152,25 +150,29 @@ export default function DebatesTable() {
   } = useDebateContext();
 
   useEffect(() => {
-    fetchedDebatesData && setTableData(fetchedDebatesData?.debates);
+    if (fetchedDebatesData) {
+      if (isSummary) {
+        setTableData(fetchedDebatesData.debates.slice(0, 3));
+      } else setTableData(fetchedDebatesData.debates);
+    }
   }, [fetchedDebatesData]);
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-end gap-3 ml-auto">
         <DebatesFilter
           filterButtonOptions={debateFilterButtonOptions}
-          setView={setView}
-          view={view}
           filterByButton={filterByButton}
           filterOptions={filterOptions}
           setFilterOptions={setFilterOptions}
           isSearching={fetchingDebates}
           defaultFilterButtonValue="newest"
         />
+        {isSummary && (
+          <Link to="/democracy/debates" className="text-end">
+            <p className="underline text-dark text-nowrap">See all</p>
+          </Link>
+        )}
       </div>
-      <Link to="/democracy/debates" className="text-end">
-        <p className="underline text-dark text-nowrap">See all</p>
-      </Link>
       <div className="w-full p-4 bg-white rounded-lg ">
         {fetchingDebates ? (
           <TableSkeleton count={20} />
