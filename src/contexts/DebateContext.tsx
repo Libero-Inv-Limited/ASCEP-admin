@@ -77,8 +77,6 @@ export default function DebateProvider({ children }: PropsWithChildren) {
     data: fetchedDebatesData,
   } = useGetAllDebates();
 
-  console.log(fetchedDebatesData);
-
   const [view, setView] = useState<string>("card-view");
   const [filterOptions, setFilterOptions] =
     useState<z.infer<typeof filterSchema>>(initialFilter);
