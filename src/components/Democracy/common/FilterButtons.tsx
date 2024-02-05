@@ -1,38 +1,42 @@
-import { ToggleGroup, ToggleGroupItem } from "../../ui/toggle-group";
-
+import { Button } from "@/components/ui/button";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 interface FilterButtonsProps {
   filterButtonOptions: FilterButtonOptionsType[];
   filterByButton?: (value: string) => void;
+  isFiltering?: boolean;
+  defaultFilterButtonValue: string;
 }
 
 const FilterButtons: React.FC<FilterButtonsProps> = ({
   filterButtonOptions,
   filterByButton,
+  isFiltering,
+  defaultFilterButtonValue,
 }) => {
   return (
-    <ToggleGroup
-      type="single"
-      defaultValue=""
+    <RadioGroup
+      defaultValue={defaultFilterButtonValue}
       onValueChange={(value) => {
-        if (value) {
-          if (filterByButton) {
-            filterByButton(value);
-          }
+        if (filterByButton) {
+          filterByButton(value);
         }
       }}
-      className="gap-4 mb-2 w-full md:w-fit justify-start flex-wrap"
+      className="flex flex-wrap"
     >
-      {filterButtonOptions.map((button) => (
-        <ToggleGroupItem
-          value={button.value}
-          aria-label="Toggle bold"
-          key={button.value}
-          className="px-4 bg-[#fff] text-base-900 border-2 border-base-200 text-[14px] mx-0 !rounded-full [&[data-state='on']]:bg-base-900 [&[data-state='on']]:text-primary [&[data-state='on']]:border-0"
+      {filterButtonOptions.map((button, i) => (
+        <Button
+          className="relative bg-[#fff] text-base-900 border-2 border-base-200 text-sm  has-[span]:bg-dark has-[span]:text-primary has-[span]:hover:bg-dark rounded-full h-11 min-w-20"
+          disabled={isFiltering}
+          key={i}
         >
+          <RadioGroupItem
+            value={button.value}
+            className="absolute top-0 left-0 w-full h-full opacity-0"
+          />
           {button.label}
-        </ToggleGroupItem>
+        </Button>
       ))}
-    </ToggleGroup>
+    </RadioGroup>
   );
 };
 

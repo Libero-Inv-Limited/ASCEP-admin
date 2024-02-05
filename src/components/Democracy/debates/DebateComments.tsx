@@ -1,138 +1,83 @@
-import { DebateCommentCard, FilterButtons, FormInput } from "..";
-import { debateFilterButtonOptions } from "@/utils/Democracy/Debates";
-import { IconWrapper } from "@/components/custom";
-import { CloseCircle, Danger } from "iconsax-react";
-import { Link, useParams } from "react-router-dom";
-import ROUTES from "@/utils/routesNames";
-import { Button } from "@/components/ui/button";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Form } from "@/components/ui/form";
-import { useAuthContext } from "@/providers/AuthProvider";
-import {
-  useGetDebateComments,
-  usePublishComment,
-} from "@/api/democracy/debates";
-import { useState } from "react";
-import { FaSpinner } from "react-icons/fa";
-import { commentSchema } from "@/schemas/DebateSchema";
+import { PageLoader, CustomPagination } from "@/components/custom";
+import { useParams } from "react-router-dom";
+import { DebateCommentCard, FilterButtons } from "..";
+import { useGetDebateComments } from "@/api/democracy/debates";
+import { useEffect, useState } from "react";
+import { commentFilterButtonOptions } from "@/utils/Democracy/General";
 
-interface DebateCommentsCardProps {
-  debate: DebateType;
-}
-const DebateComments: React.FC<DebateCommentsCardProps> = ({ debate }) => {
-  const { mutateAsync: publishComment, isLoading: isPublishingComment } =
-    usePublishComment();
-  const { isLoggedIn } = useAuthContext();
-  const [page] = useState(1);
+interface DebateCommentSectionProp {}
+const DebateCommentSection: React.FC<DebateCommentSectionProp> = () => {
   const { debateId } = useParams();
 
-  const { data, isLoading: isLoadingComments } = useGetDebateComments(
-    parseInt(debateId!),
-    page
-  );
+  const [page, setPage] = useState(1);
+  const [filter, setFilter] = useState("newest");
 
-  const form = useForm<z.infer<typeof commentSchema>>({
-    resolver: zodResolver(commentSchema),
-    mode: "onChange",
-    defaultValues: {
-      content: "",
-      debate_id: parseInt(debateId!),
-    },
-  });
   const {
-    control,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = form;
+    data: commentsData,
+    isLoading: isLoadingComments,
+    refetch,
+    isFetching: isFetchingComments,
+  } = useGetDebateComments(debateId!, page, filter);
 
-  async function onSubmit(values: z.infer<typeof commentSchema>) {
-    await publishComment(values);
-    if (data) {
-      reset();
-    }
-  }
+  useEffect(() => {
+    refetch();
+  }, [page, filter]);
 
   return (
     <>
-      {!isLoggedIn ? (
-        <div className="flex items-center justify-between border-2 border-primary rounded-md p-2 bg-[#F59E0B]/10">
-          <div className="flex justify-start items-center gap-1">
-            <IconWrapper className="text-primary rounded-full">
-              <Danger size="32" />
-            </IconWrapper>
-            <p className="text-[16px]">
-              You must{" "}
-              <Link to={ROUTES.SIGNIN_ROUTE} className="underline">
-                sign in
-              </Link>{" "}
-              or{" "}
-              <Link to={ROUTES.SIGNIN_ROUTE} className="underline">
-                sign up
-              </Link>{" "}
-              to leave a comment.
-            </p>
-          </div>
-          <Button className="bg-transparent hover:bg-transparent w-fit h-fit">
-            <CloseCircle size="32" />
-          </Button>
-        </div>
-      ) : (
-        <div>
-          <Form {...form}>
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              className="flex flex-col gap-4"
-            >
-              <FormInput
-                label="Leave a comment"
-                control={control}
-                name="content"
-                errors={errors}
-              />
+      {/*COMMENTS */}
+      <div className="w-full">
+        <h2 className="pt-0 pb-2 pl-0 mb-4 text-lg font-medium border-b-4 text-text border-primary w-fit">
+          Comments
+        </h2>
+      </div>
 
-              <Button
-                type="submit"
-                className="w-fit"
-                isLoading={isPublishingComment}
-              >
-                Publish Comment
-              </Button>
-            </form>
-          </Form>
-        </div>
-      )}
-
-      {data?.comments.length !== 0 && (
+      {/* FILTER BUTTONS */}
+      <div className="my-8">
         <FilterButtons
-          filterButtonOptions={debateFilterButtonOptions}
-          filterByButton={() => {}}
+          filterButtonOptions={commentFilterButtonOptions}
+          filterByButton={(value: string) => {
+            setFilter(value);
+            setPage(1);
+          }}
+          isFiltering={isFetchingComments}
+          defaultFilterButtonValue="newest"
         />
-      )}
-      {data?.comments.length === 0 && (
+      </div>
+
+      {/* LOADING */}
+      {isLoadingComments && <PageLoader />}
+      {commentsData?.comments?.length === 0 && (
         <div>
-          <h1 className="text-dark text-[16px] md:text-[20px]">
+          <h1 className="text-base text-text md:text-xl">
             This debate has no comments yet
           </h1>
         </div>
       )}
-      <div className="w-full flex justify-center">
-        {isLoadingComments && (
-          <IconWrapper className=" text-primary my-10 w-fit h-full rounded-full">
-            <FaSpinner className="animate-spin text-[100px]" />
-          </IconWrapper>
-        )}
-      </div>
-      {data && (
-        <>
-          {data.comments.map((comment: DebateCommentType) => (
+
+      {commentsData && commentsData.comments.length > 0 && (
+        <div
+          className={`${
+            isFetchingComments
+              ? "opacity-50 pointer-events-none"
+              : "opacity-100 "
+          } flex flex-col gap-6`}
+        >
+          {commentsData.comments.map((comment: CommentType) => (
             <DebateCommentCard comment={comment} key={comment.id} />
           ))}
-        </>
+
+          {/* PAGINATION */}
+          <CustomPagination
+            page={page}
+            setPage={setPage}
+            paginationData={commentsData.meta}
+            isFetching={isFetchingComments}
+          />
+        </div>
       )}
     </>
   );
 };
-export default DebateComments;
+
+export default DebateCommentSection;

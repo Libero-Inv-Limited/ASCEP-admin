@@ -1,5 +1,6 @@
 import { useGetAllDebates } from "@/api/democracy/debates";
 import { filterDebateSchema } from "@/schemas/DebateSchema";
+import { filterSchema } from "@/schemas/GeneralSchema";
 import { debateFilterButtonOptions } from "@/utils/Democracy/Debates";
 import {
   PropsWithChildren,
@@ -16,12 +17,12 @@ interface DebateContextType {
   setView: React.Dispatch<React.SetStateAction<string>>;
   fetchingDebates: boolean;
   fetchingDebatesError: boolean;
-  fetchedDebatesData: DebateDataType | null;
+  fetchedDebatesData: DebateDataType | undefined;
   refetchDebates: () => void;
   filterByButton: (value: string) => void;
-  filterOptions: z.infer<typeof filterDebateSchema>;
+  filterOptions: z.infer<typeof filterSchema>;
   setFilterOptions: React.Dispatch<
-    React.SetStateAction<z.infer<typeof filterDebateSchema>>
+    React.SetStateAction<z.infer<typeof filterSchema>>
   >;
   getAllDebates: UseMutateFunction<
     any,
@@ -33,36 +34,42 @@ interface DebateContextType {
     }
   >;
   perPage: number;
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
 }
-const initialFilter = {
-  sdgs: [],
-  specificSDG: undefined,
-  specificTarget: undefined,
-  targets: [],
-  tags: [],
-  mostactive: false,
-  text: "",
-  highestrating: false,
-  newest: false,
-  datetimeSpecific: "",
-};
+
 const DebateContext = createContext<DebateContextType>({
   view: "",
   setView: () => {},
   fetchingDebates: false,
   fetchingDebatesError: false,
-  fetchedDebatesData: null,
+  fetchedDebatesData: undefined,
   refetchDebates: () => {},
   filterByButton: () => {},
-  filterOptions: initialFilter,
+  filterOptions: {},
   setFilterOptions: () => {},
   getAllDebates: () => {},
   perPage: 0,
+  page: 0,
+  setPage: () => {},
 });
 
 export const useDebateContext = () => useContext(DebateContext);
 
 export default function DebateProvider({ children }: PropsWithChildren) {
+  const initialFilter = {
+    sdgs: [],
+    specificSDG: undefined,
+    specificTarget: undefined,
+    targets: [],
+    tags: [],
+    mostactive: false,
+    text: "",
+    highestrating: false,
+    newest: true,
+    datetimeSpecific: "",
+  };
+
   const {
     mutate: getAllDebates,
     isLoading: fetchingDebates,
@@ -70,15 +77,18 @@ export default function DebateProvider({ children }: PropsWithChildren) {
     data: fetchedDebatesData,
   } = useGetAllDebates();
 
+  console.log(fetchedDebatesData);
+
   const [view, setView] = useState<string>("card-view");
   const [filterOptions, setFilterOptions] =
-    useState<z.infer<typeof filterDebateSchema>>(initialFilter);
-  const [page] = useState<number>(1);
+    useState<z.infer<typeof filterSchema>>(initialFilter);
+  const [page, setPage] = useState<number>(1);
   const [perPage] = useState<number>(10);
 
   const getFiltersWithValues = () => {
     const entries = Object.entries(filterOptions);
-    const filteredEntries = entries.filter(([key, value]) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const filteredEntries = entries.filter(([_, value]) => {
       if (value) {
         if (Array.isArray(value)) {
           return value.length > 0;
@@ -90,7 +100,6 @@ export default function DebateProvider({ children }: PropsWithChildren) {
       }
     });
     const filteredObject = Object.fromEntries(filteredEntries);
-
     return filteredObject;
   };
 
@@ -116,21 +125,14 @@ export default function DebateProvider({ children }: PropsWithChildren) {
     }
   };
 
-  const fetchDebate = () => {
-    getAllDebates({ page, perPage, filter: getFiltersWithValues() });
-  };
-
   useEffect(() => {
     getAllDebates({ page, perPage, filter: getFiltersWithValues() });
-  }, []);
-
-  useEffect(() => {
-    fetchDebate();
-  }, [filterOptions]);
+  }, [filterOptions, page]);
 
   const refetchDebates = () => {
-    getAllDebates({ page, perPage, filter: {} });
+    getAllDebates({ page, perPage, filter: getFiltersWithValues() });
   };
+
   return (
     <DebateContext.Provider
       value={{
@@ -145,6 +147,8 @@ export default function DebateProvider({ children }: PropsWithChildren) {
         setFilterOptions,
         getAllDebates,
         perPage,
+        page,
+        setPage,
       }}
     >
       {children}

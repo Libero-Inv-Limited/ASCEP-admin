@@ -1,6 +1,5 @@
 export { default as InitiativesCardViewCard } from "./initiatives/InitiativesCardViewCard";
 export { default as ProposalCardViewCard } from "./proposals/ProposalCardViewCard";
-export { default as AdvancedSearch } from "./common/AdvancedSearch";
 export { default as FilterButtons } from "./common/FilterButtons";
 export { default as PagesHeroSection } from "./common/HeroSection";
 export { default as ListViewCard } from "./common/ListViewCard";
@@ -26,6 +25,8 @@ export { default as DemocracyStats } from "./DemocracyStats";
 export { default as DemocracyActions } from "./DemocracyActions";
 export { default as DemocracySDG } from "./DemocracySDG";
 export { default as DemocracyDebateCategories } from "./DemocracyDebateCategories";
-export { default as DemocracyTable } from "./DemocracyTable";
 export { default as DemocracyDownloadModal } from "./DemocracyDownloadModal";
 export { default as DemocracyCreateSDGModal } from "./DemocracyCreateSDGModal";
+export { default as DebateSupportSection } from "./debates/DebateSupportSection";
+export { default as DebateMeetingLink } from "./debates/DebateMeetingLink";
+export { default as DebateTagsSection } from "./debates/DebateTagsSection";

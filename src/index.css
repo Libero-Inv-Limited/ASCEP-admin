@@ -77,7 +77,7 @@
 
 /* Style the scrollbar handle */
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #33333322;
+  background-color: #33333388;
   border-radius: 6px;
 }
 

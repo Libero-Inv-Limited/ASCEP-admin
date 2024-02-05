@@ -1,24 +1,24 @@
-import { AdvancedSearch, PagesHeroSection } from "@/components/Democracy";
+import { PagesHeroSection } from "@/components/Democracy";
 import { Button } from "@/components/ui/button";
-import { useProposalContext } from "@/contexts/ProposalContext";
+// import { useProposalContext } from "@/contexts/ProposalContext";
 import DemocracyLayout from "@/layouts/DemocracyLayout";
 import { SDG_Images } from "@/utils/Democracy/Images";
 import { CategoriesAndTarget_Data } from "@/utils/Democracy/Mock_Data";
-import { proposalFilterButtonOptions } from "@/utils/Democracy/Proposals";
+// import { proposalFilterButtonOptions } from "@/utils/Democracy/Proposals";
 import ROUTES from "@/utils/routesNames";
 import { Link } from "react-router-dom";
 
 interface ProposalsHomePageProps {}
 const ProposalsHomePage: React.FC<ProposalsHomePageProps> = () => {
-  const {
-    view,
-    setView,
-    fetchingDebates,
-    fetchingDebatesError,
-    fetchedDebatesData,
-    refetchDebates,
-    filterByButton,
-  } = useProposalContext();
+  // const {
+  //   view,
+  //   setView,
+  //   fetchingDebates,
+  //   fetchingDebatesError,
+  //   fetchedDebatesData,
+  //   refetchDebates,
+  //   filterByButton,
+  // } = useProposalContext();
   const pageDescription =
     "Citizens' proposals are an opportunity for neighbours and collectivesto decide directly how they want their city to be, after getting sufficient support and submitting to a citizens' vote.";
 
@@ -31,16 +31,16 @@ const ProposalsHomePage: React.FC<ProposalsHomePageProps> = () => {
       </Link>
       <div className="xl:flex gap-16 mt-[50px] max-w-[1200px]">
         <div className="flex-1 max-w-[1200px]">
-          <AdvancedSearch
+          {/* <AdvancedSearch
             filterButtonOptions={proposalFilterButtonOptions}
             filterByButton={filterByButton}
             setView={setView}
             view={view}
-          />
+          /> */}
 
           {/* LIST VIEW */}
           {/* {view === "list view" && (
-            <div className="grid grid-cols-1 my-10 gap-10">
+            <div className="grid grid-cols-1 gap-10 my-10">
               {Proposals_Data.map((proposal, index) => (
                 <ListViewCard title={proposal.title} key={index} />
               ))}
@@ -48,7 +48,7 @@ const ProposalsHomePage: React.FC<ProposalsHomePageProps> = () => {
           )} */}
           {/* CARD VIEW */}
           {/* {view === "card view" && (
-            <div className="grid grid-cols-1 my-10 gap-10">
+            <div className="grid grid-cols-1 gap-10 my-10">
               {Proposals_Data.map((proposal, index) => (
                 <ProposalCardViewCard proposal={proposal} key={index} />
               ))}
@@ -79,7 +79,7 @@ const ProposalsHomePage: React.FC<ProposalsHomePageProps> = () => {
             {SDG_Images.map((item, index) => (
               <Button
                 key={index}
-                className="bg-transparent h-fit p-0 hover:bg-transparent flex justify-start"
+                className="flex justify-start p-0 bg-transparent h-fit hover:bg-transparent"
               >
                 <img src={item} alt={index.toString()} />
               </Button>
@@ -94,7 +94,7 @@ const ProposalsHomePage: React.FC<ProposalsHomePageProps> = () => {
             <img
               src="/images/SDG/map.png"
               alt="map"
-              className="absolute top-0 left-0 h-full w-full object-cover"
+              className="absolute top-0 left-0 object-cover w-full h-full"
             />
           </div>
         </div>

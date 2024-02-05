@@ -1,6 +1,7 @@
 import { ActionCard } from "@/components/custom";
 import { AddCircle, DocumentDownload } from "iconsax-react";
-import { DemocracyCreateSDGModal, DemocracyDownloadModal } from ".";
+import DemocracyCreateSDGModal from "./DemocracyCreateSDGModal";
+import DemocracyDownloadModal from "./DemocracyDownloadModal";
 import useDisclosure from "@/hooks/useDisclosure";
 
 export default function DemocracyActions() {

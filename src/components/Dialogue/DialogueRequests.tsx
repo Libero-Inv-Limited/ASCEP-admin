@@ -168,6 +168,11 @@ export default function DialogueRequests({
       <div className="flex justify-between">
         <p className="text-lg text-subtle_text">Requests</p>
         <div className="flex items-center gap-3 ml-auto">
+          <SearchDialogueRequests
+            isLoading={isLoading}
+            setFilterOptions={setFilterOptions}
+          />
+
           {isSummary && (
             <Link to="/dialogue/requests">
               <p className="underline text-dark">See all</p>
@@ -175,11 +180,6 @@ export default function DialogueRequests({
           )}
         </div>
       </div>
-
-      <SearchDialogueRequests
-        isLoading={isLoading}
-        setFilterOptions={setFilterOptions}
-      />
 
       {data && (
         <div className="p-4 bg-white rounded-lg">

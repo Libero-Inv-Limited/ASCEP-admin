@@ -1,5 +1,5 @@
 import {
-  AdvancedSearch,
+  // AdvancedSearch,
   DebatesCardViewCard,
   ListViewCard,
   PagesHeroSection,
@@ -9,7 +9,7 @@ import { IconWrapper } from "@/components/custom";
 import { Button } from "@/components/ui/button";
 import { useDebateContext } from "@/contexts/DebateContext";
 import DemocracyLayout from "@/layouts/DemocracyLayout";
-import { debateFilterButtonOptions } from "@/utils/Democracy/Debates";
+// import { debateFilterButtonOptions } from "@/utils/Democracy/Debates";
 import ROUTES from "@/utils/routesNames";
 import { Danger } from "iconsax-react";
 import { FaSpinner } from "react-icons/fa";
@@ -19,12 +19,12 @@ interface DebatesProps {}
 const DebatesHomePage: React.FC<DebatesProps> = () => {
   const {
     view,
-    setView,
+    // setView,
     fetchingDebates,
     fetchingDebatesError,
     fetchedDebatesData,
     refetchDebates,
-    filterByButton,
+    // filterByButton,
     getAllDebates,
     perPage,
     filterOptions,
@@ -41,12 +41,12 @@ const DebatesHomePage: React.FC<DebatesProps> = () => {
       </Link>
       {/* ADVANCED SEARCH */}
       <div className="max-w-[1000px]">
-        <AdvancedSearch
+        {/* <AdvancedSearch
           filterButtonOptions={debateFilterButtonOptions}
           setView={setView}
           view={view}
           filterByButton={filterByButton}
-        />
+        /> */}
 
         {/* LIST VIEW */}
         {view === "list-view" && fetchedDebatesData && (
@@ -59,15 +59,15 @@ const DebatesHomePage: React.FC<DebatesProps> = () => {
 
         {/* CARD VIEW */}
         {fetchingDebates && (
-          <div className="w-full flex justify-center">
-            <IconWrapper className=" text-primary my-10 w-fit h-full rounded-full">
+          <div className="flex justify-center w-full">
+            <IconWrapper className="h-full my-10 rounded-full  text-primary w-fit">
               <FaSpinner className="animate-spin text-[100px]" />
             </IconWrapper>
           </div>
         )}
         {view === "card-view" && fetchedDebatesData && (
-          <div className="w-full flex justify-start">
-            <div className="grid grid-col-1 lg:grid-cols-2  justify-start my-10 gap-10">
+          <div className="flex justify-start w-full">
+            <div className="grid justify-start gap-10 my-10 grid-col-1 lg:grid-cols-2">
               {fetchedDebatesData.debates.map((debate: DebateType) => (
                 <DebatesCardViewCard debate={debate} key={debate.id} />
               ))}
@@ -87,8 +87,8 @@ const DebatesHomePage: React.FC<DebatesProps> = () => {
 
         {fetchingDebatesError && (
           <div className="flex items-center flex-wrap justify-between border-2 border-primary rounded-md p-2 bg-[#F59E0B]/10 my-10">
-            <div className="flex justify-start items-center gap-1">
-              <IconWrapper className="text-primary rounded-full">
+            <div className="flex items-center justify-start gap-1">
+              <IconWrapper className="rounded-full text-primary">
                 <Danger size="32" />
               </IconWrapper>
               <p className="text-[16px]">Error fetching debates</p>

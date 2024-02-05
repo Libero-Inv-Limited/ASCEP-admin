@@ -1,6 +1,7 @@
 //DEBATES
 export { default as DemocracyPage } from "./democracy";
-export { default as ViewAllDemocracyPage } from "./view-all-democracy";
+export { default as ViewAllDebatesPage } from "./view-all-debates";
+export { default as ViewDebatePage } from "./debates/view-debate";
 
 export { default as DebatesHomePage } from "./debates/debates";
 export { default as DebatesInfoPage } from "./debates/debate-info";

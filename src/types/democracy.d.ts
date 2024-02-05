@@ -171,3 +171,38 @@ interface DemocracyAnalyticsType {
   total_sdgs: string;
   total_initiatives: string;
 }
+
+interface CommentDataType {
+  meta: CommentMetaDataType;
+  comments: CommentType[];
+}
+
+interface CommentMetaDataType {
+  total: number;
+  per_page: number;
+  current_page: number;
+  last_page: number;
+  first_page: number;
+  first_page_url: string | null;
+  last_page_url: string | null;
+  next_page_url: string | null;
+  previous_page_url: string | null;
+}
+interface CommentType {
+  content: string;
+  id: string;
+  user_id: string;
+  author: DebateAuthorType;
+  responses: DebateCommentResponseType[];
+  likes: number;
+  dislikes: number;
+  likePercentage: number;
+  dislikePercentage: number;
+  userVoted: {
+    reaction: boolean;
+    reactionType: "like" | "dislike";
+  };
+  createdAt: string;
+  comment_response_cache: number;
+  comment_vote_cache: number;
+}
