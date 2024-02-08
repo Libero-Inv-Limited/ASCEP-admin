@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { useGetDebateInfo } from "@/api/democracy/debates";
+import { useGetInitiativeInfo } from "@/api/democracy/initiatives";
 import {
-  DebateComments,
-  // DebateMeetingLink,
-  DebateSupportSection,
-  DebateTagsSection,
+  AddMeetingLink,
+  InitiativeCommentSection,
+  InitiativeMeetingLink,
+  InitiativeTagsSection,
+  InitiavativeSupportSection,
 } from "@/components/Democracy";
 import { PageLoader } from "@/components/custom";
 import UserAvatar from "@/components/custom/UserAvatar";
@@ -13,8 +14,8 @@ import { useEffect } from "react";
 import { MdOutlineMessage } from "react-icons/md";
 import { useParams } from "react-router-dom";
 
-export default function ViewDebatePage() {
-  const { debateId } = useParams();
+export default function ViewInitiativePage() {
+  const { initiativeId } = useParams();
   const { setBreadcrumbs, activeLink } = useNavigationContext();
 
   useEffect(() => {
@@ -28,18 +29,18 @@ export default function ViewDebatePage() {
         link: "/response",
       },
       {
-        label: `Debate - ${debateId}`,
-        link: `/democracy/debates/${debateId}`,
+        label: `Initiative - ${initiativeId}`,
+        link: `/democracy/initiatives/${initiativeId}`,
       },
     ]);
-  }, [activeLink, debateId]);
-  const { data, isLoading } = useGetDebateInfo(debateId!);
+  }, [activeLink, initiativeId]);
+  const { data, isLoading } = useGetInitiativeInfo(initiativeId!);
 
   if (isLoading) return <PageLoader />;
 
   if (data)
     return (
-      <div className="space-y-8 page-wrapper ">
+      <div className="relative space-y-8 page-wrapper ">
         <h3>{data.title}</h3>
 
         <div className="flex items-center gap-8">
@@ -60,11 +61,19 @@ export default function ViewDebatePage() {
         </div>
 
         <div dangerouslySetInnerHTML={{ __html: data.description }} />
+        <InitiavativeSupportSection data={data} />
+        <InitiativeMeetingLink data={data} />
+        <InitiativeTagsSection data={data} />
 
-        <DebateSupportSection data={data} />
-        {/* <DebateMeetingLink data={data} /> */}
-        <DebateTagsSection data={data} />
-        <DebateComments />
+        {/* COMMENT SECTION */}
+        <div className="max-w-[900px] mt-10">
+          <InitiativeCommentSection />
+        </div>
+
+        {/* <DebateSupportSection data={data} />
+        <DebateComments /> */}
+
+        <AddMeetingLink />
       </div>
     );
 }

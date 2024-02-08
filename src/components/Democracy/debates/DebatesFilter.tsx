@@ -109,7 +109,7 @@ const DebatesFilter: React.FC<AdvancedSearchProps> = ({
           <p className="text-xs font-semibold">Filter</p>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="min-w-[800px] max-w-[900px] p-8 rounded-2xl mx-12">
+      <DropdownMenuContent className="min-w-[800px] max-h-[400px] overflow-y-auto max-w-[900px] p-8 rounded-2xl mx-12">
         <div className="pt-4">
           <div className="flex flex-wrap justify-between gap-2 mb-2">
             {/* Filter buttons */}

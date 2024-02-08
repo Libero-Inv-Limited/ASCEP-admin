@@ -145,7 +145,7 @@ export default function DebatesTable({ isSummary }: { isSummary?: boolean }) {
         {fetchingDebates ? (
           <TableSkeleton count={20} />
         ) : (
-          tableData.length && <DataTable columns={columns} data={tableData} />
+          <DataTable columns={columns} data={tableData} />
         )}
       </div>
 

@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import ROUTES from "@/utils/routesNames";
 import axios from "axios";
 import {
-  followInitiativeSchema,
+  // followInitiativeSchema,
   getInitiativeSchema,
   initiativeCommentSchema,
   startInitiativeSchema,
@@ -20,7 +20,7 @@ import {
 } from "@/schemas/InitiativesSchema";
 import {
   DELETE_INITIATIVE_ENDPOINT,
-  FOLLOW_INITIATIVE_ENDPOINT,
+  // FOLLOW_INITIATIVE_ENDPOINT,
   GET_ALL_INITIATIVES_ENDPOINT,
   GET_INITIATIVE_COMMENTS_ENDPOINT,
   GET_INITIATIVE_COMMENTS_RESPONSES_ENDPOINT,
@@ -28,12 +28,12 @@ import {
   PUBLISH_INITIATIVES_ENDPOINT,
   PUBLISH_INITIATIVE_COMMENT_ENDPOINT,
   RESOLVE_INITIATIVE_SHARE_ID_ENDPOINT,
-  SUPPORT_INITIATIVE_ENDPOINT,
+  // SUPPORT_INITIATIVE_ENDPOINT,
   UPDATE_INITIATIVE_STATUS,
   VOTE_INITIATIVE_COMMENT_ENDPOINT,
 } from ".";
 
-import { useAppContext } from "@/contexts/AppContext";
+// import { useAppContext } from "@/contexts/AppContext";
 import { useInitiativeContext } from "@/contexts/InitiativeContext";
 
 // PUBLISH INITIATIVE
@@ -131,7 +131,6 @@ export const useGetInitiativeInfo = (initiativeId: string) => {
         .then((res) => res.data.data.initiative);
     },
     retry: false,
-    refetchOnWindowFocus: false,
   });
 };
 
@@ -149,7 +148,6 @@ export const useGetInitiativeComments = (
         .then((res) => res.data.data);
     },
     staleTime: 0,
-    refetchOnWindowFocus: false,
   });
 };
 
@@ -172,8 +170,7 @@ export const useGetInitiativeCommentResponses = (commentId: string) => {
     },
     {
       staleTime: 0,
-      refetchOnWindowFocus: false,
-      enabled: false,
+      enabled: !!commentId,
       getNextPageParam: (_, pages) => pages.length + 1,
     }
   );
@@ -203,82 +200,82 @@ export const useVoteInitiativeComment = () => {
   );
 };
 // SUPPORT INITIATIVE
-export const useSupportInitiative = (initiativeId: string) => {
-  const queryClient = useQueryClient();
-  const { toast } = useToast();
-  const { handleOpenModal } = useAppContext();
-  return useMutation(
-    (): Promise<ResponseDataType> => {
-      return axios
-        .patch(SUPPORT_INITIATIVE_ENDPOINT(initiativeId))
-        .then((res) => res.data);
-    },
-    {
-      onSuccess: (res) => {
-        queryClient.invalidateQueries("initiative-info");
-        queryClient.invalidateQueries("get-initiative");
-        toast({
-          title: "Success!",
-          variant: "success",
-          description: res.message,
-        });
-      },
-      onError: (error: any) => {
-        const errors = error.response.data.errors;
+// export const useSupportInitiative = (initiativeId: string) => {
+//   const queryClient = useQueryClient();
+//   const { toast } = useToast();
+//   const { handleOpenModal } = useAppContext();
+//   return useMutation(
+//     (): Promise<ResponseDataType> => {
+//       return axios
+//         .patch(SUPPORT_INITIATIVE_ENDPOINT(initiativeId))
+//         .then((res) => res.data);
+//     },
+//     {
+//       onSuccess: (res) => {
+//         queryClient.invalidateQueries("initiative-info");
+//         queryClient.invalidateQueries("get-initiative");
+//         toast({
+//           title: "Success!",
+//           variant: "success",
+//           description: res.message,
+//         });
+//       },
+//       onError: (error: any) => {
+//         const errors = error.response.data.errors;
 
-        errors.map((error: { message: string }) => {
-          if (error.message === "E_UNAUTHORIZED_ACCESS: Unauthorized access") {
-            handleOpenModal();
-            toast({
-              title: "Error!",
-              variant: "error",
-              description: "Please login to perform this action",
-            });
-          }
-        });
-      },
-    }
-  );
-};
+//         errors.map((error: { message: string }) => {
+//           if (error.message === "E_UNAUTHORIZED_ACCESS: Unauthorized access") {
+//             handleOpenModal();
+//             toast({
+//               title: "Error!",
+//               variant: "error",
+//               description: "Please login to perform this action",
+//             });
+//           }
+//         });
+//       },
+//     }
+//   );
+// };
 
-// FOLLOW INITIATIVE
-export const useFollowInitiative = () => {
-  const queryClient = useQueryClient();
-  const { toast } = useToast();
-  const { handleOpenModal } = useAppContext();
-  return useMutation(
-    (
-      values: z.infer<typeof followInitiativeSchema>
-    ): Promise<ResponseDataType> => {
-      return axios
-        .put(FOLLOW_INITIATIVE_ENDPOINT, { ...values })
-        .then((res) => res.data);
-    },
-    {
-      onSuccess: (res) => {
-        queryClient.invalidateQueries("initiative-info");
-        toast({
-          title: "Success!",
-          variant: "success",
-          description: res.message,
-        });
-      },
-      onError: (error: any) => {
-        const errors = error.response.data.errors;
-        errors.map((error: { message: string }) => {
-          if (error.message === "E_UNAUTHORIZED_ACCESS: Unauthorized access") {
-            handleOpenModal();
-            toast({
-              title: "Error!",
-              variant: "error",
-              description: "Please login to perform this action",
-            });
-          }
-        });
-      },
-    }
-  );
-};
+// // FOLLOW INITIATIVE
+// export const useFollowInitiative = () => {
+//   const queryClient = useQueryClient();
+//   const { toast } = useToast();
+//   const { handleOpenModal } = useAppContext();
+//   return useMutation(
+//     (
+//       values: z.infer<typeof followInitiativeSchema>
+//     ): Promise<ResponseDataType> => {
+//       return axios
+//         .put(FOLLOW_INITIATIVE_ENDPOINT, { ...values })
+//         .then((res) => res.data);
+//     },
+//     {
+//       onSuccess: (res) => {
+//         queryClient.invalidateQueries("initiative-info");
+//         toast({
+//           title: "Success!",
+//           variant: "success",
+//           description: res.message,
+//         });
+//       },
+//       onError: (error: any) => {
+//         const errors = error.response.data.errors;
+//         errors.map((error: { message: string }) => {
+//           if (error.message === "E_UNAUTHORIZED_ACCESS: Unauthorized access") {
+//             handleOpenModal();
+//             toast({
+//               title: "Error!",
+//               variant: "error",
+//               description: "Please login to perform this action",
+//             });
+//           }
+//         });
+//       },
+//     }
+//   );
+// };
 
 // DELETE INITIATIVE
 export const useDeleteInitiative = (initiativeId: string) => {
@@ -313,7 +310,6 @@ export const useResolveInitiativeShareID = (shareableId: string) => {
         .then((res) => res.data.data.id);
     },
     {
-      refetchOnWindowFocus: false,
       retry: false,
     }
   );

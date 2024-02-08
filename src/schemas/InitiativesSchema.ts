@@ -68,3 +68,7 @@ export const getInitiativeSchema = z.object({
 export const changeInittiativeStatusSchema = z.object({
   status: z.string(),
 });
+
+export const addMeetingLinkSchema = z.object({
+  link: z.string(),
+});

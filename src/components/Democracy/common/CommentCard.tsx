@@ -15,7 +15,7 @@ interface CommentsCardProps {
   isVotingComment: boolean;
 }
 
-const Comment: React.FC<CommentsCardProps> = ({
+const CommentCard: React.FC<CommentsCardProps> = ({
   comment,
   showResponse,
   setShowResponse,
@@ -62,4 +62,4 @@ const Comment: React.FC<CommentsCardProps> = ({
     </>
   );
 };
-export default Comment;
+export default CommentCard;

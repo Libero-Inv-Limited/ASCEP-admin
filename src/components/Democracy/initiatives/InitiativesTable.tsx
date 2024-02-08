@@ -108,7 +108,7 @@ const columns: ColumnDef<InitiativeType>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent className="px-2" align="end">
             <DropdownMenuLabel>
-              <Link to={`/democracy/initiativess/${initiatives.id}`}>
+              <Link to={`/democracy/initiatives/${initiatives.id}`}>
                 <div className="table-menu">View Initiative</div>
               </Link>
             </DropdownMenuLabel>

@@ -32,17 +32,15 @@ export default function ChangeInitiativeStatus({ id }: { id: string }) {
   const handleUpdate = (
     data: z.infer<typeof changeInittiativeStatusSchema>
   ) => {
-    console.log(data);
     mutate({ ...data, initiative_id: id });
   };
 
-  console.log(errors);
   return (
     <div>
       <div onClick={onOpen} className="table-menu">
         Change Status
       </div>
-      <Dialog open={isOpen}>
+      <Dialog open={isOpen} onOpenChange={onClose}>
         {/* <DialogTrigger></DialogTrigger> */}
         <DialogContent
           style={{ borderRadius: 40, padding: 32 }}

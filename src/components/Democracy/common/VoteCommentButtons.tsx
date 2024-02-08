@@ -13,7 +13,7 @@ const VoteCommentButtons: React.FC<VoteCommentButtonsProp> = ({
   likes,
   dislikes,
   reactionType,
-  isVoting,
+  // isVoting,
 }) => {
   const { isLoggedIn } = useAuthContext();
 
@@ -32,7 +32,7 @@ const VoteCommentButtons: React.FC<VoteCommentButtonsProp> = ({
             className={`${
               reactionType === "like" ? "text-[#31D0AA]" : "text-subtitle_text"
             }  gap-1 bg-transparent hover:bg-transparent h-fit w-fit p-0 text-[14px]`}
-            isLoading={isVoting}
+            // isLoading={isVoting}
           >
             <Like1 variant="Bold" /> <span>{likes}</span>
           </Button>
@@ -42,7 +42,7 @@ const VoteCommentButtons: React.FC<VoteCommentButtonsProp> = ({
                 ? "text-[#E43F40]"
                 : "text-subtitle_text"
             }  gap-1 bg-transparent hover:bg-transparent h-fit w-fit p-0 text-[14px]`}
-            isLoading={isVoting}
+            // isLoading={isVoting}
           >
             <Dislike variant="Bold" /> <span>{dislikes}</span>
           </Button>

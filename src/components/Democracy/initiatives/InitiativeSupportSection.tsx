@@ -1,6 +1,10 @@
-import { Dislike, Like1 } from "iconsax-react";
+import { Like1 } from "iconsax-react";
 
-export default function DebateSupportSection({ data }: { data: DebateType }) {
+export default function InitiativeSupportSection({
+  data,
+}: {
+  data: InitiativeType;
+}) {
   return (
     <>
       <h3 className="text-xl ">Support</h3>
@@ -8,15 +12,15 @@ export default function DebateSupportSection({ data }: { data: DebateType }) {
       <div className="flex items-center gap-4">
         <div className="flex items-center justify-center w-20 h-20 gap-2 text-sm text-green-600 bg-green-100 rounded-2xl">
           <Like1 />
-          {data.likePercentage}% ({data.likes})
+          {data.supportPercentage.toFixed(2)}%
         </div>
-        <div className="flex items-center justify-center w-20 h-20 gap-2 text-sm text-red-600 bg-red-100 rounded-2xl">
-          <Dislike />
-          {data.likePercentage}% ({data.likes})
+
+        <div className="px-3 py-1 rounded-md shadow-sm bg-primary/100">
+          {data.supportGotten}/{data.supportNeeded} supports gotten
         </div>
 
         <div className="px-4 py-[6px] text-sm underline cursor-pointer rounded-xl bg-black/10">
-          View Votes
+          View Supports
         </div>
       </div>
     </>

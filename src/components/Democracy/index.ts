@@ -30,3 +30,9 @@ export { default as DemocracyCreateSDGModal } from "./DemocracyCreateSDGModal";
 export { default as DebateSupportSection } from "./debates/DebateSupportSection";
 export { default as DebateMeetingLink } from "./debates/DebateMeetingLink";
 export { default as DebateTagsSection } from "./debates/DebateTagsSection";
+
+export { default as InitiavativeSupportSection } from "./initiatives/InitiativeSupportSection";
+export { default as InitiativeMeetingLink } from "./initiatives/InitiativeMeetingLink";
+export { default as InitiativeCommentSection } from "./initiatives/InitiativeCommentSection";
+export { default as InitiativeTagsSection } from "./initiatives/InitiativeTagsSection";
+export { default as AddMeetingLink } from "./initiatives/AddMeetingLink";

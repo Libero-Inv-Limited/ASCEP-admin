@@ -7,7 +7,13 @@ import {
 } from "./Auth";
 import { MainPage } from "./Main";
 import { SettingsPage } from "./Settings";
-import { DemocracyPage, ViewAllDebatesPage, ViewDebatePage } from "./Democracy";
+import {
+  DemocracyPage,
+  ViewAllDebatesPage,
+  ViewAllInitiativesPage,
+  ViewDebatePage,
+  ViewInitiativePage,
+} from "./Democracy";
 import {
   ActivityPage,
   AllCategoriesPage,
@@ -97,11 +103,16 @@ const routes: RouterType[] = [
     element: <ViewDebatePage />,
     title: "view-debate",
   },
-  // {
-  //   path: "/democracy/view-all",
-  //   element: <ViewAllDemocracyPage />,
-  //   title: "view-all",
-  // },
+  {
+    path: "/democracy/initiatives",
+    element: <ViewAllInitiativesPage />,
+    title: "view-initiatieves",
+  },
+  {
+    path: "/democracy/initiatives/:initiativeId",
+    element: <ViewInitiativePage />,
+    title: "view-initiative",
+  },
 
   {
     path: "/response",
