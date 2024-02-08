@@ -206,3 +206,88 @@ interface CommentType {
   comment_response_cache: number;
   comment_vote_cache: number;
 }
+
+// INITIATIVE
+interface InitiativeDataType {
+  meta: MetaDataType;
+  initiatives: InitiativeType[];
+}
+
+interface InitiativeType {
+  id: string;
+  title: string;
+  description: string;
+  type: string;
+  status: string;
+  created_by: string;
+  updatedAt: string;
+  createdAt: string;
+  ward_id: number;
+  latitude: number;
+  longitude: number;
+  location_meta: number;
+  support_needed: number;
+  meeting_link: string;
+  total_followers_cache: number;
+  total_support_cache: number;
+  total_comments_cache: number;
+  initiative_code: string;
+  initiativeTag: InitiativeTag[];
+  initiativeTarget: InitiativeTarget[];
+  initiativeSDGs: InitiativeSDGs[];
+  initiativeCategory: InitiativeCategoryType[];
+  author: {
+    id: string;
+    username: string;
+    profile_picture: string;
+  };
+  supportGotten: number;
+  supportNeeded: number;
+  supportPercentage: number;
+  userFollowing: {
+    following: boolean;
+  };
+  userSupported: {
+    reaction: boolean;
+  };
+  meta: MetaDataType;
+}
+
+interface InitiativeCategoryType {
+  category_id: number;
+  initiative_id: string;
+  categoryDetail: {
+    name: string;
+    id: number;
+  };
+}
+
+interface InitiativeSDGs {
+  sdg_id: number;
+  initiative_id: string;
+  sdg: {
+    title: string;
+    banner: string;
+    id: number;
+  };
+}
+
+interface InitiativeTarget {
+  target_id: number;
+  initiative_id: number;
+  targetInfo: {
+    code: string;
+    id: number;
+  };
+}
+
+interface InitiativeTag {
+  id: string;
+  tag_name: string;
+  initiative_id: string;
+}
+
+interface ChangeInitiativeStatusPayload {
+  status: string;
+  initiative_id: string;
+}

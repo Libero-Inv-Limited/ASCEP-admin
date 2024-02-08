@@ -32,39 +32,7 @@ const columns: ColumnDef<DebateType>[] = [
       return <div className="capitalize">{row.original.title}</div>;
     },
   },
-  // {
-  //   accessorKey: "debateTag",
-  //   header: "Tags",
-  //   size: 200,
-  //   cell: ({ row }) => {
-  //     return (
-  //       <div className="flex items-center gap-1 capitalize w-[250px] overflow-x-auto ">
-  //         {row.original.debateTag.map((tag) => (
-  //           <div
-  //             key={tag.id}
-  //             className="px-2 py-1 rounded-md bg-slate-200 text-nowrap "
-  //           >
-  //             {tag.tag_name}
-  //           </div>
-  //         ))}
-  //       </div>
-  //     );
-  //   },
-  // },
-  // {
-  //   accessorKey: "debateSDGs",
-  //   header: "SDGs",
-  //   size: 200,
-  //   cell: ({ row }) => {
-  //     return (
-  //       <div className="flex items-center gap-1 capitalize w-[250px] custom-scrollbar overflow-x-auto">
-  //         {row.original.debateSDGs.map((sdg) => (
-  //           <img src={sdg.sdgs.banner} key={sdg.sdgs.id} className="w-8 h08 " />
-  //         ))}
-  //       </div>
-  //     );
-  //   },
-  // },
+
   {
     accessorKey: "likes",
     header: "Likes",
@@ -124,12 +92,12 @@ const columns: ColumnDef<DebateType>[] = [
                 <div className="table-menu">View Debate</div>
               </Link>
             </DropdownMenuLabel>
-            <DropdownMenuLabel>
+            {/* <DropdownMenuLabel>
               <div className="table-menu">Edit Survey</div>
             </DropdownMenuLabel>
             <DropdownMenuLabel>
               <div className="table-menu">Delete Survey</div>
-            </DropdownMenuLabel>
+            </DropdownMenuLabel> */}
           </DropdownMenuContent>
         </DropdownMenu>
       );
@@ -137,7 +105,7 @@ const columns: ColumnDef<DebateType>[] = [
   },
 ];
 
-export default function DebatesTable({ isSummary }: { isSummary: boolean }) {
+export default function DebatesTable({ isSummary }: { isSummary?: boolean }) {
   const [tableData, setTableData] = useState<DebateType[]>([]);
   const {
     fetchingDebates,
