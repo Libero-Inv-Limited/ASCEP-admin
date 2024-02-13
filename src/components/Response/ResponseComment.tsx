@@ -3,6 +3,7 @@ import React from "react";
 
 import CommentResponses from "./CommentResponses";
 import UserAvatar from "../custom/UserAvatar";
+import ReportImagesSlideShow from "./ReportImagesSlideShow";
 
 interface ResponseCommentProps {
   comment: ReportComment;
@@ -29,6 +30,9 @@ const ResponseComment = ({ comment, reportId }: ResponseCommentProps) => {
         </div>
 
         <p className="text-sm text-dark">{comment.content}</p>
+        {!!comment.images.length && (
+          <ReportImagesSlideShow images={comment.images} />
+        )}
 
         {comment.comment_response_cache > 0 && (
           <CommentResponses comment={comment} reportId={reportId} />
