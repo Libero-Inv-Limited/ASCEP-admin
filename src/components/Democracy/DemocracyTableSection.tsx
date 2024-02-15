@@ -5,6 +5,8 @@ import DebateProvider from "@/contexts/DebateContext";
 import DebatesTable from "./debates/DebatesTable";
 import InitiativesTable from "./initiatives/InitiativesTable";
 import InitiativeProvider from "@/contexts/InitiativeContext";
+import ProposalsTable from "./proposals/ProposalsTable";
+import ProposalProvider from "@/contexts/ProposalContext";
 
 export default function DemocracyTableSection() {
   return (
@@ -53,9 +55,9 @@ const tabs = [
     value: "Proposals",
     label: "Proposals",
     table: (
-      <DebateProvider>
-        <DebatesTable isSummary />
-      </DebateProvider>
+      <ProposalProvider>
+        <ProposalsTable isSummary />
+      </ProposalProvider>
     ),
   },
   {

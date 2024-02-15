@@ -18,7 +18,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../../ui/form";
+} from "../ui/form";
 
 import {
   Select,

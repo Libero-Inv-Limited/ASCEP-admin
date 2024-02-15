@@ -6,11 +6,11 @@ export default function DebateSupportSection({ data }: { data: DebateType }) {
       <h3 className="text-xl ">Support</h3>
 
       <div className="flex items-center gap-4">
-        <div className="flex items-center justify-center w-20 h-20 gap-2 text-sm text-green-600 bg-green-100 rounded-2xl">
+        <div className="flex flex-col items-center justify-center w-[90px] h-[90px] gap-2 text-sm text-green-600 bg-green-100 rounded-2xl">
           <Like1 />
           {data.likePercentage}% ({data.likes})
         </div>
-        <div className="flex items-center justify-center w-20 h-20 gap-2 text-sm text-red-600 bg-red-100 rounded-2xl">
+        <div className="flex flex-col items-center justify-center w-[90px] h-[90px] gap-2 text-sm text-red-600 bg-red-100 rounded-2xl">
           <Dislike />
           {data.likePercentage}% ({data.likes})
         </div>

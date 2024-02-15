@@ -2,7 +2,6 @@
 import { useGetDebateInfo } from "@/api/democracy/debates";
 import {
   DebateComments,
-  // DebateMeetingLink,
   DebateSupportSection,
   DebateTagsSection,
 } from "@/components/Democracy";
@@ -59,7 +58,10 @@ export default function ViewDebatePage() {
           </div>
         </div>
 
-        <div dangerouslySetInnerHTML={{ __html: data.description }} />
+        <div
+          className="text-text/80"
+          dangerouslySetInnerHTML={{ __html: data.description }}
+        />
 
         <DebateSupportSection data={data} />
         {/* <DebateMeetingLink data={data} /> */}
