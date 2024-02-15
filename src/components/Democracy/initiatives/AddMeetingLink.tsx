@@ -49,7 +49,7 @@ export default function AddMeetingLink() {
           className="min-w-[600px]"
           style={{ borderRadius: 40, padding: 32 }}
         >
-          <h3 className="pb-3 text-2xl border-b text-textp border-black/10">
+          <h3 className="pb-3 text-2xl border-b text-text border-black/10">
             Add Meeting Link
           </h3>
 

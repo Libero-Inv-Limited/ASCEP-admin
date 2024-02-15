@@ -1,5 +1,5 @@
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import FormSelect from "../common/FormSelect";
+import FormSelect from "../../custom/FormSelect";
 import { useForm } from "react-hook-form";
 import { SelectItem } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";

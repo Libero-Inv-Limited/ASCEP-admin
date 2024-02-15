@@ -60,7 +60,10 @@ export default function ViewInitiativePage() {
           </div>
         </div>
 
-        <div dangerouslySetInnerHTML={{ __html: data.description }} />
+        <div
+          className="text-text/80"
+          dangerouslySetInnerHTML={{ __html: data.description }}
+        />
         <InitiavativeSupportSection data={data} />
         <InitiativeMeetingLink data={data} />
         <InitiativeTagsSection data={data} />

@@ -1,4 +1,5 @@
 import { Like1 } from "iconsax-react";
+import ViewSupport from "./ViewSupport";
 
 export default function InitiativeSupportSection({
   data,
@@ -19,9 +20,7 @@ export default function InitiativeSupportSection({
           {data.supportGotten}/{data.supportNeeded} supports gotten
         </div>
 
-        <div className="px-4 py-[6px] text-sm underline cursor-pointer rounded-xl bg-black/10">
-          View Supports
-        </div>
+        <ViewSupport data={data} />
       </div>
     </>
   );
