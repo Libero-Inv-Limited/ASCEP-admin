@@ -1,7 +1,7 @@
 import useDisclosure from "@/hooks/useDisclosure";
 import { Dialog, DialogContent } from "../ui/dialog";
 import { Button } from "../ui/button";
-import FormSelect from "../Democracy/common/FormSelect";
+import FormSelect from "../custom/FormSelect";
 import { Form } from "../ui/form";
 import { useForm } from "react-hook-form";
 import { z } from "zod";

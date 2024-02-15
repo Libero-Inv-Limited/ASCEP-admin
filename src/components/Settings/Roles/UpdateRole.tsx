@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useGetAllPermissions } from "@/api/permissions";
 import { useUpdateRole } from "@/api/roles";
-import FormSelect from "@/components/Democracy/common/FormSelect";
+import FormSelect from "@/components/custom/FormSelect";
 import { CustomMultiSelect, FormInput } from "@/components/custom";
 import FormTextArea from "@/components/custom/FormTextArea";
 import { Button } from "@/components/ui/button";
