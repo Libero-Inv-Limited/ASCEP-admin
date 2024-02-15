@@ -103,7 +103,7 @@ const columns: ColumnDef<ProposalType>[] = [
     id: "actions",
     header: "Actions",
     cell: ({ row }) => {
-      const debate = row.original;
+      const proposal = row.original;
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -114,8 +114,8 @@ const columns: ColumnDef<ProposalType>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent className="px-2" align="end">
             <DropdownMenuLabel>
-              <Link to={`/democracy/debates/${debate.id}`}>
-                <div className="table-menu">View Debate</div>
+              <Link to={`/democracy/proposals/${proposal.id}`}>
+                <div className="table-menu">View Proposal</div>
               </Link>
             </DropdownMenuLabel>
           </DropdownMenuContent>

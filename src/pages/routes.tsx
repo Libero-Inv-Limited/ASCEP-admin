@@ -38,6 +38,7 @@ import {
 import { Navigate } from "react-router-dom";
 import ViewReportPage from "./Response/view-report";
 import ViewSurveyPage from "./Response/view-survey";
+import ViewProposalPage from "./Democracy/proposals/view-proposal";
 
 export const landingPages: RouterType[] = [
   {
@@ -121,7 +122,7 @@ const routes: RouterType[] = [
   },
   {
     path: "/democracy/proposals/:proposalId",
-    element: <ViewInitiativePage />,
+    element: <ViewProposalPage />,
     title: "view-initiative",
   },
 

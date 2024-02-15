@@ -36,3 +36,8 @@ export { default as InitiativeMeetingLink } from "./initiatives/InitiativeMeetin
 export { default as InitiativeCommentSection } from "./initiatives/InitiativeCommentSection";
 export { default as InitiativeTagsSection } from "./initiatives/InitiativeTagsSection";
 export { default as AddMeetingLink } from "./initiatives/AddMeetingLink";
+
+export { default as ProposalInfo } from "./proposals/ProposalInfo";
+export { default as ProposalCommentSection } from "./proposals/ProposalCommentSection";
+export { default as DisplayDocuments } from "./common/DisplayDocuments";
+export { default as NotFound } from "./common/NotFound";
