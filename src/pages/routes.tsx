@@ -39,6 +39,7 @@ import { Navigate } from "react-router-dom";
 import ViewReportPage from "./Response/view-report";
 import ViewSurveyPage from "./Response/view-survey";
 import ViewProposalPage from "./Democracy/proposals/view-proposal";
+import ProposalCommuntityHomePage from "./Democracy/proposals/proposal-community";
 
 export const landingPages: RouterType[] = [
   {
@@ -123,6 +124,11 @@ const routes: RouterType[] = [
   {
     path: "/democracy/proposals/:proposalId",
     element: <ViewProposalPage />,
+    title: "view-initiative",
+  },
+  {
+    path: "/democracy/proposals/community/:proposalId",
+    element: <ProposalCommuntityHomePage />,
     title: "view-initiative",
   },
 
