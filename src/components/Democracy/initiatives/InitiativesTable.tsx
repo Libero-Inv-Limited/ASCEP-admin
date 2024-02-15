@@ -11,12 +11,12 @@ import { MoreHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { CustomPagination, TableSkeleton } from "../../custom";
-import DebatesFilter from "../debates/DebatesFilter";
 import { useInitiativeContext } from "@/contexts/InitiativeContext";
 import UserAvatar from "@/components/custom/UserAvatar";
 import { DataTable } from "@/components/custom/DataTable";
 import ChangeInitiativeStatus from "./ChangeInitiativeStatus";
 import { initiativeFilterButtonOptions } from "@/utils/Democracy/Initiatives";
+import AdvancedSearch from "../AdvancedSearch";
 
 const columns: ColumnDef<InitiativeType>[] = [
   {
@@ -147,7 +147,7 @@ export default function InitiativesTable({
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-end gap-3 ml-auto">
-        <DebatesFilter
+        <AdvancedSearch
           filterButtonOptions={initiativeFilterButtonOptions}
           filterByButton={filterByButton}
           filterOptions={filterOptions}

@@ -14,7 +14,7 @@ import { DataTable } from "@/components/custom/DataTable";
 import { useDebateContext } from "@/contexts/DebateContext";
 import { debateFilterButtonOptions } from "@/utils/Democracy/Debates";
 import { CustomPagination, TableSkeleton } from "../../custom";
-import DebatesFilter from "./DebatesFilter";
+import AdvancedSearch from "../AdvancedSearch";
 
 const columns: ColumnDef<DebateType>[] = [
   {
@@ -127,7 +127,7 @@ export default function DebatesTable({ isSummary }: { isSummary?: boolean }) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-end gap-3 ml-auto">
-        <DebatesFilter
+        <AdvancedSearch
           filterButtonOptions={debateFilterButtonOptions}
           filterByButton={filterByButton}
           filterOptions={filterOptions}

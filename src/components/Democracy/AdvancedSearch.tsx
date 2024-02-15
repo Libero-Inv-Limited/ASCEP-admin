@@ -1,13 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { IconWrapper } from "../../custom";
 import { Filter } from "iconsax-react";
-import { Button } from "../../ui/button";
 import {
   FilterButtons,
   FormCheckBoxSDG,
   FormInput,
   FormSelectTarget,
-} from "..";
+} from "../Democracy";
 import { useState } from "react";
 import { Form, FormLabel } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
@@ -21,6 +19,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { BiFilterAlt } from "react-icons/bi";
+import { Button } from "../ui/button";
+import { IconWrapper } from "../custom";
 
 interface AdvancedSearchProps {
   filterButtonOptions: FilterButtonOptionsType[];
@@ -34,7 +34,7 @@ interface AdvancedSearchProps {
   defaultFilterButtonValue: string;
 }
 
-const InitiativesFilter: React.FC<AdvancedSearchProps> = ({
+const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
   filterButtonOptions,
   filterByButton,
   setFilterOptions,
@@ -196,4 +196,4 @@ const InitiativesFilter: React.FC<AdvancedSearchProps> = ({
   );
 };
 
-export default InitiativesFilter;
+export default AdvancedSearch;
