@@ -156,7 +156,7 @@ export default function ProposalsTable({ isSummary }: { isSummary?: boolean }) {
           defaultFilterButtonValue="newest"
         />
         {isSummary && (
-          <Link to="/democracy/debates" className="text-end">
+          <Link to="/democracy/proposals" className="text-end">
             <p className="underline text-dark text-nowrap">See all</p>
           </Link>
         )}

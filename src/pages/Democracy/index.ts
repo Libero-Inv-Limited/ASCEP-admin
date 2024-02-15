@@ -5,9 +5,11 @@ export { default as ViewDebatePage } from "./debates/view-debate";
 
 export { default as DebatesInfoPage } from "./debates/debate-info";
 export { default as PublishDebatePage } from "./debates/publish-debate";
+
 //PROPOSALS
-export { default as ProposalsHomePage } from "./proposals/proposals";
+export { default as ViewAllProposalsPage } from "./proposals/proposals";
 export { default as StartProposalPage } from "./proposals/start-proposal";
+
 //INITIATIVES
 export { default as ViewAllInitiativesPage } from "./initiatives/initiatives";
 export { default as ViewInitiativePage } from "./initiatives/view-initiative";
