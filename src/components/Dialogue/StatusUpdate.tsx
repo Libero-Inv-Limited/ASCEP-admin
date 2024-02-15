@@ -1,5 +1,5 @@
 import { Dialog, DialogContent } from "../ui/dialog";
-import FormSelect from "../Democracy/common/FormSelect";
+import FormSelect from "../custom/FormSelect";
 import { Form } from "../ui/form";
 import { useForm } from "react-hook-form";
 import { z } from "zod";

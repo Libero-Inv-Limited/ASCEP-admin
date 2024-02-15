@@ -53,3 +53,66 @@ export const filterProposalSchema = z.object({
   newest: z.boolean().optional(),
   datetimeSpecific: z.string().optional(),
 });
+export const getProposalSchema = z.object({
+  page: z.number(),
+  perPage: z.number(),
+  filter: z.object({
+    sdgs: z.array(z.number()).optional(),
+    specificSDG: z.number().optional(),
+    specificTarget: z.number().optional(),
+    targets: z.array(z.number()).optional(),
+    tags: z.array(z.string()).optional(),
+    mostactive: z.boolean().optional(),
+    text: z.string().optional(),
+    highestrating: z.boolean().optional(),
+    newest: z.boolean().optional(),
+    datetimeSpecific: z.string().optional(),
+    datetimeRange: z
+      .object({
+        startDate: z.string(),
+        endDate: z.string(),
+      })
+      .optional(),
+  }),
+});
+
+export const proposalCommentSchema = z.object({
+  content: z
+    .string({ required_error: "comment text is required" })
+    .refine((data) => data.trim() !== "", {
+      message: "comment text cannot be empty",
+    }),
+  proposal_id: z.string({ required_error: "Proposal id is required" }),
+  comment_reference: z.string().optional(),
+});
+
+export const voteProposalCommentSchema = z.object({
+  type: z.string({ required_error: "vote type is required" }),
+
+  comment_id: z.string({ required_error: "proposal id is required" }),
+});
+export const proposalTopicSchema = z.object({
+  title: z
+    .string({ required_error: "Topic title is required" })
+    .refine((value) => value.trim() !== "", {
+      message: "Topic title is required",
+    }),
+  content: z
+    .string({ required_error: "Topic content is required" })
+    .refine((value) => value.trim() !== "", {
+      message: "Topic content is required",
+    }),
+  proposal_id: z.string({ required_error: "Proposal id is required" }),
+  id: z.string().optional(),
+});
+
+export const proposalTopicCommentSchema = z.object({
+  content: z
+    .string({ required_error: "comment text is required" })
+    .refine((data) => data.trim() !== "", {
+      message: "comment text cannot be empty",
+    }),
+  proposal_topic_id: z.string({ required_error: "Topic id is required" }),
+  comment_reference: z.string().optional(),
+  id: z.string().optional(),
+});

@@ -1,10 +1,10 @@
-interface ProposalType {
-  title: string;
-  date: string;
-  content: string;
-  tags: string[];
-  percentage: number;
-}
+// interface ProposalType {
+//   title: string;
+//   date: string;
+//   content: string;
+//   tags: string[];
+//   percentage: number;
+// }
 interface InitiativeType {
   user: string;
   email: string;
@@ -290,4 +290,109 @@ interface InitiativeTag {
 interface ChangeInitiativeStatusPayload {
   status: string;
   initiative_id: string;
+}
+
+// PROPOSALS
+interface ProposalDataType {
+  meta: MetaDataType;
+  proposals: ProposalType[];
+}
+
+interface ProposalType {
+  id: string;
+  user_id: string;
+  title: string;
+  content: string;
+  status: string;
+  updatedAt: string;
+  createdAt: string;
+  summary: string;
+  descriptive_image: string;
+  support_needed: number;
+  ward_id: number;
+  external_video_url: string;
+  total_support_cache: number;
+  total_comments_cache: number;
+  proposalTag: ProposalTagType[];
+  proposalCategory: ProposalCategoryType[];
+  proposalTarget: TargetType[];
+  proposalSDGs: ProposalSDGType[];
+  author: ProposalAuthorType;
+  supportGotten: number;
+  supportNeeded: number;
+  supportPercentage: number;
+  userSupported: boolean;
+  proposal_code: string;
+  proposalDocuments: {
+    document_url: string;
+    proposal_id: string;
+    id: string;
+  }[];
+}
+
+interface ProposalAuthorType {
+  id: string;
+  username: string;
+  profile_picture: string;
+}
+interface ProposalSDGType {
+  sdgs_id: number;
+  proposal_id: number;
+  sdgs: {
+    title: string;
+    banner: string;
+    id: number;
+  };
+}
+interface ProposalCategoryType {
+  category_id: number;
+  proposal_id: string;
+  categoryDetail: {
+    name: string;
+    id: number;
+  };
+}
+interface ProposalTagType {
+  id: number;
+  tag_name: string;
+  proposal_id: number;
+}
+
+// PROPOSAL TOPICS
+interface ProposalTopicDataType {
+  meta: MetaDataType;
+  data: ProposalTopicType[];
+}
+
+interface ProposalTopicType {
+  id: string;
+  proposal_id: string;
+  user_id: string;
+  title: string;
+  content: string;
+  total_vote_cache: number;
+  total_comment_cache: number;
+  updated_at: string;
+  created_at: string;
+  creator: {
+    firstname: string;
+    lastname: string;
+    username: string;
+    profile_picture: string;
+    id: string;
+  };
+  proposal: {
+    title: string;
+    user_id: string;
+    id: string;
+  };
+}
+interface ProposalCommunityMemberType {
+  user_id: string;
+  creator: {
+    profile_picture: string;
+    firstname: string;
+    lastname: string;
+    id: string;
+  };
 }

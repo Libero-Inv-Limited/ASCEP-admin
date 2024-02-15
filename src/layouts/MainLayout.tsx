@@ -4,7 +4,7 @@ import {
   SideNavigation,
 } from "@/components/layout-components";
 import { Toaster } from "@/components/ui/toaster";
-import NavigationContextProvider from "@/contexts/NavigationContext";
+import NavigationContextrovider from "@/contexts/NavigationContext";
 import { useAuthContext } from "@/providers/AuthProvider";
 import { Navigate, Outlet } from "react-router-dom";
 
@@ -13,7 +13,7 @@ export default function MainLayout() {
 
   if (!isLoggedIn) return <Navigate to="/auth/login" />;
   return (
-    <NavigationContextProvider>
+    <NavigationContextrovider>
       <div className="h-screen ">
         <MobileNavigation />
         <div className="w-full md:flex">
@@ -25,6 +25,6 @@ export default function MainLayout() {
         </div>
       </div>
       <Toaster />
-    </NavigationContextProvider>
+    </NavigationContextrovider>
   );
 }

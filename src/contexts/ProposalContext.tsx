@@ -1,6 +1,8 @@
-import { useGetAllDebates } from "@/api/democracy/debates";
-import { filterDebateSchema } from "@/schemas/DebateSchema";
-import { debateFilterButtonOptions } from "@/utils/Democracy/Debates";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useGetAllProposals } from "@/api/democracy/proposals";
+import { filterSchema } from "@/schemas/GeneralSchema";
+import { filterProposalSchema } from "@/schemas/ProposalSchema";
+import { proposalFilterButtonOptions } from "@/utils/Democracy/Proposals";
 import {
   PropsWithChildren,
   createContext,
@@ -14,71 +16,77 @@ import * as z from "zod";
 interface ProposalContextType {
   view: string;
   setView: React.Dispatch<React.SetStateAction<string>>;
-  fetchingDebates: boolean;
-  fetchingDebatesError: boolean;
-  fetchedDebatesData: DebateDataType | null;
-  refetchDebates: () => void;
+  fetchingProposals: boolean;
+  fetchingProposalError: boolean;
+  fetchedProposalData: ProposalDataType | undefined;
+  refetchProposals: () => void;
   filterByButton: (value: string) => void;
-  filterOptions: z.infer<typeof filterDebateSchema>;
+  filterOptions: z.infer<typeof filterSchema>;
   setFilterOptions: React.Dispatch<
-    React.SetStateAction<z.infer<typeof filterDebateSchema>>
+    React.SetStateAction<z.infer<typeof filterSchema>>
   >;
-  getAllDebates: UseMutateFunction<
+  getAllProposals: UseMutateFunction<
     any,
     unknown,
     {
       page: number;
       perPage: number;
-      filter: z.infer<typeof filterDebateSchema>;
+      filter: z.infer<typeof filterProposalSchema>;
     }
   >;
   perPage: number;
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
 }
-const initialFilter = {
-  sdgs: [],
-  specificSDG: undefined,
-  specificTarget: undefined,
-  targets: [],
-  tags: [],
-  mostactive: false,
-  text: "",
-  highestrating: false,
-  newest: false,
-  datetimeSpecific: "",
-};
+
 const ProposalContext = createContext<ProposalContextType>({
   view: "",
   setView: () => {},
-  fetchingDebates: false,
-  fetchingDebatesError: false,
-  fetchedDebatesData: null,
-  refetchDebates: () => {},
+  fetchingProposals: false,
+  fetchingProposalError: false,
+  fetchedProposalData: undefined,
+  refetchProposals: () => {},
   filterByButton: () => {},
-  filterOptions: initialFilter,
+  filterOptions: {},
   setFilterOptions: () => {},
-  getAllDebates: () => {},
+  getAllProposals: () => {},
   perPage: 0,
+  page: 0,
+  setPage: () => {},
 });
 
 export const useProposalContext = () => useContext(ProposalContext);
 
 export default function ProposalProvider({ children }: PropsWithChildren) {
+  const initialFilter = {
+    sdgs: [],
+    specificSDG: undefined,
+    specificTarget: undefined,
+    targets: [],
+    tags: [],
+    mostactive: false,
+    text: "",
+    highestrating: false,
+    newest: true,
+    datetimeSpecific: "",
+  };
+
   const {
-    mutate: getAllDebates,
-    isLoading: fetchingDebates,
-    isError: fetchingDebatesError,
-    data: fetchedDebatesData,
-  } = useGetAllDebates();
+    mutate: getAllProposals,
+    isLoading: fetchingProposals,
+    isError: fetchingProposalError,
+    data: fetchedProposalData,
+  } = useGetAllProposals();
 
   const [view, setView] = useState<string>("card-view");
   const [filterOptions, setFilterOptions] =
-    useState<z.infer<typeof filterDebateSchema>>(initialFilter);
-  const [page] = useState<number>(1);
+    useState<z.infer<typeof filterSchema>>(initialFilter);
+  const [page, setPage] = useState<number>(1);
   const [perPage] = useState<number>(10);
 
   const getFiltersWithValues = () => {
     const entries = Object.entries(filterOptions);
-    const filteredEntries = entries.filter(([key, value]) => {
+    const filteredEntries = entries.filter(([_, value]) => {
       if (value) {
         if (Array.isArray(value)) {
           return value.length > 0;
@@ -95,7 +103,7 @@ export default function ProposalProvider({ children }: PropsWithChildren) {
   };
 
   const filterByButton = (value: string) => {
-    const isValidOption = debateFilterButtonOptions.some(
+    const isValidOption = proposalFilterButtonOptions.some(
       (option) => option.value === value
     );
 
@@ -112,39 +120,33 @@ export default function ProposalProvider({ children }: PropsWithChildren) {
       const newFilter = { ...filterOptions, [value]: true };
       setFilterOptions(newFilter);
     } else {
-      return;
+      setFilterOptions({});
     }
   };
 
-  const fetchDebate = () => {
-    getAllDebates({ page, perPage, filter: getFiltersWithValues() });
-  };
-
   useEffect(() => {
-    getAllDebates({ page, perPage, filter: getFiltersWithValues() });
-  }, []);
+    getAllProposals({ page, perPage, filter: getFiltersWithValues() });
+  }, [filterOptions, page]);
 
-  useEffect(() => {
-    fetchDebate();
-  }, [filterOptions]);
-
-  const refetchDebates = () => {
-    getAllDebates({ page, perPage, filter: {} });
+  const refetchProposals = () => {
+    getAllProposals({ page, perPage, filter: getFiltersWithValues() });
   };
   return (
     <ProposalContext.Provider
       value={{
         view,
         setView,
-        fetchingDebates,
-        fetchingDebatesError,
-        fetchedDebatesData,
-        refetchDebates,
+        fetchingProposals,
+        fetchingProposalError,
+        fetchedProposalData,
+        refetchProposals,
         filterByButton,
         filterOptions,
         setFilterOptions,
-        getAllDebates,
+        getAllProposals,
         perPage,
+        page,
+        setPage,
       }}
     >
       {children}

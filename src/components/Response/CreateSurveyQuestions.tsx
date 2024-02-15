@@ -5,7 +5,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "../ui/button";
 import { Add, Location } from "iconsax-react";
-import FormSelect from "../Democracy/common/FormSelect";
+import FormSelect from "../custom/FormSelect";
 import { SelectItem } from "../ui/select";
 import { surveyQuestionSchema } from "@/schemas/responseSchemas";
 import { useLocation } from "react-router-dom";
