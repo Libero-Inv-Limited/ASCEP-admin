@@ -1,5 +1,4 @@
 import { TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
-// import DemocracyTableFilter from "./DemocracyTableFilter";
 import { Tabs } from "../ui/tabs";
 import DebateProvider from "@/contexts/DebateContext";
 import DebatesTable from "./debates/DebatesTable";
@@ -7,6 +6,8 @@ import InitiativesTable from "./initiatives/InitiativesTable";
 import InitiativeProvider from "@/contexts/InitiativeContext";
 import ProposalsTable from "./proposals/ProposalsTable";
 import ProposalProvider from "@/contexts/ProposalContext";
+import VotingProvider from "@/contexts/VotingContext";
+import VotingTable from "./voting/VotingTable";
 
 export default function DemocracyTableSection() {
   return (
@@ -64,9 +65,9 @@ const tabs = [
     value: "Voting",
     label: "Voting",
     table: (
-      <DebateProvider>
-        <DebatesTable isSummary />
-      </DebateProvider>
+      <VotingProvider>
+        <VotingTable isSummary />
+      </VotingProvider>
     ),
   },
 

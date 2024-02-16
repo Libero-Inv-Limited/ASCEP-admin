@@ -396,3 +396,92 @@ interface ProposalCommunityMemberType {
     id: string;
   };
 }
+
+//VOTING
+interface VotingDataType {
+  meta: MetaDataType;
+  polls: VotingType[];
+}
+
+interface VotingType {
+  id: string;
+  title;
+  start_date: string;
+  end_date: string;
+  summary: string;
+  description: string;
+  descriptive_image: string;
+  show_result: boolean;
+  show_statistics: boolean;
+  shareable_id: string;
+  total_comments_cache: number;
+  created_by: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  votingTarget: VotingTarget[];
+  votingSDGs: VotingSDGs[];
+  author: {
+    id: string;
+    username: string;
+    profile_picture: string;
+  };
+  userParticipated: boolean;
+  questions: VotingQuestionsType[];
+  proposals: ProposalType[];
+  votingWards: VotingWardType[];
+}
+
+interface VotingWardType {
+  voting_id: string;
+  wardDetail: WardsType;
+  ward_id: number;
+}
+interface VotingTarget {
+  target_id: number;
+  voting_id: number;
+  targetInfo: {
+    code: string;
+    id: number;
+  };
+}
+
+interface VotingSDGs {
+  sdg_id: number;
+  voting_id: string;
+  sdg: {
+    title: string;
+    banner: string;
+    id: number;
+  };
+}
+
+interface VotingQuestionsType {
+  id: string;
+  response_type: "single" | "multi_choice";
+  question: string;
+  options: string[];
+  userAnswered: {
+    user_responded: boolean;
+    response: QuestionResponseType;
+  };
+  voting_id: string;
+  updatedAt: string;
+  createdAt: string;
+}
+
+type QuestionResponseType = { answer: string[] };
+
+interface VotingProposalType {
+  id: string;
+  title: string;
+  external_video_url: string;
+  summary: string;
+  descriptive_image: string;
+  proposal_code: string;
+  proposalDocuments: {
+    id: string;
+    document_url: string;
+    proposal_id: string;
+  }[];
+}
