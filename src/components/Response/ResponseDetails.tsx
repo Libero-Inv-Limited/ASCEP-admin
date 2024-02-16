@@ -27,9 +27,12 @@ export default function ResponseDetails({
         </p>
       </div>
 
-      <div className="my-5 leading-7 text-text">
-        <p>{description}</p>
-      </div>
+      {/* <p>{description}</p> */}
+
+      <div
+        className="mb-8  text-subtle_text"
+        dangerouslySetInnerHTML={{ __html: description }}
+      />
 
       <div className="flex gap-6">
         {sdgs.map((sdg) => (

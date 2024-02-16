@@ -47,7 +47,7 @@ export default function ViewReportPage() {
         style={{ paddingBottom: 100 }}
       >
         <h3 className="text-2xl">View Response</h3>
-        <ResponseImageSelect />
+        <ResponseImageSelect images={data.reportImages} />
         <ResponseDetails
           description={data?.description}
           locationMeta={data?.location_meta}

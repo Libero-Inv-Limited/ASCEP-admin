@@ -13,6 +13,7 @@ interface SideNavigationProps {}
 
 const SideNavigation: React.FC<SideNavigationProps> = () => {
   const { openSidebar, toggleSidebar, activeModule } = useNavigationContext();
+
   return (
     <div
       className={`bg-[#EBE5F0] h-screen relative hidden md:block duration-300 px-4 ${
