@@ -8,82 +8,67 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import { Skeleton } from "../ui/skeleton";
+import { useGetReportTrendOverTime } from "@/api/main";
+import { useEffect, useState } from "react";
+import { getPastDays } from "@/utils/helper";
+import { FilterDropdown } from "../custom";
+
+const dateRange: FilterOption[] = [
+  {
+    label: "Today",
+    value: getPastDays(0),
+  },
+  {
+    label: "Past One Week",
+    value: getPastDays(7),
+  },
+  {
+    label: "Past One Month",
+    value: getPastDays(31),
+  },
+  {
+    label: "Past One Year",
+    value: getPastDays(100),
+  },
+];
 
 export default function ResponseChart() {
-  const data = [
-    {
-      name: "January",
-      approved: 3500000,
-      invalid: 1400000,
-      comments: 200000,
-    },
-    {
-      name: "February",
-      approved: 4200000,
-      invalid: 3800000,
-      comments: 4300000,
-    },
-    {
-      name: "March",
-      approved: 6000000,
-      invalid: 3800000,
-      comments: 5100000,
-    },
-    {
-      name: "April",
-      approved: 2500000,
-      invalid: 4200000,
-      comments: 6400000,
-    },
-    {
-      name: "May",
-      approved: 7800000,
-      invalid: 8900000,
-      comments: 8100000,
-    },
-    {
-      name: "June",
-      approved: 9500000,
-      invalid: 6700000,
-      comments: 7600000,
-    },
-    {
-      name: "July",
-      approved: 8200000,
-      invalid: 5300000,
-      comments: 6700000,
-    },
-    {
-      name: "August",
-      approved: 8800000,
-      invalid: 4400000,
-      comments: 9200000,
-    },
-    {
-      name: "September",
-      approved: 7700000,
-      invalid: 6200000,
-      comments: 8900000,
-    },
-    {
-      name: "October",
-      approved: 6900000,
-      invalid: 9500000,
-      comments: 7800000,
-    },
-    {
-      name: "November",
-      approved: 7200000,
-      invalid: 7800000,
-      comments: 9800000,
-    },
-    {
-      name: "December",
-      approved: 8500000,
-      invalid: 9200000,
-      comments: 8500000,
-    },
-  ];
+  const [date, setDate] = useState(getPastDays(0));
+  const { data, isLoading, isRefetching } = useGetReportTrendOverTime(date);
+  const [categories, setCategories] = useState<ChartCategory[]>([]);
+
+  useEffect(() => {
+    if (data) {
+      const categories = [
+        {
+          title: "Approved Reports",
+          total: data.reduce((acc, cur) => acc + cur.approved_reports, 0),
+          color: "#111211",
+        },
+        {
+          title: "Total Reports",
+          total: data.reduce((acc, cur) => acc + cur.rejected_reports, 0),
+          color: "#ED4A4A",
+        },
+        {
+          title: "Rejected Reports",
+          total: data.reduce((acc, cur) => acc + cur.total_reports, 0),
+          color: "#FFC334",
+        },
+        {
+          title: "Comments",
+          total: data.reduce((acc, cur) => acc + cur.total_comments, 0),
+          color: "#032282",
+        },
+      ];
+      setCategories(categories);
+    }
+  }, [data]);
+
+  const handleSetDateRange = (date: FilterOption) => {
+    setDate(date.value as string);
+  };
 
   return (
     <div className="bg-white w-full py-5 px-7 space-y-8 rounded-[30px]">
@@ -104,49 +89,92 @@ export default function ResponseChart() {
             </div>
           </div>
         ))}
+
+        <div className="ml-auto">
+          <FilterDropdown
+            title="Date range"
+            options={dateRange}
+            onSelect={handleSetDateRange}
+          />
+        </div>
       </div>
+
+      <div>{isRefetching && <p className="text-lg">Updating...</p>}</div>
       <ResponsiveContainer width="100%" height={400}>
-        <LineChart
-          // height={400}
-          data={data}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis opacity={0.6} className="mr-10" dataKey="name" />
-          <YAxis
-            opacity={0.6}
-            tickFormatter={(value) => `${value / 1000000}M`}
-          />
-          <Tooltip content={<CustomTooltip />} />
-          <Legend />
-          <Line
-            type="monotone"
-            dataKey="approved"
-            stroke="#18A201"
-            strokeWidth={3.5}
-            strokeOpacity={0.4}
-            activeDot={{ r: 8 }}
-          />
-          <Line
-            type="monotone"
-            dataKey="invalid"
-            stroke="#ED4A4A"
-            strokeWidth={3.5}
-            strokeOpacity={0.4}
-          />
-          <Line
-            type="monotone"
-            dataKey="comments"
-            stroke="#354D99"
-            strokeWidth={3.5}
-            strokeOpacity={0.4}
-          />
-        </LineChart>
+        {isLoading ? (
+          <div className="flex items-end h-full gap-3">
+            <Skeleton className="w-10 bg-slate-200 h-2/3" />
+            <Skeleton className="w-10 bg-slate-200 h-1/4" />
+            <Skeleton className="w-10 bg-slate-200 h-2/5" />
+            <Skeleton className="w-10 h-full bg-slate-200" />
+            <Skeleton className="w-10 bg-slate-200 h-2/3" />
+            <Skeleton className="w-10 bg-slate-200 h-1/4" />
+            <Skeleton className="w-10 bg-slate-200 h-2/3" />
+            <Skeleton className="w-10 bg-slate-200 h-1/4" />
+            <Skeleton className="w-10 bg-slate-200 h-2/5" />
+            <Skeleton className="w-10 h-full bg-slate-200" />
+            <Skeleton className="w-10 bg-slate-200 h-2/3" />
+            <Skeleton className="w-10 bg-slate-200 h-1/4" />
+            <Skeleton className="w-10 bg-slate-200 h-2/3" />
+            <Skeleton className="w-10 bg-slate-200 h-1/4" />
+            <Skeleton className="w-10 bg-slate-200 h-2/5" />
+            <Skeleton className="w-10 h-full bg-slate-200" />
+            <Skeleton className="w-10 bg-slate-200 h-2/3" />
+            <Skeleton className="w-10 bg-slate-200 h-1/4" />
+            <Skeleton className="w-10 bg-slate-200 h-2/3" />
+            <Skeleton className="w-10 bg-slate-200 h-1/4" />
+            <Skeleton className="w-10 bg-slate-200 h-2/5" />
+            <Skeleton className="w-10 h-full bg-slate-200" />
+            <Skeleton className="w-10 bg-slate-200 h-2/3" />
+            <Skeleton className="w-10 bg-slate-200 h-1/4" />
+          </div>
+        ) : (
+          <LineChart
+            data={data}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis opacity={0.6} className="mr-10" dataKey="month" />
+            <YAxis opacity={0.6} tickFormatter={(value) => `${value}`} />
+            <Tooltip content={<CustomTooltip />} />
+            <Legend />
+            <Line
+              type="monotone"
+              dataKey="approved_reports"
+              stroke="#18A201"
+              strokeWidth={3.5}
+              strokeOpacity={0.4}
+              activeDot={{ r: 8 }}
+            />
+            <Line
+              type="monotone"
+              dataKey="total_reports"
+              stroke="#FFC334"
+              strokeWidth={3.5}
+              strokeOpacity={0.4}
+              activeDot={{ r: 8 }}
+            />
+            <Line
+              type="monotone"
+              dataKey="rejected_reports"
+              stroke="#ED4A4A"
+              strokeWidth={3.5}
+              strokeOpacity={0.4}
+            />
+            <Line
+              type="monotone"
+              dataKey="total_comments"
+              stroke="#354D99"
+              strokeWidth={3.5}
+              strokeOpacity={0.4}
+            />
+          </LineChart>
+        )}
       </ResponsiveContainer>
     </div>
   );
@@ -172,7 +200,9 @@ const CustomTooltip = ({ active, payload }: any) => {
               />
               <p className="capitalize ">
                 {`${payloadItem.name} :`}{" "}
-                <span className="font-bold">${payloadItem.value}</span>
+                <span className="font-bold">
+                  {payloadItem.value.toLocaleString()}
+                </span>
               </p>
             </div>
           ))}
@@ -184,20 +214,20 @@ const CustomTooltip = ({ active, payload }: any) => {
   return null;
 };
 
-const categories = [
-  {
-    title: "Approved Reports",
-    total: "112,190,000",
-    color: "#18A201",
-  },
-  {
-    title: "Invalid Reports",
-    total: "112,190,000",
-    color: "#ED4A4A",
-  },
-  {
-    title: "Comments (/10k)",
-    total: "112,190,000",
-    color: "#354D99",
-  },
-];
+// const categories = [
+//   {
+//     title: "Approved Reports",
+//     total: "112,190,000",
+//     color: "#18A201",
+//   },
+//   {
+//     title: "Invalid Reports",
+//     total: "112,190,000",
+//     color: "#ED4A4A",
+//   },
+//   {
+//     title: "Comments (/10k)",
+//     total: "112,190,000",
+//     color: "#354D99",
+//   },
+// ];

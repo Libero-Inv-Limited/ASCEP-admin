@@ -35,7 +35,7 @@ export default function FilterDropdown({
 
   return (
     <div className="flex justify-between gap-3">
-      <p className="text-lg text-subtitle_text">{title}</p>
+      <p className="text-lg text-subtitle_text text-nowrap">{title}</p>
 
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
@@ -46,7 +46,7 @@ export default function FilterDropdown({
         </PopoverTrigger>
         <PopoverContent align="end" className="p-0 max-w-[230px] ">
           <Command>
-            <CommandInput placeholder="Search Categories..." />
+            <CommandInput placeholder="Search..." />
             <CommandEmpty>None found.</CommandEmpty>
             <CommandGroup className="h-full overflow-y-auto max-h-80">
               {options.map((option) => (

@@ -4,73 +4,117 @@ import {
   ResponsiveContainer,
   CartesianGrid,
   XAxis,
+  YAxis,
 } from "recharts";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
-const data = [
-  {
-    name: "Transfer",
-    total: 3000,
-    color: "#032282",
-  },
-  {
-    name: "Data purchase",
-    total: 2300,
-    color: "#5879FD",
-  },
-  {
-    name: "Airtime purchase",
-    total: 4100,
-    color: "#007A7F",
-  },
-  {
-    name: "Utilities",
-    total: 3800,
-    color: "#C6D1FF",
-  },
-  {
-    name: "Lotto games",
-    total: 3200,
-    color: "#5600AB",
-  },
-];
+import { useState } from "react";
+import { useGetProposalsOverTime } from "@/api/main";
+import { Skeleton } from "../ui/skeleton";
+import { getPastDays } from "@/utils/helper";
+import { FilterDropdown } from "../custom";
 
 export default function DialogueBarChart() {
+  const [date, setDate] = useState(getPastDays(0));
+  const { data, isLoading } = useGetProposalsOverTime(date);
+  const [dataKey, setDataKey] = useState("total_proposals");
+
+  const handleSetDateRange = (date: FilterOption) => {
+    setDate(date.value as string);
+  };
+  console.log(data);
   return (
     <div className="w-full py-5 space-y-8 bg-white rounded-lg px-7">
       <div className="flex items-center justify-between">
-        <h3 className="mr-8 text-lg text-dark">Response</h3>
+        <h3 className="text-lg text-dark">Proposals</h3>
 
-        <Select>
-          <SelectTrigger className="w-[180px] border border-black/10 focus:ring-0 ">
-            <SelectValue placeholder="This Month" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="this month">This Month</SelectItem>
-            <SelectItem value="last month">Last Month</SelectItem>
-            <SelectItem value="this year">This Year</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-      <ResponsiveContainer width="100%" height={290}>
-        <BarChart data={data} barSize={32}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <Bar
-            width={20}
-            dataKey="total"
-            fill="#032282"
-            radius={[5, 5, 5, 5]}
+        <div className="flex gap-2 -mr-12 scale-75 ">
+          <FilterDropdown
+            title="Status"
+            options={statuses}
+            onSelect={(e) => setDataKey(e.value as string)}
           />
-          <XAxis interval={0} className="text-xs" dataKey="name" />
-        </BarChart>
-      </ResponsiveContainer>
+          <FilterDropdown
+            title="Date range"
+            options={dateRange}
+            onSelect={handleSetDateRange}
+          />
+        </div>
+      </div>
+
+      {/* <div>{isRefetching && <p className="text-lg">Updating...</p>}</div> */}
+
+      {isLoading ? (
+        <div className="flex items-end h-full gap-3">
+          <Skeleton className="w-10 bg-slate-200 h-2/3" />
+          <Skeleton className="w-10 bg-slate-200 h-1/4" />
+          <Skeleton className="w-10 bg-slate-200 h-2/5" />
+          <Skeleton className="w-10 h-full bg-slate-200" />
+          <Skeleton className="w-10 bg-slate-200 h-2/3" />
+          <Skeleton className="w-10 bg-slate-200 h-1/4" />
+          <Skeleton className="w-10 bg-slate-200 h-2/3" />
+          <Skeleton className="w-10 bg-slate-200 h-1/4" />
+          <Skeleton className="w-10 bg-slate-200 h-2/5" />
+          <Skeleton className="w-10 h-full bg-slate-200" />
+        </div>
+      ) : (
+        <ResponsiveContainer width="100%" height={290}>
+          <BarChart data={data} barSize={32}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <Bar
+              width={20}
+              dataKey={dataKey}
+              fill="#032282"
+              radius={[5, 5, 5, 5]}
+            />
+            <YAxis opacity={0.6} tickFormatter={(value) => `${value}`} />
+
+            <XAxis
+              interval={1}
+              angle={-40}
+              className="text-xs"
+              dataKey="month"
+            />
+          </BarChart>
+        </ResponsiveContainer>
+      )}
     </div>
   );
 }
+
+const statuses: FilterOption[] = [
+  {
+    label: "Total Proposals",
+    value: "total_proposals",
+  },
+  {
+    label: "Pending",
+    value: "pending_proposals",
+  },
+  {
+    label: "Approved",
+    value: "approved_proposals",
+  },
+  {
+    label: "Total Comments",
+    value: "total_comments",
+  },
+];
+
+const dateRange: FilterOption[] = [
+  {
+    label: "Today",
+    value: getPastDays(0),
+  },
+  {
+    label: "Past One Week",
+    value: getPastDays(7),
+  },
+  {
+    label: "Past One Month",
+    value: getPastDays(31),
+  },
+  {
+    label: "Past One Year",
+    value: getPastDays(100),
+  },
+];

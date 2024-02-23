@@ -30,3 +30,34 @@ interface PollType {
   userParticipated: boolean;
   questions: PollQuestion[];
 }
+
+interface ReportTrend {
+  month: string;
+  rejected_reports: number;
+  approved_reports: number;
+  total_comments: number;
+  total_reports: number;
+}
+
+interface ChartCategory {
+  title: string;
+  total: number;
+  color: string;
+}
+
+interface SurveyTrend {
+  month: string;
+  draft_surveys: number;
+  completed_surveys: number;
+  ongoing_surveys: number;
+  total_responses: number;
+  total_surveys: number;
+}
+
+interface ProposalTrend {
+  month: string;
+  pending_proposals: number;
+  approved_proposals: number;
+  total_comments: number;
+  total_proposals: number;
+}
