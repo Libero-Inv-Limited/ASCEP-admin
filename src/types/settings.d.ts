@@ -10,7 +10,8 @@ type SettingsOption =
   | "Edit Profile"
   | "Roles & Permissions"
   | "API Integration"
-  | "System Configurations";
+  | "System Configurations"
+  | "Manage Modules";
 
 type RolesOption = "Roles" | "Update Role" | "New Role";
 
@@ -126,8 +127,20 @@ interface SystemConfigItem {
   slug: string;
   input_field: string;
 }
+interface PlatformModuleItem {
+  id: number;
+  name: string;
+  code: string;
+  enabled: boolean;
+  created_at: string;
+  updated_at: string;
+}
 
 interface UpdateSystemConfigPayload {
   slug: string;
   config_value: string;
+}
+interface TogglePlatformModulePayload {
+  code: string;
+  status: boolean;
 }

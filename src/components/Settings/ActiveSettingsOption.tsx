@@ -10,6 +10,7 @@ import { Button } from "../ui/button";
 import UserProfile from "./UserProfile";
 import ApiIntegrationSteps from "./ApiIntegrations/ApiIntegrationSteps";
 import SystemConfigurations from "./SystemConfigurations";
+import ManageModules from "./ManageModules";
 
 export default function ActiveSettingsOption() {
   const { activeOption, actionButton } = useSettingsContext();
@@ -41,6 +42,7 @@ export default function ActiveSettingsOption() {
       {activeOption === "Roles & Permissions" && <RolesSteps />}
       {activeOption === "API Integration" && <ApiIntegrationSteps />}
       {activeOption === "System Configurations" && <SystemConfigurations />}
+      {activeOption === "Manage Modules" && <ManageModules />}
     </div>
   );
 }

@@ -69,4 +69,8 @@ const options: SettingsOptionObj[] = [
     title: "System Configurations",
     subtitle: "Monitor activities along modules",
   },
+  {
+    title: "Manage Modules",
+    subtitle: "Activate/Deactivate Modules",
+  },
 ];
