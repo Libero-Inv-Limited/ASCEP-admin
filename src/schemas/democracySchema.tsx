@@ -13,6 +13,15 @@ export const createSDGSchema = z.object({
   img: z.string().optional(),
 });
 
+export const addSDGTargetSchema = z.object({
+  code: z
+    .string({ required_error: "Code is required" })
+    .min(1, { message: "Code is required" }),
+  description: z
+    .string({ required_error: "Description is required" })
+    .min(1, { message: "Description is required" }),
+});
+
 export const questionSchema = z.object({
   question: z.string().min(1, "Question is required"),
   answerType: z.enum(["text", "multiple_choice", "single_choice"]),
@@ -20,3 +29,4 @@ export const questionSchema = z.object({
 });
 
 export type CreateSDGSchema = z.infer<typeof createSDGSchema>;
+export type AddSDGTargetSchema = z.infer<typeof addSDGTargetSchema>;

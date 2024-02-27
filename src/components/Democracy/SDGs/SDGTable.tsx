@@ -14,6 +14,7 @@ import { DataTable } from "@/components/custom/DataTable";
 import { TableSkeleton } from "../../custom";
 import { useGetAllSDGs } from "@/api/sdg";
 import DeleteSDG from "./DeleteSDG";
+import AddSDGTarget from "./AddSDGTarget";
 
 const columns: ColumnDef<SDGData>[] = [
   {
@@ -79,7 +80,6 @@ const columns: ColumnDef<SDGData>[] = [
     id: "actions",
     header: "Actions",
     cell: ({ row }) => {
-      const debate = row.original;
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -90,15 +90,10 @@ const columns: ColumnDef<SDGData>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent className="px-2" align="end">
             <DropdownMenuLabel>
-              <Link to={`/democracy/debates/${debate.id}`}>
-                <div className="table-menu">View Debate</div>
-              </Link>
+              <AddSDGTarget id={row.original.id} />
             </DropdownMenuLabel>
             <DropdownMenuLabel>
-              <div className="table-menu">Edit Survey</div>
-            </DropdownMenuLabel>
-            <DropdownMenuLabel>
-              <DeleteSDG id={row.original.id} />{" "}
+              <DeleteSDG id={row.original.id} />
             </DropdownMenuLabel>
           </DropdownMenuContent>
         </DropdownMenu>
