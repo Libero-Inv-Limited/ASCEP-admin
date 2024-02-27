@@ -72,12 +72,12 @@ export const sidebarLinks: NavLinkType[] = [
     path: "/response",
     module: "response",
   },
-  // {
-  //   title: "Dialogue",
-  //   Icon: <Profile2User size={25} />,
-  //   path: "/dialogue",
-  //   module: "dialogue",
-  // },
+  {
+    title: "Dialogue",
+    Icon: <Profile2User size={25} />,
+    path: "/dialogue",
+    module: "dialogue",
+  },
   {
     title: "Democracy",
     Icon: <TickSquare size={25} />,
