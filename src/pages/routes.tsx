@@ -9,6 +9,7 @@ import { MainPage } from "./Main";
 import { SettingsPage } from "./Settings";
 import {
   DemocracyPage,
+  SDGsHomePage,
   ViewAllDebatesPage,
   ViewAllInitiativesPage,
   ViewAllProposalsPage,
@@ -130,6 +131,11 @@ const routes: RouterType[] = [
     path: "/democracy/proposals/community/:proposalId",
     element: <ProposalCommuntityHomePage />,
     title: "view-initiative",
+  },
+  {
+    path: "/democracy/sdgs",
+    element: <SDGsHomePage />,
+    title: "view-SDGs",
   },
 
   {

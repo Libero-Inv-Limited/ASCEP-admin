@@ -34,3 +34,24 @@ export const useCreateSDG = () => {
     }
   );
 };
+export const useDeleteSDG = () => {
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+  return useMutation(
+    (id: number) => {
+      return axios
+        .delete(`${baseUrl}/sdg/remove/${id}`)
+        .then((res) => res.data);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("all-sdgs");
+        toast({
+          title: "Success",
+          description: "SDG Deleted",
+          variant: "success",
+        });
+      },
+    }
+  );
+};

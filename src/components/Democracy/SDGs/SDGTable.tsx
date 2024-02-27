@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/custom/DataTable";
 import { TableSkeleton } from "../../custom";
 import { useGetAllSDGs } from "@/api/sdg";
+import DeleteSDG from "./DeleteSDG";
 
 const columns: ColumnDef<SDGData>[] = [
   {
@@ -26,8 +27,7 @@ const columns: ColumnDef<SDGData>[] = [
     accessorKey: "description",
     header: "Description",
     cell: ({ row }) => {
-      const date = new Date(row.original.description).toDateString();
-      return <div className="capitalize">{date}</div>;
+      return <div className="capitalize">{row.original.description}</div>;
     },
   },
   {
@@ -94,12 +94,12 @@ const columns: ColumnDef<SDGData>[] = [
                 <div className="table-menu">View Debate</div>
               </Link>
             </DropdownMenuLabel>
-            {/* <DropdownMenuLabel>
+            <DropdownMenuLabel>
               <div className="table-menu">Edit Survey</div>
             </DropdownMenuLabel>
             <DropdownMenuLabel>
-              <div className="table-menu">Delete Survey</div>
-            </DropdownMenuLabel> */}
+              <DeleteSDG id={row.original.id} />{" "}
+            </DropdownMenuLabel>
           </DropdownMenuContent>
         </DropdownMenu>
       );
@@ -124,7 +124,7 @@ export default function SDGTable({ isSummary }: { isSummary?: boolean }) {
     <div className="space-y-4">
       <div className="flex items-center justify-end gap-3 ml-auto">
         {isSummary && (
-          <Link to="/democracy/debates" className="text-end">
+          <Link to="/democracy/sdgs" className="text-end">
             <p className="underline text-dark text-nowrap">See all</p>
           </Link>
         )}
