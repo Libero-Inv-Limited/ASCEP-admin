@@ -485,3 +485,22 @@ interface VotingProposalType {
     proposal_id: string;
   }[];
 }
+
+// BUDGETTING
+interface CreateBudgetPayload {
+  title:string
+  description:string
+  start_date:string
+  end_date:string
+  fiscal_year:string
+  total_amount: string
+  phases: BudgetPhase[]
+}
+
+interface BudgetPhase {
+  phase_name: string;
+  phase_module_code: string;
+  start_date: string;
+  end_date: string;
+  phase_index: number;
+}

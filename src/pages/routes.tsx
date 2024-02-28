@@ -8,6 +8,8 @@ import {
 import { MainPage } from "./Main";
 import { SettingsPage } from "./Settings";
 import {
+  BudgetingPage,
+  BudgetingPhasesPage,
   DemocracyPage,
   SDGsHomePage,
   ViewAllDebatesPage,
@@ -136,6 +138,11 @@ const routes: RouterType[] = [
     path: "/democracy/sdgs",
     element: <SDGsHomePage />,
     title: "view-SDGs",
+  },
+  {
+    path: "/democracy/budgeting",
+    element: <BudgetingPage />,
+    title: "view-budgeting",
   },
 
   {

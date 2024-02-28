@@ -21,7 +21,6 @@ export default function DialogueBarChart() {
   const handleSetDateRange = (date: FilterOption) => {
     setDate(date.value as string);
   };
-  console.log(data);
   return (
     <div className="w-full py-5 space-y-8 bg-white rounded-lg px-7">
       <div className="flex items-center justify-between">

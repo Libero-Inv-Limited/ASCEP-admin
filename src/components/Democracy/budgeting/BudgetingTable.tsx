@@ -13,8 +13,8 @@ import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/custom/DataTable";
 import { TableSkeleton } from "../../custom";
 import { useGetAllSDGs } from "@/api/sdg";
-import DeleteSDG from "./DeleteSDG";
-import AddSDGTarget from "./AddSDGTarget";
+// import DeleteSDG from "./DeleteSDG";
+// import AddSDGTarget from "./AddSDGTarget";
 
 const columns: ColumnDef<SDGData>[] = [
   {
@@ -88,21 +88,25 @@ const columns: ColumnDef<SDGData>[] = [
               <MoreHorizontal className="w-4 h-4" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="px-2" align="end">
+          {/* <DropdownMenuContent className="px-2" align="end">
             <DropdownMenuLabel>
               <AddSDGTarget id={row.original.id} />
             </DropdownMenuLabel>
             <DropdownMenuLabel>
               <DeleteSDG id={row.original.id} />
             </DropdownMenuLabel>
-          </DropdownMenuContent>
+          </DropdownMenuContent> */}
         </DropdownMenu>
       );
     },
   },
 ];
 
-export default function SDGTable({ isSummary }: { isSummary?: boolean }) {
+export default function BudgetingPhasesTable({
+  isSummary,
+}: {
+  isSummary?: boolean;
+}) {
   const [tableData, setTableData] = useState<SDGData[]>([]);
   const { data, isLoading } = useGetAllSDGs();
 
@@ -117,7 +121,7 @@ export default function SDGTable({ isSummary }: { isSummary?: boolean }) {
     <div className="space-y-4">
       <div className="flex items-center justify-end gap-3 ml-auto">
         {isSummary && (
-          <Link to="/democracy/sdgs" className="text-end">
+          <Link to="/democracy/budgeting" className="text-end">
             <p className="underline text-dark text-nowrap">See all</p>
           </Link>
         )}

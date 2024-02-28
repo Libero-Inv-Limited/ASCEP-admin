@@ -41,3 +41,5 @@ export { default as ProposalInfo } from "./proposals/ProposalInfo";
 export { default as ProposalCommentSection } from "./proposals/ProposalCommentSection";
 export { default as DisplayDocuments } from "./common/DisplayDocuments";
 export { default as NotFound } from "./common/NotFound";
+
+export { default as AddBudget } from "./budgeting/AddBudget";

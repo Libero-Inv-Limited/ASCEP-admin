@@ -14,3 +14,7 @@ export { default as StartProposalPage } from "./proposals/start-proposal";
 export { default as ViewAllInitiativesPage } from "./initiatives/initiatives";
 export { default as ViewInitiativePage } from "./initiatives/view-initiative";
 export { default as SDGsHomePage } from "./SDGs/SDGs";
+
+//BUDJETING
+export { default as BudgetingPage } from "./budgeting/budgeting";
+export { default as BudgetingPhasesPage } from "./budgeting/budgetting-phases";
