@@ -14,6 +14,7 @@ import { DataTable } from "@/components/custom/DataTable";
 import { CustomPagination, EmptyState, TableSkeleton } from "../../custom";
 import { useGetAllBudgets } from "@/api/democracy/budgeting";
 import UpdateBudgetStatus from "./UpdateBudgetStatus";
+import DeleteBudget from "./DeleteBudget";
 // import DeleteSDG from "./DeleteSDG";
 // import AddSDGTarget from "./AddSDGTarget";
 
@@ -85,7 +86,7 @@ const columns: ColumnDef<BudgetItem>[] = [
               <UpdateBudgetStatus budget={row.original} />
             </DropdownMenuLabel>
             <DropdownMenuLabel>
-              {/* <DeleteSDG id={row.original.id} /> */}
+              <DeleteBudget id={row.original.id} />
             </DropdownMenuLabel>
           </DropdownMenuContent>
         </DropdownMenu>

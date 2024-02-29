@@ -60,3 +60,25 @@ export const useUpdateBudgetStatus = () => {
     }
   );
 };
+
+export const useDeleteBudget = () => {
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+  return useMutation(
+    (id: number) => {
+      return axios
+        .delete(`${baseUrl}/budget/remove/${id}`)
+        .then((res) => res.data);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("all-budgets");
+        toast({
+          title: "Success",
+          description: "Budget deleted",
+          variant: "success",
+        });
+      },
+    }
+  );
+};

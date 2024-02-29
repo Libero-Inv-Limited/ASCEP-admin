@@ -3,8 +3,6 @@ import { ColumnDef } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
 import {
   DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
@@ -79,7 +77,7 @@ const columns: ColumnDef<SDGData>[] = [
   {
     id: "actions",
     header: "Actions",
-    cell: ({ row }) => {
+    cell: () => {
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
