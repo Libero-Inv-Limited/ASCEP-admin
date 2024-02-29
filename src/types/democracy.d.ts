@@ -488,13 +488,13 @@ interface VotingProposalType {
 
 // BUDGETTING
 interface CreateBudgetPayload {
-  title:string
-  description:string
-  start_date:string
-  end_date:string
-  fiscal_year:string
-  total_amount: string
-  phases: BudgetPhase[]
+  title: string;
+  description: string;
+  start_date: string;
+  end_date: string;
+  fiscal_year: string;
+  total_amount: string;
+  phases: BudgetPhase[];
 }
 
 interface BudgetPhase {
@@ -503,4 +503,25 @@ interface BudgetPhase {
   start_date: string;
   end_date: string;
   phase_index: number;
+}
+
+interface BudgetsResponse {
+  meta: MetaDataType;
+  budgets: BudgetItem[];
+}
+
+interface BudgetItem {
+  id: number;
+  fiscal_year: number;
+  start_date: string;
+  end_date: string;
+  total_amount: string;
+  status: string;
+  total_phases_cache: number;
+  currentPhase: any[];
+}
+
+interface UpdateBudgetPayload {
+  status: string;
+  budget_id: number;
 }

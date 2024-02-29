@@ -1,4 +1,4 @@
-import BudgetingPhasesTable from "@/components/Democracy/budgeting/BudgetingTable";
+import BudgetingPhasesTable from "@/components/Democracy/budgeting/BudgetingPhasesTable";
 import { useNavigationContext } from "@/contexts/NavigationContext";
 import { useEffect } from "react";
 

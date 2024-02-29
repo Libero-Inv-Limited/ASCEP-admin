@@ -1,4 +1,5 @@
 import { AddBudget } from "@/components/Democracy";
+import BudgetsTable from "@/components/Democracy/budgeting/BudgetsTable";
 import { Button } from "@/components/ui/button";
 import { useNavigationContext } from "@/contexts/NavigationContext";
 import useDisclosure from "@/hooks/useDisclosure";
@@ -31,6 +32,9 @@ export default function BudgetingPage() {
         <h3>Budjets</h3>
 
         <Button onClick={onOpen}>Add Budget</Button>
+      </div>
+      <div>
+        <BudgetsTable />
       </div>
       <AddBudget onClose={onClose} isOpen={isOpen} />
     </div>

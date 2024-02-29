@@ -40,5 +40,12 @@ export const addBudgetPhaseSchema = z.object({
   }),
 });
 
+export const updateBudgetStatusSchema = z.object({
+  status: z.enum(["proposed", "rejected", "approved"], {
+    required_error: "Status is required",
+  }),
+});
+
 export type AddBudgetSchema = z.infer<typeof addBudgetSchema>;
+export type UpdateBudgetStatusSchema = z.infer<typeof updateBudgetStatusSchema>;
 export type AddBudgetPhaseSchema = z.infer<typeof addBudgetPhaseSchema>;

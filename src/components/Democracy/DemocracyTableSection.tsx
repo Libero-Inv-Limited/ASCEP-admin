@@ -9,7 +9,7 @@ import ProposalProvider from "@/contexts/ProposalContext";
 import VotingProvider from "@/contexts/VotingContext";
 import VotingTable from "./voting/VotingTable";
 import { SDGTable } from "./SDGs";
-import BudgetingPhasesTable from "./budgeting/BudgetingTable";
+import BudgetsTable from "./budgeting/BudgetsTable";
 
 export default function DemocracyTableSection() {
   return (
@@ -66,7 +66,7 @@ const tabs = [
   {
     value: "budgeting",
     label: "Budgeting",
-    table: <BudgetingPhasesTable isSummary />,
+    table: <BudgetsTable isSummary />,
   },
   {
     value: "Voting",
