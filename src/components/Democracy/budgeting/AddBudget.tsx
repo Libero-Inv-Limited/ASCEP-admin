@@ -86,12 +86,13 @@ export default function AddBudget({ isOpen, onClose }: AddBudgetProps) {
       reset();
       onClose();
     }
-  }, []);
+  }, [isSuccess]);
 
   const onSubmit = (data: AddBudgetSchema) => {
     const payload: CreateBudgetPayload = {
       ...data,
       // @ts-ignore
+      // phases: selectedPhases,
       phases: selectedPhases.map((phase, i) => ({ ...phase, phase_index: i })),
     };
     mutate(payload);
@@ -101,7 +102,7 @@ export default function AddBudget({ isOpen, onClose }: AddBudgetProps) {
       <DialogContent className="!rounded-[40px] min-w-[680px]">
         <h4 className="pb-3 border-b border-dark/10 ">Add a Budget</h4>
 
-        <div className="pt-8 space-y-8 max-h-[670px] overflow-y-auto custom-scrollbar pr-2">
+        <div className="pt-8 space-y-8 max-h-[75vh] overflow-y-auto custom-scrollbar pr-2">
           <Form {...form}>
             <form className="space-y-6">
               <div className="flex items-center justify-between ">

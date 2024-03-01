@@ -32,9 +32,6 @@ export const useGetAllBudgets = (page: number, perPage?: number) => {
       return axios
         .get(`${baseUrl}/budget/all?page=${page}&perPage=${perPage || 10}`)
         .then((res) => res.data.data);
-    },
-    {
-      refetchOnWindowFocus: false,
     }
   );
 };

@@ -502,7 +502,7 @@ interface BudgetPhase {
   phase_module_code: string;
   start_date: string;
   end_date: string;
-  phase_index: number;
+  phase_index?: number;
 }
 
 interface BudgetsResponse {
