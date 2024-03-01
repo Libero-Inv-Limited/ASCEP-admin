@@ -509,6 +509,10 @@ interface BudgetsResponse {
   meta: MetaDataType;
   budgets: BudgetItem[];
 }
+interface BudgetPhaseModule {
+  phase_module_name: string;
+  phase_module_code: string;
+}
 
 interface BudgetItem {
   id: number;
@@ -524,4 +528,52 @@ interface BudgetItem {
 interface UpdateBudgetPayload {
   status: string;
   budget_id: number;
+}
+
+interface ProjectProposalResponse {
+  meta: MetaDataType;
+  proposals: ProjectProposalItem[];
+}
+
+interface ProjectProposalItem {
+  id: number;
+  budget_id: number;
+  title: string;
+  description: string;
+  proposed_by: number;
+  status: string;
+  updatedAt: string;
+  createdAt: string;
+  ward_id: number;
+  feasibility_status: boolean;
+  valuation_status: boolean;
+  amount: string;
+  assigned_to: any;
+  total_votes_for_cache: number;
+  total_votes_against_cache: number;
+  total_votes_abstain_cache: number;
+  total_comments_cache: number;
+  image: any;
+  project_code: any;
+  user: ProjectUSER;
+  ward: Ward;
+  budgetItem: boolean;
+  userVoteStatus: UserVoteStatus;
+}
+
+interface ProjectUSER {
+  firstname: string;
+  lastname: string;
+  profile_picture: string;
+  id: number;
+}
+
+interface Ward {
+  ward: string;
+  id: number;
+}
+
+interface UserVoteStatus {
+  reaction: boolean;
+  type: any;
 }

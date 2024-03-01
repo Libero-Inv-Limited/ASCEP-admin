@@ -43,6 +43,7 @@ import ViewReportPage from "./Response/view-report";
 import ViewSurveyPage from "./Response/view-survey";
 import ViewProposalPage from "./Democracy/proposals/view-proposal";
 import ProposalCommuntityHomePage from "./Democracy/proposals/proposal-community";
+import SelectProjectPage from "./Democracy/budgeting/select-project";
 
 export const landingPages: RouterType[] = [
   {
@@ -143,6 +144,11 @@ const routes: RouterType[] = [
     path: "/democracy/budgeting",
     element: <BudgetingPage />,
     title: "view-budgeting",
+  },
+  {
+    path: "/democracy/budgeting/select-project/:budgetId",
+    element: <SelectProjectPage />,
+    title: "project-proposal",
   },
 
   {

@@ -1,7 +1,9 @@
 import { FormInput } from "@/components/custom";
+import FormSelect from "@/components/custom/FormSelect";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
+import { SelectItem } from "@/components/ui/select";
 import {
   AddBudgetPhaseSchema,
   addBudgetPhaseSchema,
@@ -9,16 +11,32 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
+const formatString = (str: string): string => {
+  // Replace underscores with spaces
+  const stringWithSpaces = str.replace(/_/g, " ");
+
+  // Capitalize the string
+  const capitalizedString = stringWithSpaces.replace(/\b\w/g, (match) =>
+    match.toUpperCase()
+  );
+
+  return capitalizedString;
+};
+
 interface AddBudgetPhaseProps {
   addPhase: (args: AddBudgetPhaseSchema) => void;
   isOpen: boolean;
   onClose: () => void;
+  isLoading?: boolean;
+  phases: BudgetPhaseModule[];
 }
 
 export default function AddBudgetPhase({
   addPhase,
   isOpen,
   onClose,
+  isLoading,
+  phases,
 }: AddBudgetPhaseProps) {
   const form = useForm<AddBudgetPhaseSchema>({
     resolver: zodResolver(addBudgetPhaseSchema),
@@ -31,9 +49,14 @@ export default function AddBudgetPhase({
   } = form;
 
   const onSubmit = (data: AddBudgetPhaseSchema) => {
-    addPhase(data);
+    addPhase({
+      ...data,
+      phase_name: formatString(data.phase_module_code),
+    });
     onClose();
   };
+
+  console.log(errors);
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="!rounded-[40px] min-w-[580px]">
@@ -43,19 +66,47 @@ export default function AddBudgetPhase({
           <Form {...form}>
             <form className="space-y-5">
               <div className="flex items-center justify-between ">
-                <p className="text-subtle_text">Phase Name</p>
+                <p className="text-subtle_text">Phase </p>
                 <div className=" w-full max-w-[350px]">
-                  <FormInput
+                  <FormSelect
+                    name="phase_module_code"
+                    control={control}
+                    label="Phase"
+                    placeholder={
+                      isLoading ? "Loading Phases" : "Select a phase"
+                    }
+                    errors={errors}
+                  >
+                    {phases?.map((phase) => (
+                      <SelectItem
+                        value={phase.phase_module_code}
+                        key={phase.phase_module_code}
+                      >
+                        {phase.phase_module_name}
+                      </SelectItem>
+                    ))}
+                  </FormSelect>
+
+                  {/* </SearchSelect>
+                  <CustomMultiSelect
+                    data={phasesOptions || []}
+                    selected={selectedPhases}
+                    setSelected={setSelectedPhases}
+                    placeholder={isLoading ? "Loading phases" : "Select phases"}
+                    showSearch
+                    searchPlaceholder="Search phases"
+                  /> */}
+                  {/* <FormInput
                     name="phase_name"
                     label="Phase name"
                     control={control}
                     placeholder="Enter phase name"
                     errors={errors}
-                  />
+                  /> */}
                 </div>
               </div>
 
-              <div className="flex items-center justify-between ">
+              {/* <div className="flex items-center justify-between ">
                 <p className="text-subtle_text">Phase Module Code</p>
                 <div className=" w-full max-w-[350px]">
                   <FormInput
@@ -66,7 +117,7 @@ export default function AddBudgetPhase({
                     errors={errors}
                   />
                 </div>
-              </div>
+              </div> */}
 
               <div className="flex items-center justify-between ">
                 <p className="text-subtle_text">Time Frame</p>

@@ -24,9 +24,7 @@ export const addBudgetSchema = z.object({
 });
 
 export const addBudgetPhaseSchema = z.object({
-  phase_name: z.string({ required_error: "Phase name is required" }).min(3, {
-    message: "Phase name must be at least 3 characters.",
-  }),
+  phase_name: z.string().optional(),
   phase_module_code: z
     .string({ required_error: "Phase module code is required" })
     .min(3, {

@@ -47,6 +47,19 @@ const columns: ColumnDef<BudgetItem>[] = [
       return <div>{new Date(row.original.end_date).toDateString()}</div>;
     },
   },
+  {
+    accessorKey: "end_date",
+    header: "End date",
+    cell: ({ row }) => {
+      return (
+        <Link to={`/democracy/budgeting/select-project/${row.original.id}`}>
+          <Button className="rounded-lg" size="sm">
+            Manage
+          </Button>
+        </Link>
+      );
+    },
+  },
 
   {
     accessorKey: "status",

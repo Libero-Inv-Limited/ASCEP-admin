@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FormInput } from "@/components/custom";
 import FormTextArea from "@/components/custom/FormTextArea";
 import { Button } from "@/components/ui/button";
@@ -13,7 +14,10 @@ import {
 } from "@/schemas/budgetingSchema";
 import { useEffect, useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
-import { useCreateBudgetSchema } from "@/api/democracy/budgeting";
+import {
+  useCreateBudgetSchema,
+  useGetallBudgetPhases,
+} from "@/api/democracy/budgeting";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 interface AddBudgetProps {
@@ -27,19 +31,45 @@ export default function AddBudget({ isOpen, onClose }: AddBudgetProps) {
     onOpen: onAddPhaseOpen,
     onClose: onAddphaseClose,
   } = useDisclosure();
-  const [phases, setPhases] = useState<AddBudgetPhaseSchema[]>([]);
+  const [selectedPhases, setSelectedPhases] = useState<AddBudgetPhaseSchema[]>(
+    []
+  );
+  const [phasesOptions, setPhasesOptions] = useState<BudgetPhaseModule[]>([]);
   const [phasesError, setPhasesError] = useState<boolean>(false);
   const form = useForm<AddBudgetSchema>({
     resolver: zodResolver(addBudgetSchema),
   });
 
+  const { data, isLoading: loadingPhases } = useGetallBudgetPhases();
+
+  useEffect(() => {
+    if (data && !!data?.length) setPhasesOptions(data);
+  }, [data]);
+
+  useEffect(() => {
+    if (selectedPhases?.length) {
+      setPhasesOptions(
+        phasesOptions.filter(
+          (phaseOption) =>
+            !selectedPhases.find(
+              (selectedPhase) =>
+                selectedPhase.phase_module_code ===
+                phaseOption.phase_module_code
+            )
+        )
+      );
+    }
+  }, [selectedPhases]);
+
+  console.log(phasesOptions);
+
   const addPhase = (phase: AddBudgetPhaseSchema) => {
-    setPhases((prev) => [...prev, phase]);
+    setSelectedPhases((prev) => [...prev, phase]);
     setPhasesError(false);
   };
 
   const removePhase = (id: number) => {
-    setPhases((prev) => prev.filter((phase, i) => i !== id && phase));
+    setSelectedPhases((prev) => prev.filter((phase, i) => i !== id && phase));
   };
 
   const {
@@ -59,14 +89,10 @@ export default function AddBudget({ isOpen, onClose }: AddBudgetProps) {
   }, []);
 
   const onSubmit = (data: AddBudgetSchema) => {
-    if (!phases.length) {
-      setPhasesError(true);
-      return;
-    }
-
     const payload: CreateBudgetPayload = {
       ...data,
-      phases: phases.map((phase, i) => ({ ...phase, phase_index: i })),
+      // @ts-ignore
+      phases: selectedPhases.map((phase, i) => ({ ...phase, phase_index: i })),
     };
     mutate(payload);
   };
@@ -75,7 +101,7 @@ export default function AddBudget({ isOpen, onClose }: AddBudgetProps) {
       <DialogContent className="!rounded-[40px] min-w-[680px]">
         <h4 className="pb-3 border-b border-dark/10 ">Add a Budget</h4>
 
-        <div className="pt-8 space-y-8 max-h-[680px] overflow-y-auto">
+        <div className="pt-8 space-y-8 max-h-[670px] overflow-y-auto custom-scrollbar pr-2">
           <Form {...form}>
             <form className="space-y-6">
               <div className="flex items-center justify-between ">
@@ -167,7 +193,7 @@ export default function AddBudget({ isOpen, onClose }: AddBudgetProps) {
                 )}
 
                 <div className="flex flex-wrap gap-3">
-                  {phases.map((phase, i) => (
+                  {selectedPhases.map((phase, i) => (
                     <div
                       className="flex items-center gap-3 p-1 text-white bg-black rounded-lg "
                       key={i}
@@ -211,6 +237,8 @@ export default function AddBudget({ isOpen, onClose }: AddBudgetProps) {
             addPhase={addPhase}
             isOpen={isAddPhaseOpen}
             onClose={onAddphaseClose}
+            phases={phasesOptions}
+            isLoading={loadingPhases}
           />
         )}
       </DialogContent>

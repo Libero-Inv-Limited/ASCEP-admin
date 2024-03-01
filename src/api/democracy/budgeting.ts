@@ -82,3 +82,39 @@ export const useDeleteBudget = () => {
     }
   );
 };
+
+export const useGetAllProjectProposals = (
+  id: string,
+  page: number,
+  perPage?: number
+) => {
+  return useQuery(
+    ["all-project-proposals", page, perPage, id],
+    (): Promise<ProjectProposalResponse> => {
+      return axios
+        .get(
+          `${baseUrl}/budget/proposals/${id}?page=${page}&perPage=${
+            perPage || 10
+          }`
+        )
+        .then((res) => res.data.data);
+    },
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
+};
+
+export const useGetallBudgetPhases = () => {
+  return useQuery(
+    ["all-budget-phases"],
+    (): Promise<BudgetPhaseModule[]> => {
+      return axios
+        .get(`${baseUrl}/budget/phase-modules`)
+        .then((res) => res.data.data.records);
+    },
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
+};
