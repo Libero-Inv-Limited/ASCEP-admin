@@ -6,20 +6,20 @@ import {
 } from "@/components/custom";
 import { DataTable } from "@/components/custom/DataTable";
 import UserAvatar from "@/components/custom/UserAvatar";
-import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import AssignUser from "./AssignUser";
+import SelectProposal from "./SelectProposal";
 
 const columns: ColumnDef<ProjectProposalItem>[] = [
   {
     accessorKey: "title",
     header: "Title",
-  },
-  {
-    accessorKey: "fiscal_year",
-    header: "Fiscal Year",
+    cell: ({ row }) => (
+      <div className="max-w-[300px] line-clamp-4">{row.original.title}</div>
+    ),
   },
   {
     accessorKey: "user",
@@ -30,11 +30,14 @@ const columns: ColumnDef<ProjectProposalItem>[] = [
       return (
         <div>
           {user ? (
-            <UserAvatar user={user} size={40} />
+            <div className="flex items-center gap-3">
+              <UserAvatar user={user} size={40} />
+              <p>
+                {user.firstname} {user.lastname}
+              </p>
+            </div>
           ) : (
-            <Button size="sm" variant="outline-primary">
-              Assign User
-            </Button>
+            <AssignUser id={row.original.id} />
           )}
         </div>
       );
@@ -55,6 +58,15 @@ const columns: ColumnDef<ProjectProposalItem>[] = [
   {
     accessorKey: "ward",
     header: "Ward",
+    cell: ({ row }) => <div>{row.original.ward.ward}</div>,
+  },
+  {
+    accessorKey: "id",
+    header: "Select",
+    cell: ({ row }) => {
+      const proposal = row.original;
+      return <SelectProposal proposal={proposal} />;
+    },
   },
 ];
 

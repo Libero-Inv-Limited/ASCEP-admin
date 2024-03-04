@@ -22,6 +22,19 @@ export const useGetUserInfo = (id: string) => {
   );
 };
 
+export const useSearchUser = (searchTerm: string | null) => {
+  return useQuery(
+    ["user-info", searchTerm],
+    (): Promise<ProjectUSER[]> =>
+      axios
+        .get(`${baseUrl}/user/search/${searchTerm}`)
+        .then((res) => res.data.data),
+    {
+      enabled: !!searchTerm,
+    }
+  );
+};
+
 export interface useGetSpecificUserAnalyticsProps {
   id: string;
   page: number;

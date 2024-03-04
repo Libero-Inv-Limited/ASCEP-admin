@@ -577,3 +577,12 @@ interface UserVoteStatus {
   reaction: boolean;
   type: any;
 }
+
+interface AssignBudget {
+  project_proposal: number;
+  user_id: number;
+}
+
+interface SelectProjectPayload {
+  project_proposal: number;
+}

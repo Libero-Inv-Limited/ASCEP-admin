@@ -115,3 +115,46 @@ export const useGetallBudgetPhases = () => {
     }
   );
 };
+
+export const useAssignProject = () => {
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+  return useMutation(
+    (value: AssignBudget) => {
+      return axios
+        .put(`${baseUrl}/budget/assign-user`, value)
+        .then((res) => res.data);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("all-project-proposals");
+        toast({
+          title: "Success",
+          description: "User Assigned",
+          variant: "success",
+        });
+      },
+    }
+  );
+};
+export const useSelectProject = () => {
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+  return useMutation(
+    (value: SelectProjectPayload) => {
+      return axios
+        .post(`${baseUrl}/budget/add-item`, value)
+        .then((res) => res.data);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("all-project-proposals");
+        toast({
+          title: "Success",
+          description: "User Assigned",
+          variant: "success",
+        });
+      },
+    }
+  );
+};

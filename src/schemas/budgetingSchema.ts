@@ -44,6 +44,13 @@ export const updateBudgetStatusSchema = z.object({
   }),
 });
 
+export const searchUserSchema = z.object({
+  search: z.string({ required_error: "Search term is required" }).min(4, {
+    message: "Search term must be at least 4 characters.",
+  }),
+});
+
 export type AddBudgetSchema = z.infer<typeof addBudgetSchema>;
 export type UpdateBudgetStatusSchema = z.infer<typeof updateBudgetStatusSchema>;
 export type AddBudgetPhaseSchema = z.infer<typeof addBudgetPhaseSchema>;
+export type SearchUserSchema = z.infer<typeof searchUserSchema>;
