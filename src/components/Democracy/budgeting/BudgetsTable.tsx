@@ -17,19 +17,9 @@ import UpdateBudgetStatus from "./UpdateBudgetStatus";
 import DeleteBudget from "./DeleteBudget";
 
 const columns: ColumnDef<BudgetItem>[] = [
-  //   {
-  //     accessorKey: "title",
-  //     header: "Title",
-  //     cell: ({ row }) => {
-  //       return <div className="capitalize">{row.original.title}</div>;
-  //     },
-  //   },
   {
     accessorKey: "fiscal_year",
     header: "Fiscal Year",
-    // cell: ({ row }) => {
-    //   return <div className="capitalize">{row.original.fiscal_year}</div>;
-    // },
   },
   {
     accessorKey: "start_date",

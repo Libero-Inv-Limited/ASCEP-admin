@@ -48,8 +48,6 @@ export default function AddBudget({
       }, 300);
   }, [openAddPhase]);
 
-  console.log(isAddPhaseOpen);
-
   const [selectedPhases, setSelectedPhases] = useState<AddBudgetPhaseSchema[]>(
     defaultSelectedPhases || []
   );
@@ -70,16 +68,7 @@ export default function AddBudget({
       : {},
   });
 
-  console.log();
-
   const { data, isLoading: loadingPhases } = useGetallBudgetPhases();
-
-  // useEffect(() => {
-  //   if (data && !!data?.length) setPhasesOptions(data);
-  // }, [data]);
-
-  // console.log(data);
-  // console.log(selectedPhases);
 
   useEffect(() => {
     if (selectedPhases?.length && data && !!data?.length) {
