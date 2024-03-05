@@ -85,8 +85,6 @@ export default function ProjectProposals() {
     }
   }, [data]);
 
-  console.log(data);
-
   return (
     <div className="space-y-4">
       <div className="bg-white  rounded-lg p-4 min-h-[65vh]">

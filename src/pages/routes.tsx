@@ -15,6 +15,7 @@ import {
   ViewAllDebatesPage,
   ViewAllInitiativesPage,
   ViewAllProposalsPage,
+  ViewBudgetPage,
   ViewDebatePage,
   ViewInitiativePage,
 } from "./Democracy";
@@ -148,6 +149,11 @@ const routes: RouterType[] = [
   {
     path: "/democracy/budgeting/select-project/:budgetId",
     element: <SelectProjectPage />,
+    title: "project-proposal",
+  },
+  {
+    path: "/democracy/budgeting/:budgetId",
+    element: <ViewBudgetPage />,
     title: "project-proposal",
   },
 

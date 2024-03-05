@@ -18,3 +18,4 @@ export { default as SDGsHomePage } from "./SDGs/SDGs";
 //BUDJETING
 export { default as BudgetingPage } from "./budgeting/budgeting";
 export { default as BudgetingPhasesPage } from "./budgeting/budgetting-phases";
+export { default as ViewBudgetPage } from "./budgeting/veiw-budget";

@@ -15,7 +15,7 @@ import {
 import { useEffect, useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import {
-  useCreateBudgetSchema,
+  useCreateBudget,
   useGetallBudgetPhases,
 } from "@/api/democracy/budgeting";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
@@ -23,33 +23,68 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 interface AddBudgetProps {
   isOpen: boolean;
   onClose: () => void;
+  budget?: BudgetInfo;
+  openAddPhase?: boolean;
+  defaultSelectedPhases?: AddBudgetPhaseSchema[];
 }
 
-export default function AddBudget({ isOpen, onClose }: AddBudgetProps) {
+export default function AddBudget({
+  isOpen,
+  onClose,
+  budget,
+  openAddPhase,
+  defaultSelectedPhases,
+}: AddBudgetProps) {
   const {
     isOpen: isAddPhaseOpen,
     onOpen: onAddPhaseOpen,
     onClose: onAddphaseClose,
   } = useDisclosure();
+
+  useEffect(() => {
+    if (openAddPhase)
+      setTimeout(() => {
+        onAddPhaseOpen();
+      }, 300);
+  }, [openAddPhase]);
+
+  console.log(isAddPhaseOpen);
+
   const [selectedPhases, setSelectedPhases] = useState<AddBudgetPhaseSchema[]>(
-    []
+    defaultSelectedPhases || []
   );
   const [phasesOptions, setPhasesOptions] = useState<BudgetPhaseModule[]>([]);
   const [phasesError, setPhasesError] = useState<boolean>(false);
+
   const form = useForm<AddBudgetSchema>({
     resolver: zodResolver(addBudgetSchema),
+    defaultValues: budget
+      ? {
+          description: budget?.description,
+          start_date: budget?.start_date.slice(0, 10),
+          end_date: budget?.end_date.slice(0, 10),
+          fiscal_year: `${budget?.fiscal_year}`,
+          title: budget?.title,
+          total_amount: budget?.total_amount,
+        }
+      : {},
   });
+
+  console.log();
 
   const { data, isLoading: loadingPhases } = useGetallBudgetPhases();
 
-  useEffect(() => {
-    if (data && !!data?.length) setPhasesOptions(data);
-  }, [data]);
+  // useEffect(() => {
+  //   if (data && !!data?.length) setPhasesOptions(data);
+  // }, [data]);
+
+  // console.log(data);
+  // console.log(selectedPhases);
 
   useEffect(() => {
-    if (selectedPhases?.length) {
+    if (selectedPhases?.length && data && !!data?.length) {
       setPhasesOptions(
-        phasesOptions.filter(
+        data.filter(
           (phaseOption) =>
             !selectedPhases.find(
               (selectedPhase) =>
@@ -59,9 +94,7 @@ export default function AddBudget({ isOpen, onClose }: AddBudgetProps) {
         )
       );
     }
-  }, [selectedPhases]);
-
-  console.log(phasesOptions);
+  }, [selectedPhases, budget?.budgetPhases, data]);
 
   const addPhase = (phase: AddBudgetPhaseSchema) => {
     setSelectedPhases((prev) => [...prev, phase]);
@@ -79,7 +112,7 @@ export default function AddBudget({ isOpen, onClose }: AddBudgetProps) {
     reset,
   } = form;
 
-  const { mutate, isLoading, isSuccess } = useCreateBudgetSchema();
+  const { mutate, isLoading, isSuccess } = useCreateBudget();
 
   useEffect(() => {
     if (isSuccess) {
@@ -95,6 +128,8 @@ export default function AddBudget({ isOpen, onClose }: AddBudgetProps) {
       // phases: selectedPhases,
       phases: selectedPhases.map((phase, i) => ({ ...phase, phase_index: i })),
     };
+
+    if (budget) payload.id = budget.id;
     mutate(payload);
   };
   return (
@@ -177,7 +212,6 @@ export default function AddBudget({ isOpen, onClose }: AddBudgetProps) {
                     control={control}
                     placeholder="Enter fiscal year "
                     errors={errors}
-                    type="number"
                   />
                 </div>
               </div>
@@ -226,7 +260,7 @@ export default function AddBudget({ isOpen, onClose }: AddBudgetProps) {
                   isLoading={isLoading}
                   className="w-[180px]"
                 >
-                  Create
+                  {budget ? "Update" : "Create"}
                 </Button>
               </div>
             </form>

@@ -3,7 +3,7 @@ import baseUrl from "../baseUrl";
 import axios from "axios";
 import { useToast } from "@/components/ui/use-toast";
 
-export const useCreateBudgetSchema = () => {
+export const useCreateBudget = () => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   return useMutation(
@@ -15,9 +15,32 @@ export const useCreateBudgetSchema = () => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries("all-budgets");
+        queryClient.invalidateQueries("budget-info");
         toast({
           title: "Success",
-          description: "Budget Created",
+          // description: "Budget Created",
+          variant: "success",
+        });
+      },
+    }
+  );
+};
+
+export const useUpdateBudget = () => {
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+  return useMutation(
+    (values: UpdateBudgetPhasePayload) => {
+      return axios
+        .put(`${baseUrl}/budget/compose/${values.id}`, values)
+        .then((res) => res.data);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("all-budgets");
+        toast({
+          title: "Success",
+          description: "Budget Updated",
           variant: "success",
         });
       },
@@ -155,6 +178,20 @@ export const useSelectProject = () => {
           variant: "success",
         });
       },
+    }
+  );
+};
+
+export const useGetBudgetInfo = (id: string) => {
+  return useQuery(
+    ["budget-info", id],
+    (): Promise<BudgetInfo> => {
+      return axios
+        .get(`${baseUrl}/budget/info/${id}`)
+        .then((res) => res.data.data?.budget);
+    },
+    {
+      // refetchOnWindowFocus: false,
     }
   );
 };

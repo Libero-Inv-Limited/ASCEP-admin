@@ -1,3 +1,7 @@
+import {
+  useGetallBudgetPhases,
+  useUpdateBudget,
+} from "@/api/democracy/budgeting";
 import { FormInput } from "@/components/custom";
 import FormSelect from "@/components/custom/FormSelect";
 import { Button } from "@/components/ui/button";
@@ -9,6 +13,7 @@ import {
   addBudgetPhaseSchema,
 } from "@/schemas/budgetingSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 const formatString = (str: string): string => {
@@ -23,21 +28,36 @@ const formatString = (str: string): string => {
   return capitalizedString;
 };
 
-interface AddBudgetPhaseProps {
-  addPhase: (args: AddBudgetPhaseSchema) => void;
+interface AddPhaseToBudgetProps {
   isOpen: boolean;
   onClose: () => void;
-  isLoading?: boolean;
-  phases: BudgetPhaseModule[];
+  budget: BudgetInfo;
 }
 
-export default function AddBudgetPhase({
-  addPhase,
+export default function AddPhaseToBudget({
   isOpen,
   onClose,
-  isLoading,
-  phases,
-}: AddBudgetPhaseProps) {
+  budget,
+}: AddPhaseToBudgetProps) {
+  const [phases, setPhases] = useState<BudgetPhaseModule[]>([]);
+  const existingPhases = budget.budgetPhases;
+
+  const { data, isLoading } = useGetallBudgetPhases();
+
+  useEffect(() => {
+    if (data && !!data?.length) {
+      const filteredPhases = data.filter(
+        (phase) =>
+          !existingPhases.some(
+            (existingPhase) =>
+              phase.phase_module_code === existingPhase.phase_module_code
+          )
+      );
+
+      setPhases(filteredPhases);
+    }
+  }, [data, existingPhases]);
+
   const form = useForm<AddBudgetPhaseSchema>({
     resolver: zodResolver(addBudgetPhaseSchema),
   });
@@ -48,12 +68,25 @@ export default function AddBudgetPhase({
     formState: { errors },
   } = form;
 
+  const { mutate, isLoading: submitting, isSuccess } = useUpdateBudget();
+
+  useEffect(() => {
+    isSuccess && onClose();
+  }, [isSuccess]);
+
   const onSubmit = (data: AddBudgetPhaseSchema) => {
-    addPhase({
+    mutate({
       ...data,
+      id: budget.total_phases_cache,
       phase_name: formatString(data.phase_module_code),
+      phase_index: budget.total_phases_cache,
     });
-    onClose();
+    // addPhase({
+    //   ...data,
+    //   phase_name: formatString(data.phase_module_code),
+    // });
+
+    // onClose();
   };
 
   return (
@@ -72,7 +105,7 @@ export default function AddBudgetPhase({
                     control={control}
                     label="Phase"
                     placeholder={
-                      isLoading ? "Loading Phases..." : "Select a phase"
+                      isLoading ? "Loading Phases" : "Select a phase"
                     }
                     errors={errors}
                   >
@@ -113,7 +146,11 @@ export default function AddBudgetPhase({
               </div>
 
               <div className="flex items-center justify-end">
-                <Button onClick={handleSubmit(onSubmit)} className="w-[180px]">
+                <Button
+                  isLoading={submitting}
+                  onClick={handleSubmit(onSubmit)}
+                  className="w-[180px]"
+                >
                   Add Phase
                 </Button>
               </div>

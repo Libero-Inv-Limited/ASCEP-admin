@@ -43,3 +43,4 @@ export { default as DisplayDocuments } from "./common/DisplayDocuments";
 export { default as NotFound } from "./common/NotFound";
 
 export { default as AddBudget } from "./budgeting/AddBudget";
+export { default as BudgetingPhasesTable } from "./budgeting/BudgetingPhasesTable";

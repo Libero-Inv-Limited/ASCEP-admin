@@ -1,4 +1,3 @@
-import { useGetAllProjectProposals } from "@/api/democracy/budgeting";
 import ProjectProposals from "@/components/Democracy/budgeting/ProjectProposals";
 import { useNavigationContext } from "@/contexts/NavigationContext";
 import { useEffect } from "react";
@@ -19,13 +18,12 @@ export default function SelectProjectPage() {
         link: "/democracy",
       },
       {
-        label: `Debate - ${budgetId}`,
-        link: `/democracy/budgeting/${budgetId}`,
+        label: `budgeting - project - ${budgetId}`,
+        link: `/democracy/budgeting/select-project/${budgetId}`,
       },
     ]);
   }, [activeLink, budgetId]);
 
-  //   if (isLoading) return <PageLoader />;
   return (
     <div className="page-wrapper">
       <h4>Projects</h4>

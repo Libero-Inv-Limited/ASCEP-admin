@@ -495,6 +495,7 @@ interface CreateBudgetPayload {
   fiscal_year: string;
   total_amount: string;
   phases: BudgetPhase[];
+  id?: number;
 }
 
 interface BudgetPhase {
@@ -503,6 +504,10 @@ interface BudgetPhase {
   start_date: string;
   end_date: string;
   phase_index?: number;
+}
+
+interface UpdateBudgetPhasePayload extends BudgetPhase {
+  id: number;
 }
 
 interface BudgetsResponse {
@@ -585,4 +590,32 @@ interface AssignBudget {
 
 interface SelectProjectPayload {
   project_proposal: number;
+}
+
+type BudgetStatus = "proposed" | "approved" | "rejected" | "current";
+
+interface BudgetInfo {
+  id: number;
+  title: string;
+  fiscal_year: number;
+  description: string;
+  total_amount: string;
+  status: BudgetStatus;
+  updatedAt: string;
+  createdAt: string;
+  start_date: string;
+  end_date: string;
+  budgetPhases: BudgetInfoPhase[];
+  total_phases_cache;
+}
+
+interface BudgetInfoPhase {
+  id: number;
+  budget_id: number;
+  phase_name: string;
+  start_date: string;
+  end_date: string;
+  current_phase: boolean;
+  phase_index: number;
+  phase_module_code: string;
 }

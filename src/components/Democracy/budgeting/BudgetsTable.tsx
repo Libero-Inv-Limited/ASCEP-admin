@@ -15,8 +15,6 @@ import { CustomPagination, EmptyState, TableSkeleton } from "../../custom";
 import { useGetAllBudgets } from "@/api/democracy/budgeting";
 import UpdateBudgetStatus from "./UpdateBudgetStatus";
 import DeleteBudget from "./DeleteBudget";
-// import DeleteSDG from "./DeleteSDG";
-// import AddSDGTarget from "./AddSDGTarget";
 
 const columns: ColumnDef<BudgetItem>[] = [
   //   {
@@ -95,10 +93,19 @@ const columns: ColumnDef<BudgetItem>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="px-2" align="end">
-            <DropdownMenuLabel>
+            <Link
+              className="font-normal"
+              to={`/democracy/budgeting/${row.original.id}`}
+            >
+              <DropdownMenuLabel className="py-2 font-normal cursor-pointer hover:bg-slate-100">
+                View Budget
+              </DropdownMenuLabel>
+            </Link>
+
+            <DropdownMenuLabel className="py-2 cursor-pointer hover:bg-slate-100">
               <UpdateBudgetStatus budget={row.original} />
             </DropdownMenuLabel>
-            <DropdownMenuLabel>
+            <DropdownMenuLabel className="py-2 cursor-pointer hover:bg-slate-100">
               <DeleteBudget id={row.original.id} />
             </DropdownMenuLabel>
           </DropdownMenuContent>

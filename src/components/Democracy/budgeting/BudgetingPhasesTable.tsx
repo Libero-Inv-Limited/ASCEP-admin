@@ -1,76 +1,48 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ColumnDef } from "@tanstack/react-table";
-import { useEffect, useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/custom/DataTable";
-import { TableSkeleton } from "../../custom";
-import { useGetAllSDGs } from "@/api/sdg";
-// import DeleteSDG from "./DeleteSDG";
-// import AddSDGTarget from "./AddSDGTarget";
+// import AddPhaseToBudget from "./AddPhaseToBudget";
+import useDisclosure from "@/hooks/useDisclosure";
+import AddBudget from "./AddBudget";
 
-const columns: ColumnDef<SDGData>[] = [
+const columns: ColumnDef<BudgetInfoPhase>[] = [
   {
-    accessorKey: "title",
-    header: "Title",
+    accessorKey: "name",
+    header: "Name",
     cell: ({ row }) => {
-      return <div className="capitalize">{row.original.title}</div>;
+      return <div className="capitalize">{row.original.phase_name}</div>;
     },
   },
   {
-    accessorKey: "description",
-    header: "Description",
+    accessorKey: "phase_index",
+    header: "Phase",
     cell: ({ row }) => {
-      return <div className="capitalize">{row.original.description}</div>;
-    },
-  },
-  {
-    accessorKey: "banner",
-    header: "Banner",
-    cell: ({ row }) => {
-      return (
-        <img
-          src={row.original.banner}
-          className="w-12 h-12 capitalize rounded-lg"
-        />
-      );
+      return <div>Phase {row.original.phase_index}</div>;
     },
   },
 
   {
-    accessorKey: "official_link",
-    header: "Official Link",
+    accessorKey: "start_date",
+    header: "Time From",
     cell: ({ row }) => {
       return (
-        <a
-          target="_blank"
-          href={row.original.official_link}
-          className="underline text-nowrap "
-        >
-          View Official Link
-        </a>
-      );
-    },
-  },
-
-  {
-    accessorKey: "sdgTarget",
-    header: "Targets",
-    cell: ({ row }) => {
-      return (
-        <div className="flex items-center gap-1 capitalize ">
-          {row.original.sdgTarget.map((target) => (
-            <div className="p-1 text-xs text-white bg-black rounded-md text-nowrap">
-              Target {target.code}
-            </div>
-          ))}
+        <div className="capitalize">
+          {new Date(row.original.start_date).toDateString()} -{" "}
+          {new Date(row.original.end_date).toDateString()}
         </div>
       );
+    },
+  },
+  {
+    accessorKey: "current_phase",
+    header: "Is Current",
+    cell: ({ row }) => {
+      return <div>{row.original.current_phase ? "Yes" : "No"}</div>;
     },
   },
 
@@ -101,36 +73,38 @@ const columns: ColumnDef<SDGData>[] = [
 ];
 
 export default function BudgetingPhasesTable({
-  isSummary,
+  budget,
 }: {
-  isSummary?: boolean;
+  budget: BudgetInfo;
 }) {
-  const [tableData, setTableData] = useState<SDGData[]>([]);
-  const { data, isLoading } = useGetAllSDGs();
-
-  useEffect(() => {
-    if (data) {
-      if (isSummary) {
-        setTableData(data.slice(0, 3));
-      } else setTableData(data);
-    }
-  }, [data]);
+  const data = budget.budgetPhases;
+  const { isOpen, onClose, onOpen } = useDisclosure();
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-end gap-3 ml-auto">
-        {isSummary && (
-          <Link to="/democracy/budgeting" className="text-end">
-            <p className="underline text-dark text-nowrap">See all</p>
-          </Link>
+      <div className="flex items-center justify-between">
+        <h4>Budjet Phases</h4>
+
+        <Button onClick={onOpen} size="sm">
+          Add Phase
+        </Button>
+        {/* <AddPhaseToBudget
+          budget={budget}
+          isOpen={isOpen}
+          onClose={onClose}
+        /> */}
+
+        {isOpen && budget && (
+          <AddBudget
+            isOpen={isOpen}
+            onClose={onClose}
+            budget={budget}
+            defaultSelectedPhases={budget.budgetPhases}
+            openAddPhase
+          />
         )}
       </div>
-      <div className="w-full p-4 bg-white rounded-lg ">
-        {isLoading ? (
-          <TableSkeleton count={20} />
-        ) : (
-          <DataTable columns={columns} data={tableData} />
-        )}
-      </div>
+
+      <DataTable columns={columns} data={data} />
     </div>
   );
 }
