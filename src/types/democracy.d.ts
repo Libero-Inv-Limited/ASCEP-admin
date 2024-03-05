@@ -553,7 +553,8 @@ interface ProjectProposalItem {
   feasibility_status: boolean;
   valuation_status: boolean;
   amount: string;
-  assigned_to: any;
+  assignedUser: ProjectUSER;
+  assigned_to: number | null;
   total_votes_for_cache: number;
   total_votes_against_cache: number;
   total_votes_abstain_cache: number;

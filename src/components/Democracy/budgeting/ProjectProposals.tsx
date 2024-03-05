@@ -25,7 +25,7 @@ const columns: ColumnDef<ProjectProposalItem>[] = [
     accessorKey: "user",
     header: "Assigned User",
     cell: ({ row }) => {
-      const user = row.original.user;
+      const user = row.original.assignedUser;
 
       return (
         <div>
