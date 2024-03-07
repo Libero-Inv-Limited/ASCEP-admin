@@ -6,18 +6,18 @@ import { useNavigationContext } from "@/contexts/NavigationContext";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-export default function ViewAuthorityPage() {
+export default function ViewRequestPage() {
   const { setBreadcrumbs, activeLink, setActiveLink, SetTopBarComponents } =
     useNavigationContext();
-  const { categoryId } = useParams();
+  const { requestId } = useParams();
 
   useEffect(() => {
-    setActiveLink(`/response/categories/${categoryId}`);
+    setActiveLink(`/response/categories/${requestId}`);
 
-    SetTopBarComponents(<AddCategoryModerator categoryId={categoryId!} />);
+    SetTopBarComponents(<AddCategoryModerator categoryId={requestId!} />);
 
     return () => SetTopBarComponents(null);
-  }, [categoryId]);
+  }, [requestId]);
 
   useEffect(() => {
     setBreadcrumbs([
@@ -26,12 +26,12 @@ export default function ViewAuthorityPage() {
         link: "/main",
       },
       {
-        label: "response",
-        link: "/response",
+        label: "dialogue",
+        link: "/dialogue",
       },
       {
-        label: "view category",
-        link: `/response/categories/${categoryId}`,
+        label: "view Request",
+        link: `/dialogue/requests/${requestId}`,
       },
     ]);
   }, [activeLink]);
@@ -40,7 +40,7 @@ export default function ViewAuthorityPage() {
     <div className="page-wrapper">
       {/* <h3>{}</h3> */}
 
-      <CategoryModeratorTable id={categoryId!} />
+      <CategoryModeratorTable id={requestId!} />
     </div>
   );
 }

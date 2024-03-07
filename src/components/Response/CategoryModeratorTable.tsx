@@ -64,6 +64,7 @@ export default function CategoryModeratorTable({ id }: { id: string }) {
       setTableData(data);
     }
   }, [data]);
+
   return (
     <div className="space-y-4">
       <div className="bg-white  rounded-lg p-4 min-h-[65vh]">
