@@ -54,6 +54,16 @@ const columns: ColumnDef<ProjectProposalItem>[] = [
   {
     accessorKey: "amount",
     header: "Amount",
+    cell: ({ row }) => <div>N{row.original.amount}</div>,
+  },
+
+  {
+    accessorKey: "total_votes_for_cache",
+    header: "Votes For",
+  },
+  {
+    accessorKey: "total_votes_against_cache",
+    header: "Votes against",
   },
   {
     accessorKey: "ward",

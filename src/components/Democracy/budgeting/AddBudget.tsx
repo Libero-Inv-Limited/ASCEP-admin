@@ -124,7 +124,9 @@ export default function AddBudget({
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="!rounded-[40px] min-w-[680px]">
-        <h4 className="pb-3 border-b border-dark/10 ">Add a Budget</h4>
+        <h4 className="pb-3 border-b border-dark/10 ">
+          {budget ? "Edit" : "Add a"} Budget
+        </h4>
 
         <div className="pt-8 space-y-8 max-h-[75vh] overflow-y-auto custom-scrollbar pr-2">
           <Form {...form}>

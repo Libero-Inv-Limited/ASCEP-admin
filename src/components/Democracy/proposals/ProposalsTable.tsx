@@ -16,7 +16,6 @@ import { useProposalContext } from "@/contexts/ProposalContext";
 import UserAvatar from "@/components/custom/UserAvatar";
 import AdvancedSearch from "../AdvancedSearch";
 import { proposalFilterButtonOptions } from "@/utils/Democracy/Proposals";
-// import DebatesFilter from "./DebatesFilter";
 
 const columns: ColumnDef<ProposalType>[] = [
   {
@@ -127,6 +126,7 @@ const columns: ColumnDef<ProposalType>[] = [
 
 export default function ProposalsTable({ isSummary }: { isSummary?: boolean }) {
   const [tableData, setTableData] = useState<ProposalType[]>([]);
+
   const {
     fetchingProposals,
     fetchedProposalData,
