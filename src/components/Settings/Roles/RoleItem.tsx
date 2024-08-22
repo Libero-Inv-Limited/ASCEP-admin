@@ -30,14 +30,17 @@ export default function RoleItem({
   return (
     <AccordionItem className="py-4" value={role.id.toString()}>
       <AccordionTrigger className="flex items-center justify-between w-full py-0 hover:no-underline">
-        <p className="text-base font-normal"> {role.name}</p>
+        <p className="text-base font-normal">{role.name}</p>
       </AccordionTrigger>
 
-      <AccordionContent className="py-5 spacy-5 ">
+      <AccordionContent className="py-5 spacy-5">
         <div className="flex flex-wrap gap-2">
           {role.rolePermission.length ? (
             role.rolePermission.map((permission) => (
-              <div className="px-2 py-1 text-white bg-black rounded-md w-fit">
+              <div
+                key={permission.permission.id}  // Assuming permission.permission.id is unique
+                className="px-2 py-1 text-white bg-black rounded-md w-fit"
+              >
                 {permission.permission.name}
               </div>
             ))

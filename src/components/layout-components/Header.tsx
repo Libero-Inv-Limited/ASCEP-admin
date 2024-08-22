@@ -1,3 +1,4 @@
+import React from "react";
 import { Breadcrumb } from "../custom";
 import { useNavigationContext } from "@/contexts/NavigationContext";
 import UserDropdown from "./UserDropdown";
@@ -18,7 +19,7 @@ const Header = () => {
         )}
         <p className="text-lg text-subtle_text">
           {activeModule === "main" ? (
-            "Hi Admin, lets get you rolling"
+            "Hi Admin, let's get you rolling"
           ) : (
             <Breadcrumb
               breadcrumbs={breadcrumbs}

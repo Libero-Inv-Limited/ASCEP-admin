@@ -1,6 +1,5 @@
-import * as React from "react";
+import React from "react";
 import { ChevronsUpDown } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -27,113 +26,118 @@ interface CustomMultiSelectProps {
   setSelected: React.Dispatch<React.SetStateAction<MultiSelectData[]>>;
 }
 
-export default function CustomMultiSelect({
-  selected,
-  setSelected,
-  data,
-  isLoading,
-  placeholder,
-  isLoadingPlaceholder,
-  searchPlaceholder,
-  showSearch,
-}: CustomMultiSelectProps) {
-  const [open, setOpen] = React.useState(false);
-  const [renderedItems, setRenderedItems] = React.useState<MultiSelectData[]>(
-    []
-  );
+const CustomMultiSelect = React.forwardRef<HTMLDivElement, CustomMultiSelectProps>(
+  (
+    {
+      selected,
+      setSelected,
+      data,
+      isLoading,
+      placeholder,
+      isLoadingPlaceholder,
+      searchPlaceholder,
+      showSearch,
+    },
+    ref
+  ) => {
+    const [open, setOpen] = React.useState(false);
+    const [renderedItems, setRenderedItems] = React.useState<MultiSelectData[]>(
+      []
+    );
 
-  React.useEffect(() => {
-    if (selected.length === 0 && !!data) {
-      setRenderedItems(data);
-    }
-    if (selected.length > 0 && !!data) {
+    React.useEffect(() => {
+      if (selected.length === 0 && !!data) {
+        setRenderedItems(data);
+      }
+      if (selected.length > 0 && !!data) {
+        setRenderedItems(
+          renderedItems.filter((renderedItem) =>
+            selected.some((selectedItem) => selectedItem.id !== renderedItem.id)
+          )
+        );
+      }
+    }, [data, selected]);
+
+    const handleSelect = (selectedJson: string) => {
+      const selectedItem = JSON.parse(selectedJson);
+
+      setSelected([
+        ...selected,
+        renderedItems.filter(
+          (option) =>
+            option.id.toString().toLowerCase() ===
+            selectedItem.id.toString().toLowerCase()
+        )[0],
+      ]);
       setRenderedItems(
-        renderedItems.filter((renderedItem) =>
-          selected.some((selectedItem) => selectedItem.id !== renderedItem.id)
+        renderedItems.filter(
+          (renderedItem) =>
+            renderedItem.id.toString().toLowerCase() !==
+            selectedItem.id.toString().toLowerCase()
         )
       );
-    }
-  }, [data, selected]);
+    };
 
-  React.useEffect(() => {}, []);
+    const handleRemove = (collectionsJson: string) => {
+      const collection = JSON.parse(collectionsJson);
 
-  const handleSelect = (selectedJson: string) => {
-    const selectedItem = JSON.parse(selectedJson);
+      setRenderedItems([
+        ...renderedItems,
+        selected.filter((option) => option.id === collection.id)[0],
+      ]);
+      setSelected(
+        selected.filter((selectedItem) => selectedItem.id !== collection.id)
+      );
+    };
 
-    setSelected([
-      ...selected,
-      renderedItems.filter(
-        (option) =>
-          option.id.toString().toLowerCase() ==
-          selectedItem.id.toString().toLowerCase()
-      )[0],
-    ]);
-    setRenderedItems(
-      renderedItems.filter(
-        (rendredItem) =>
-          rendredItem.id.toString().toLowerCase() !==
-          selectedItem.id.toString().toLowerCase()
-      )
-    );
-  };
+    return (
+      <div className="relative w-full space-y-4" ref={ref}>
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger asChild>
+            <Button
+              role="combobox"
+              aria-expanded={open}
+              className="bg-[#F5F5F5] text-base text-text focus-visible:ring-0 focus-visible:ring-primary border-none focus:border-none focus-visible:ring-offset-0 rounded-[20px] h-[50px] placeholder:text-base placeholder:text-subtle_text/30 placeholder:font-medium w-full hover:bg-[#f5f5f5] justify-between "
+            >
+              {isLoading
+                ? isLoadingPlaceholder || "Fetching..."
+                : placeholder || "Select"}
+              <ChevronsUpDown className="w-4 h-4 ml-2 opacity-50 shrink-0" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="p-0 ">
+            <Command>
+              {showSearch && <CommandInput placeholder={searchPlaceholder} />}
+              <CommandEmpty>No item found</CommandEmpty>
+              <CommandGroup>
+                {renderedItems.map((renderedItem) => (
+                  <CommandItem
+                    key={renderedItem.id}
+                    value={JSON.stringify(renderedItem)}
+                    onSelect={(currentValue) => {
+                      handleSelect(currentValue);
+                      setOpen(false);
+                    }}
+                  >
+                    {renderedItem.name}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </Command>
+          </PopoverContent>
+        </Popover>
 
-  const handleRemove = (collectionsJson: string) => {
-    const collection = JSON.parse(collectionsJson);
-
-    setRenderedItems([
-      ...renderedItems,
-      selected.filter((option) => option.id === collection.id)[0],
-    ]);
-    setSelected(
-      selected.filter((selectedItem) => selectedItem.id !== collection.id)
-    );
-  };
-
-  return (
-    <div className="relative w-full space-y-4">
-      <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
-          <Button
-            role="combobox"
-            aria-expanded={open}
-            className="bg-[#F5F5F5] text-base text-text focus-visible:ring-0 focus-visible:ring-primary border-none focus:border-none focus-visible:ring-offset-0 rounded-[20px] h-[50px] placeholder:text-base placeholder:text-subtle_text/30 placeholder:font-medium w-full hover:bg-[#f5f5f5] justify-between "
-          >
-            {isLoading
-              ? isLoadingPlaceholder || "Fetching..."
-              : placeholder || "Select"}
-            <ChevronsUpDown className="w-4 h-4 ml-2 opacity-50 shrink-0" />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="p-0 ">
-          <Command>
-            {showSearch && <CommandInput placeholder={searchPlaceholder} />}
-            <CommandEmpty>No item found</CommandEmpty>
-            <CommandGroup>
-              {renderedItems.map((renderedItem) => (
-                <CommandItem
-                  key={renderedItem.id}
-                  value={JSON.stringify(renderedItem)}
-                  onSelect={(currentValue) => {
-                    handleSelect(currentValue);
-                    setOpen(false);
-                  }}
-                >
-                  {renderedItem.name}
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          </Command>
-        </PopoverContent>
-      </Popover>
-
-      <div className="flex flex-wrap gap-2 ">
-        {selected.map((item) => (
-          <SelectedItem item={item} key={item.id} handleRemove={handleRemove} />
-        ))}
+        <div className="flex flex-wrap gap-2 ">
+          {selected.map((item) => (
+            <SelectedItem item={item} key={item.id} handleRemove={handleRemove} />
+          ))}
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
+);
+
+export default CustomMultiSelect;
 
 interface SelectedSdgProps {
   item: MultiSelectData;

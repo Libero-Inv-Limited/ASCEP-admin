@@ -29,7 +29,7 @@ export default function BudgetingPage() {
   return (
     <div className="page-wrapper">
       <div className="flex items-center justify-between">
-        <h3>Budjets</h3>
+        <h3>Budgets</h3>
 
         <Button onClick={onOpen}>Add Budget</Button>
       </div>
