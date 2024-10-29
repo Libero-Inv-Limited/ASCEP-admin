@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   DropdownMenu,
@@ -7,15 +8,16 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "../ui/button";
 import { MoreHorizontal } from "lucide-react";
+import DownloadReport from "./DownloadReport"; // Import the new component
 
 export default function ResponsePostActions({
   report,
 }: {
   report: ReportData;
 }) {
-  const status = report.reportStatus.name;
-  const type = report.report_type;
+  const [isDownloading, setIsDownloading] = useState(false);
   const navigate = useNavigate();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -28,24 +30,34 @@ export default function ResponsePostActions({
         <DropdownMenuLabel
           onClick={() =>
             navigate(`/response/reports/${report.id}`, {
-              state: { status, type },
+              state: { status: report.reportStatus.name, type: report.report_type },
             })
           }
         >
-          {/* <Link to={"/posts/1"}> */}
           <div className="table-menu">View</div>
-          {/* </Link> */}
+        </DropdownMenuLabel>
+
+        <DropdownMenuLabel onClick={() => setIsDownloading(true)}>
+          <div className="table-menu">
+            {isDownloading ? "Downloading..." : "Download"}
+          </div>
+        </DropdownMenuLabel>
+
+        <DropdownMenuLabel>
+          <div className="table-menu">Edit</div>
         </DropdownMenuLabel>
         <DropdownMenuLabel>
-          <div className="table-menu">Download</div>
-        </DropdownMenuLabel>
-        <DropdownMenuLabel>
-          <div className="table-menu">Edit </div>
-        </DropdownMenuLabel>
-        <DropdownMenuLabel>
-          <div className="table-menu">Delete </div>
+          <div className="table-menu">Delete</div>
         </DropdownMenuLabel>
       </DropdownMenuContent>
+
+      {/* Conditionally render DownloadReport component */}
+      {isDownloading && (
+        <DownloadReport
+          reportId={report.id}
+          onComplete={() => setIsDownloading(false)}
+        />
+      )}
     </DropdownMenu>
   );
 }
