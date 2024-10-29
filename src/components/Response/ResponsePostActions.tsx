@@ -44,7 +44,7 @@ export default function ResponsePostActions({
           </div>
         </DropdownMenuLabel>
 
-        <DropdownMenuLabel>
+        <DropdownMenuLabel onClick={() => navigate("/response/reports/update-report", { state: { reportData: report } })}>
           <div className="table-menu">Edit</div>
         </DropdownMenuLabel>
         <DropdownMenuLabel >

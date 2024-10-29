@@ -15,12 +15,12 @@ export default function DeleteReport({ id }: { id: number}) {
   return (
     <div>
       <div className="font-normal cursor-pointer" onClick={onOpen}>
-        Delete Budget
+        Delete
       </div>
       <ConfirmAction
         isOpen={isOpen}
         onClose={onClose}
-        message="Are you sure you want to delete this budget?"
+        message="Are you sure you want to delete this report?"
         onContinue={() => mutate(id)}
         isLoading={isLoading}
       />

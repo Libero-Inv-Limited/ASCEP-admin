@@ -131,6 +131,7 @@ export const columns: ColumnDef<ReportData>[] = [
 export default function ReportsTable({ isSummary }: { isSummary?: boolean }) {
   const [tableData, setTableData] = useState<ReportData[]>([]);
   const [filtersString, setFiltersString] = useState("");
+  const [isUpdated, setIsUpdated] = useState(0);
 
   const { data, isLoading } = useGetAllReports({ filtersString });
 
@@ -140,7 +141,7 @@ export default function ReportsTable({ isSummary }: { isSummary?: boolean }) {
         setTableData(data.slice(0, 3));
       } else setTableData(data);
     }
-  }, [data, isSummary]);
+  }, [data, isSummary, isUpdated]);
 
   return (
     <div className="space-y-4">

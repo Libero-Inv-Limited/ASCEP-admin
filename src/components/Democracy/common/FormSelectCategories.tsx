@@ -11,20 +11,27 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useGetAllCategories } from "@/api/category";
 
 interface FormComboboxTargetProps {
   setCategory: React.Dispatch<React.SetStateAction<number | null>>;
+  categoryId?: number | null | undefined; // Use this to look up the category ID if provided
 }
 
 const FormSelectCategory: React.FC<FormComboboxTargetProps> = ({
   setCategory,
+  categoryId
 }) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState<number | string>();
 
   const { data, isLoading } = useGetAllCategories();
+
+  // Determine the category name based on categoryId or value
+  const selectedCategoryName =
+    data?.find((category) => category.id === (categoryId ?? value))?.name ||
+    "Select category...";
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -34,8 +41,7 @@ const FormSelectCategory: React.FC<FormComboboxTargetProps> = ({
           aria-expanded={open}
           className="justify-between w-full bg-white rounded-full hover:bg-white text-dark"
         >
-          {data?.find((category) => category.id === value)?.name ||
-            "Select category..."}
+          {selectedCategoryName}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-full p-0">
@@ -54,7 +60,7 @@ const FormSelectCategory: React.FC<FormComboboxTargetProps> = ({
                   onSelect={() => {
                     setOpen(false);
                     setValue(category.id);
-                    setCategory(category.id);
+                    setCategory(category.id); // Sets selected category ID
                   }}
                   className="w-full text-dark text-[14px]"
                 >

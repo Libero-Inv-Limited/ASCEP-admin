@@ -3,6 +3,7 @@ import axios from "axios";
 import baseUrl from "./baseUrl";
 import { useToast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
+import ROUTES from "../utils/routesNames";
 
 export const useGetResponseAnalytics = () => {
   return useQuery(
@@ -54,8 +55,32 @@ export const useGetSurveyInfo = (id: number | string) => {
   );
 };
 
+// UPDATE A REPORT
+export const useUpdateReport = () => {
+  const { toast } = useToast();
+
+  return useMutation(
+    (values: UpdateReportDetailsPayload) => {
+      return axios
+        .patch(`${baseUrl}/report/update`, values)
+        .then((res) => res.data);
+    },
+    {
+      onSuccess: () => {
+        toast({
+          title: "Success!",
+          variant: "success",
+          description: `Report updated successfully`,
+          // duration: 2000,
+        });
+      },
+    }
+  );
+};
+
 // DELETE A REPORT
 export const useDeleteReport = () => {
+  const navigate = useNavigate();
   const { toast } = useToast();
   return useMutation(async (id: number): Promise<ResponseDataType> => {
     return axios.delete(`${baseUrl}/report/delete-report/${id}`).then((res) => res.data);
@@ -67,9 +92,35 @@ export const useDeleteReport = () => {
         variant: "success",
         description: res.message,
       });
+      navigate(ROUTES.RESPONSE_REPORTS_ROUTE, { replace: true });
     }
   })
 }
+
+// UPDATE REPORT STATUS
+export const useUpdateReportStatus = () => {
+  const { toast } = useToast();
+  const navigate = useNavigate();
+
+  return useMutation(
+    (values: UpdateReportStatusPayload & { report_id: number }) => {
+      return axios
+        .patch(`${baseUrl}/report/status`, values)
+        .then((res) => res.data);
+    },
+    {
+      onSuccess: (_, { report_id }) => {
+        toast({
+          title: "Success!",
+          variant: "success",
+          description: `Status updated`,
+        });
+        navigate(ROUTES.RESPONSE_REPORTS_INFO_ROUTE(report_id));
+      },
+    }
+  );
+};
+
 
 export const useGetSurveyResponse = ({
   id,

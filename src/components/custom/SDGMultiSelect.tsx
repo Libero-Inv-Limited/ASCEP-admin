@@ -1,6 +1,5 @@
 import * as React from "react";
 import { ChevronsUpDown } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -20,17 +19,16 @@ import { IoClose } from "react-icons/io5";
 interface SDGMultiSelectProps {
   selected: SDGData[];
   setSelected: React.Dispatch<React.SetStateAction<SDGData[]>>;
-  isWhite?: boolean;
+  isWhite: boolean;
 }
 
 export default function SDGMultiSelect({
   selected,
   setSelected,
-  isWhite,
+  isWhite
 }: SDGMultiSelectProps) {
   const [open, setOpen] = React.useState(false);
   const [renderedItems, setRenderedItems] = React.useState<SDGData[]>([]);
-
   const { sdgData, fetchingSdgs } = useAppContext();
 
   React.useEffect(() => {
@@ -39,26 +37,20 @@ export default function SDGMultiSelect({
     }
   }, [sdgData, selected]);
 
-  const handleSelect = (sdgJson: string) => {
-    const sdg = JSON.parse(sdgJson);
-
-    setSelected([
-      ...selected,
-      renderedItems.filter((option) => option.id === sdg.id)[0],
-    ]);
-    setRenderedItems(
-      renderedItems.filter((rendredItem) => rendredItem.id !== sdg.id)
-    );
+  const handleSelect = (id: number) => {
+    const selectedItem = renderedItems.find((item) => item.id === id);
+    if (selectedItem) {
+      setSelected([...selected, selectedItem]);
+      setRenderedItems(renderedItems.filter((item) => item.id !== id));
+    }
   };
 
-  const handleRemove = (sdgJson: string) => {
-    const sdg = JSON.parse(sdgJson);
-
-    setRenderedItems([
-      ...renderedItems,
-      selected.filter((option) => option.id === sdg.id)[0],
-    ]);
-    setSelected(selected.filter((selectedItem) => selectedItem.id !== sdg.id));
+  const handleRemove = (id: number) => {
+    const removedItem = selected.find((item) => item.id === id);
+    if (removedItem) {
+      setRenderedItems([...renderedItems, removedItem]);
+      setSelected(selected.filter((item) => item.id !== id));
+    }
   };
 
   return (
@@ -76,18 +68,18 @@ export default function SDGMultiSelect({
             <ChevronsUpDown className="w-4 h-4 ml-2 opacity-50 shrink-0" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="p-0 ">
+        <PopoverContent align="end" className="p-0 max-h-[400px]">
           <Command>
             <CommandInput placeholder="Search SDGs..." />
             <CommandEmpty>No SDG found.</CommandEmpty>
-            <CommandGroup>
+            <CommandGroup className="h-full overflow-y-auto max-h-80">
               {renderedItems?.length > 0 &&
                 renderedItems.map((renderedItem) => (
                   <CommandItem
                     key={renderedItem.id}
-                    value={JSON.stringify(renderedItem)}
-                    onSelect={(currentValue) => {
-                      handleSelect(currentValue);
+                    value={renderedItem.title}
+                    onSelect={() => {
+                      handleSelect(Number(renderedItem.id));
                       setOpen(false);
                     }}
                   >
@@ -115,7 +107,7 @@ export default function SDGMultiSelect({
 
 interface SelectedSdgProps {
   item: SDGData;
-  handleRemove: (args: string) => void;
+  handleRemove: (id: number) => void;
 }
 
 const SelectedSdg = ({ item, handleRemove }: SelectedSdgProps) => {
@@ -132,7 +124,7 @@ const SelectedSdg = ({ item, handleRemove }: SelectedSdgProps) => {
         {showClose && (
           <IoClose
             className="cursor-pointer"
-            onClick={() => handleRemove(JSON.stringify(item))}
+            onClick={() => handleRemove(item.id)}
           />
         )}
       </div>

@@ -4,13 +4,15 @@ import {
   ResponseDetails,
   ResponseImageSelect,
 } from "@/components/Response";
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import { useParams } from "react-router-dom";
 import { useNavigationContext } from "@/contexts/NavigationContext";
-import { useEffect, useState } from "react";
+import { useEffect, useState} from "react";
 import { useGetReportComments, useGetReportInfo } from "@/api/response";
 import { CustomPagination, EmptyState, PageLoader } from "@/components/custom";
 import { Skeleton } from "@/components/ui/skeleton";
+import RejectPost from "@/components/Response/RejectPost";
+import AcceptPost from "@/components/Response/AcceptPost"
 
 export default function ViewReportPage() {
   const { reportId } = useParams();
@@ -56,6 +58,9 @@ export default function ViewReportPage() {
           // @ts-ignore
           createdAt={data?.createdAt}
         />
+        <div className="text-xl">
+          <strong>Report Status:</strong> {data?.reportStatus.name} ({data?.reportStatus.description})
+        </div>
 
         <p className="text-xl font-bold text-text">
           Total Comments ({data.total_comments_cache})
@@ -64,23 +69,23 @@ export default function ViewReportPage() {
         {/* Comments  */}
         {loadingComments
           ? Array.from({ length: 2 }).map(() => (
+            <div className="space-y-4">
+              <Skeleton className="w-12 h-12 rounded-full bg-slate-200" />
               <div className="space-y-4">
-                <Skeleton className="w-12 h-12 rounded-full bg-slate-200" />
-                <div className="space-y-4">
-                  <Skeleton className="w-8/12 h-6 bg-slate-200" />
-                  <Skeleton className="w-8/12 h-6 bg-slate-200" />
-                  <Skeleton className="w-1/2 h-6 bg-slate-200" />
-                </div>
+                <Skeleton className="w-8/12 h-6 bg-slate-200" />
+                <Skeleton className="w-8/12 h-6 bg-slate-200" />
+                <Skeleton className="w-1/2 h-6 bg-slate-200" />
               </div>
-            ))
+            </div>
+          ))
           : !!commentsData?.comments.length &&
-            commentsData.comments.map((comment) => (
-              <ResponseComment
-                key={comment.id}
-                comment={comment}
-                reportId={reportId!}
-              />
-            ))}
+          commentsData.comments.map((comment) => (
+            <ResponseComment
+              key={comment.id}
+              comment={comment}
+              reportId={reportId!}
+            />
+          ))}
 
         {!!commentsData?.comments.length && (
           <CustomPagination
@@ -91,11 +96,9 @@ export default function ViewReportPage() {
         )}
 
         <div className="flex justify-end gap-3">
-          <Button className="px-6 h-[44px]" variant="outline-primary">
-            Reject post
-          </Button>
+          <RejectPost id={data.id} />
 
-          <Button className="px-6 h-[44px]">Approve post</Button>
+          <AcceptPost id={data.id} />
         </div>
 
         {/* {state.status !== "pending" && (

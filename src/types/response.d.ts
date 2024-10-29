@@ -37,6 +37,14 @@ interface ReportData {
   reportStatus: ReportStatus;
 }
 
+interface UpdateReportDetailsPayload {
+  report_id: number,
+  title?: string,
+  description?: string,
+  categories?: number,
+  sdgs?: { id: number; }[],
+}
+
 interface ReportSdg {
   sdg_id: number;
   report_id: number;
@@ -250,4 +258,9 @@ interface ModeratorUser {
   lastname: string;
   profile_picture: any;
   id: number;
+}
+
+interface UpdateReportStatusPayload {
+  report_id: number;
+  status_id: number;
 }

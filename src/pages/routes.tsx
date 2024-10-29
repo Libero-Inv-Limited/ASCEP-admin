@@ -45,6 +45,7 @@ import ViewSurveyPage from "./Response/view-survey";
 import ViewProposalPage from "./Democracy/proposals/view-proposal";
 import ProposalCommuntityHomePage from "./Democracy/proposals/proposal-community";
 import SelectProjectPage from "./Democracy/budgeting/select-project";
+import UpdateReportPage from "./../pages/Response/update-report";
 
 export const landingPages: RouterType[] = [
   {
@@ -176,6 +177,11 @@ const routes: RouterType[] = [
     path: "/response/reports/:reportId",
     element: <ViewReportPage />,
     title: "report-details-page",
+  },
+  {
+    path: "/response/reports/update-report",
+    element: <UpdateReportPage />,
+    title: "update-report-page",
   },
   {
     path: "/response/surveys/:surveyId",

@@ -37,6 +37,15 @@ export const createSurveySchema = z.object({
     .min(1, "Start-End date is required"),
 });
 
+export const updateReportSchema = z.object({
+  title: z
+    .string({ required_error: "Title is required" })
+    .min(1, "Title is required"),
+  description: z
+    .string({ required_error: "Description is required" })
+    .min(1, "Description is required"),
+});
+
 export const resetUserPasswordSchema = z
   .object({
     password: z
