@@ -9,7 +9,7 @@ import {
 import { Button } from "../ui/button";
 import { MoreHorizontal } from "lucide-react";
 import DownloadReport from "./DownloadReport"; // Import the new component
-// import DeleteReport from "./DeleteReport";
+import DeleteReport from "./DeleteReport";
 
 export default function ResponsePostActions({
   report,
@@ -49,7 +49,7 @@ export default function ResponsePostActions({
         </DropdownMenuLabel>
         <DropdownMenuLabel >
           <div className="table-menu">
-            {/* <DeleteReport id={report.id} /> */}
+            <DeleteReport id={report.id} />
           </div>
         </DropdownMenuLabel>
       </DropdownMenuContent>
