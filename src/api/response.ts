@@ -53,6 +53,24 @@ export const useGetSurveyInfo = (id: number | string) => {
     }
   );
 };
+
+// DELETE A REPORT
+export const useDeleteReport = () => {
+  const { toast } = useToast();
+  return useMutation(async (id: number): Promise<ResponseDataType> => {
+    return axios.delete(`${baseUrl}/report/delete-report/${id}`).then((res) => res.data);
+  },
+  {
+    onSuccess: (res) => {
+      toast({
+        title: "Success!",
+        variant: "success",
+        description: res.message,
+      });
+    }
+  })
+}
+
 export const useGetSurveyResponse = ({
   id,
   page,
