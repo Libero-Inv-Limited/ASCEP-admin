@@ -11,6 +11,10 @@ interface DownloadReportProps {
 export default function DownloadReport({ reportId, onComplete }: DownloadReportProps) {
   const { data: reportData, isLoading, error } = useGetReportInfo(String(reportId));
 
+  console.log(reportData);
+
+  
+
   useEffect(() => {
     if (reportData && !isLoading) {
       const pdf = new jsPDF();

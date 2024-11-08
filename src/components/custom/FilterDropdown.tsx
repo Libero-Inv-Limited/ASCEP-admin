@@ -24,18 +24,14 @@ export default function FilterDropdown({
   const [selected, setSelected] = useState(options[0]);
   const [open, setOpen] = useState(false);
 
-  const handleSelect = (selectedJson: string) => {
-    const selected = JSON.parse(selectedJson);
-    setSelected(selected);
+  const handleSelect = (option: FilterOption) => {
+    setSelected(option);
+    if (onSelect) onSelect(option);
   };
-
-  useEffect(() => {
-    if (onSelect) onSelect(selected);
-  }, [selected]);
 
   return (
     <div className="flex justify-between gap-3">
-      <p className="text-lg text-subtitle_text text-nowrap">{title}</p>
+      <p className="text-lg text-subtitle_text">{title}</p>
 
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
@@ -46,15 +42,15 @@ export default function FilterDropdown({
         </PopoverTrigger>
         <PopoverContent align="end" className="p-0 max-w-[230px] ">
           <Command>
-            <CommandInput placeholder="Search..." />
+            <CommandInput placeholder={`Search ${title}... `} />
             <CommandEmpty>None found.</CommandEmpty>
             <CommandGroup className="h-full overflow-y-auto max-h-80">
               {options.map((option) => (
                 <CommandItem
                   key={option.value}
-                  value={JSON.stringify(option)}
-                  onSelect={(currentValue) => {
-                    handleSelect(currentValue);
+                  value={option.label}
+                  onSelect={() => {
+                    handleSelect(option); // Directly pass the option object
                     setOpen(false);
                   }}
                 >

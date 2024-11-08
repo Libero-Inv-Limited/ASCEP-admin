@@ -24,9 +24,10 @@ export default function SelectLocation({
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState<WardsType | null>(null);
 
-  const handleSelect = (selectedJson: string) => {
-    const selected = JSON.parse(selectedJson);
-    setSelected(selected);
+  const handleSelect = (selectedWard: WardsType) => {
+    setSelected(selectedWard);
+    if (onSelect) onSelect(selectedWard);
+
   };
 
   const { wards, fetchingWards } = useAppContext();
@@ -34,6 +35,8 @@ export default function SelectLocation({
   useEffect(() => {
     if (onSelect && selected) onSelect(selected);
   }, [selected]);
+
+
 
   return (
     <div className="flex justify-between gap-3">
@@ -62,9 +65,9 @@ export default function SelectLocation({
                 {wards.map((ward) => (
                   <CommandItem
                     key={ward.id}
-                    value={JSON.stringify(ward)}
-                    onSelect={(currentValue) => {
-                      handleSelect(currentValue);
+                    value={`${ward.longitude}, ${ward.latitude}`}
+                    onSelect={() => {
+                      handleSelect(ward);
                       setOpen(false);
                     }}
                   >

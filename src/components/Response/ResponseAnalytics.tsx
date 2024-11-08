@@ -19,11 +19,6 @@ export default function ResponseAnalytics() {
                 count={data.total_reports}
               />
               <StatsCard
-                icon={<Messages1 />}
-                title="Total Survey"
-                count={data.total_surveys}
-              />
-              <StatsCard
                 title="Total Surveys"
                 icon={<Profile2User />}
                 count={data.total_surveys}

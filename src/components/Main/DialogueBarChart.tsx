@@ -12,6 +12,7 @@ import { useGetProposalsOverTime } from "@/api/main";
 import { Skeleton } from "../ui/skeleton";
 import { getPastDays } from "@/utils/helper";
 import { FilterDropdown } from "../custom";
+import { Link } from "react-router-dom";
 
 export default function DialogueBarChart() {
   const [date, setDate] = useState(getPastDays(0));
@@ -24,7 +25,7 @@ export default function DialogueBarChart() {
   return (
     <div className="w-full py-5 space-y-8 bg-white rounded-lg px-7">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg text-dark">Proposals</h3>
+        <Link to='/democracy/proposals' className="text-lg text-dark">Proposals</Link>
 
         <div className="flex gap-2 -mr-12 scale-75 ">
           <FilterDropdown

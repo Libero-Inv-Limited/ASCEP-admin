@@ -14,17 +14,26 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-interface DataTableProps<TData, TValue> {
+interface DataWithDate {
+  createdAt: string;
+}
+
+interface DataTableProps<TData extends DataWithDate, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export function DataTable<TData, TValue>({
+export function DataTable<TData extends DataWithDate, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  // Sort data by date
+  const sortedData = data.sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
+
   const table = useReactTable({
-    data,
+    data: sortedData,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
@@ -35,21 +44,19 @@ export function DataTable<TData, TValue>({
         <TableHeader className="border-none">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow className="border-none" key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                return (
-                  <TableHead
-                    className="text-sm font-normal text-subtle_text/70"
-                    key={header.id}
-                  >
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                  </TableHead>
-                );
-              })}
+              {headerGroup.headers.map((header) => (
+                <TableHead
+                  className="text-sm font-normal text-subtle_text/70"
+                  key={header.id}
+                >
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                </TableHead>
+              ))}
             </TableRow>
           ))}
         </TableHeader>

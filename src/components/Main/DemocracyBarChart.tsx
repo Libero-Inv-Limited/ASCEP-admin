@@ -12,6 +12,7 @@ import { useGetSurveyTrendOverTime } from "@/api/main";
 import { Skeleton } from "../ui/skeleton";
 import { getPastDays } from "@/utils/helper";
 import { FilterDropdown } from "../custom";
+import { Link } from "react-router-dom";
 
 export default function DemocracyBarChart() {
   const [date, setDate] = useState(getPastDays(0));
@@ -24,7 +25,7 @@ export default function DemocracyBarChart() {
   return (
     <div className="w-full py-5 space-y-8 bg-white rounded-lg px-7">
       <div className="flex items-center justify-between">
-        <h3 className="mr-8 text-lg text-dark">Surveys</h3>
+        <Link to='/response/all-surveys' className="mr-8 text-lg text-dark">Surveys</Link>
 
         <div className="flex gap-2 ml-auto -mr-12 scale-75 ">
           <FilterDropdown

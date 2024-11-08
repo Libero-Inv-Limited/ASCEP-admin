@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+import { useState, useEffect} from 'react';
 import { Form } from "../ui/form";
 import { FormInput } from "../custom";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -10,11 +11,25 @@ import { SelectItem } from "../ui/select";
 import { surveyQuestionSchema } from "@/schemas/responseSchemas";
 import { useLocation } from "react-router-dom";
 import { useAddSurveyQuestion } from "@/api/response";
+import { useGetCategoryModerators } from "@/api/category";
 
-export default function CreateSurvey() {
+export default function CreateSurvey({ surveyData }) {
   type Question = z.infer<typeof surveyQuestionSchema>;
+  const [tableData, setTableData] = useState<CategoryModeratorType[]>([]);
 
   const { state } = useLocation();
+
+  const { data } = useGetCategoryModerators(surveyData.data.category_id);
+
+  useEffect(() => {
+    if (data) {
+      setTableData(data);
+    }
+  }, [data]);
+
+  console.log(new Date(surveyData.data.start_date).toDateString());
+  console.log("State: ", state);
+  console.log("Survey Data: ", surveyData);
 
   const defaultValues: Question = {
     question: "",
@@ -76,20 +91,18 @@ export default function CreateSurvey() {
   return (
     <div className="w-[680px]">
       <h4 className="pb-3 text-[32px] ">
-        Upgrade of the International Airport
+        {surveyData.data.title}
       </h4>
 
       <div className="flex items-center gap-1 text-sm">
-        <p className="font-bold text-link">Development</p>
+        <p className="font-bold text-link"></p>
         <Location color="black" size={14} />
-        <p>Umuleri, Anambra State</p>
-        <p>- 15th July, 2023 - 17th July, 2023.</p>
+        <p>{surveyData.data.location_meta}, Anambra State</p>
+        <p>- {new Date(surveyData.data.start_date).toDateString()} - {new Date(surveyData.data.end_date).toDateString()}.</p>
       </div>
 
       <p className="mt-4 font-medium text-darkw">
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam,...
+        {surveyData.data.description}
       </p>
 
       <Form {...form}>

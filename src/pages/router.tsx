@@ -45,6 +45,8 @@ const Router = () => {
     (axiosConfig) => {
       const token = localStorage.getItem(config.key.accessToken);
       axiosConfig.headers.Authorization = `Bearer ${token}`;
+      console.log(token);
+
       return axiosConfig;
     },
     (error) => {

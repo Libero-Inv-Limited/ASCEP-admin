@@ -38,11 +38,11 @@ interface ReportData {
 }
 
 interface UpdateReportDetailsPayload {
-  report_id: number,
+  id: number,
   title?: string,
   description?: string,
-  categories?: number,
-  sdgs?: { id: number; }[],
+  categories?: number[],
+  sdgs?: number[],
 }
 
 interface ReportSdg {

@@ -1,6 +1,7 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { useEffect, useState } from "react";
-import { DataTable } from "../custom/DataTable";
+// import { useEffect, useState } from "react";
+// import { DataTable } from "../custom/DataTable";
+import {ReportsTable} from "@/components/Response";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -120,74 +121,75 @@ export const columns: ColumnDef<Post>[] = [
 ];
 
 export default function RecentPosts() {
-  const [tableData, setTableData] = useState<Post[]>([]);
+  // const [tableData, setTableData] = useState<Post[]>([]);
 
-  useEffect(() => {
-    (async () => {
-      const data = await getData();
-      setTableData(data);
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     const data = await getData();
+  //     setTableData(data);
+  //   })();
+  // }, []);
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between text-lg">
+      {/* <div className="flex items-center justify-between text-lg">
         <p className="text-subtle_text">Recent Post</p>
 
-        <p className="underline text-dark">See all</p>
-      </div>
+        <Link to="/response/reports" className="underline text-dark">See all</Link>
+      </div> */}
       <div className="p-4 bg-white rounded-lg">
-        <DataTable columns={columns} data={tableData} />
+      <ReportsTable isSummary />
+
       </div>
     </div>
   );
 }
 
-async function getData(): Promise<Post[]> {
-  return [
-    {
-      id: "728ed52f",
-      postTitle: "Mobile",
-      category: "Response",
-      user: "Joh doe",
-      date: "Jan 1st, 2022",
-      status: "successful",
-      action: "User login",
-    },
-    {
-      id: "123ub8u1",
-      postTitle: "PC",
-      category: "Dialogue",
-      user: "Joh doe",
-      date: "Jan 1st, 2022",
-      status: "pending",
-      action: "User logout",
-    },
-    {
-      id: "nw901",
-      postTitle: "Mobile",
-      category: "Democracy (Poll)",
-      user: "Joh doe",
-      date: "Jan 1st, 2022",
-      status: "pending",
-      action: "User login",
-    },
-    {
-      id: "12dcu1",
-      postTitle: "PC",
-      category: "Risk Management",
-      user: "Joh doe",
-      date: "Jan 1st, 2022",
-      status: "successful",
-      action: "User logout",
-    },
-    {
-      id: "xn180h2",
-      postTitle: "Mobile",
-      category: "Democracy (Poll)",
-      user: "Joh doe",
-      date: "Jan 1st, 2022",
-      status: "successful",
-      action: "User login",
-    },
-  ];
-}
+// async function getData(): Promise<Post[]> {
+//   return [
+//     {
+//       id: "728ed52f",
+//       postTitle: "Mobile",
+//       category: "Response",
+//       user: "Joh doe",
+//       date: "Jan 1st, 2022",
+//       status: "successful",
+//       action: "User login",
+//     },
+//     {
+//       id: "123ub8u1",
+//       postTitle: "PC",
+//       category: "Dialogue",
+//       user: "Joh doe",
+//       date: "Jan 1st, 2022",
+//       status: "pending",
+//       action: "User logout",
+//     },
+//     {
+//       id: "nw901",
+//       postTitle: "Mobile",
+//       category: "Democracy (Poll)",
+//       user: "Joh doe",
+//       date: "Jan 1st, 2022",
+//       status: "pending",
+//       action: "User login",
+//     },
+//     {
+//       id: "12dcu1",
+//       postTitle: "PC",
+//       category: "Risk Management",
+//       user: "Joh doe",
+//       date: "Jan 1st, 2022",
+//       status: "successful",
+//       action: "User logout",
+//     },
+//     {
+//       id: "xn180h2",
+//       postTitle: "Mobile",
+//       category: "Democracy (Poll)",
+//       user: "Joh doe",
+//       date: "Jan 1st, 2022",
+//       status: "successful",
+//       action: "User login",
+//     },
+//   ];
+// }

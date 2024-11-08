@@ -35,11 +35,6 @@ export default function DemocracyStats() {
                 title="Total SDGs"
                 count={data.total_sdgs}
               />
-              <StatsCard
-                icon={<TickSquare />}
-                title="Total SDGs"
-                count={"18"}
-              />
             </>
           )}
     </div>

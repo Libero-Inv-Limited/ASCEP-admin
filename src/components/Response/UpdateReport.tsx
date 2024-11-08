@@ -16,17 +16,28 @@ interface UpdateReportProps {
 }
 
 const UpdateReport: React.FC<UpdateReportProps> = ({ reportData }) => {
-  const [category, setCategory] = useState<number | null>(reportData.reportCategory.category_id);
+  const [category, setCategory] = useState<CategoryType[]>([]);
   const [selectedSDGs, setSelectedSDGs] = useState<SDGData[]>([]);
 
   const navigate = useNavigate();
+
+  function extractTextFromJSXString(jsxString: string) {
+    // Create a new DOMParser
+    const parser = new DOMParser();
+
+    // Parse the string as an HTML document
+    const doc = parser.parseFromString(jsxString, "text/html");
+
+    // Use textContent to extract the plain text from the parsed document
+    return doc.body.textContent || "";
+  }
 
   // Initialize form with default values from reportData
   const form = useForm<z.infer<typeof updateReportSchema>>({
     resolver: zodResolver(updateReportSchema),
     defaultValues: {
       title: reportData.title || "",
-      description: reportData.description.replace(/<\/?p>/g, '') || "",
+      description: extractTextFromJSXString(reportData.description),
     },
   });
 
@@ -38,7 +49,7 @@ const UpdateReport: React.FC<UpdateReportProps> = ({ reportData }) => {
 
   const { mutate, isLoading, data } = useUpdateReport();
 
-  console.log(reportData.reportSDGs);
+  // console.log(reportData.category);
 
   useEffect(() => {
     if (data && data.status === "success") {
@@ -46,16 +57,28 @@ const UpdateReport: React.FC<UpdateReportProps> = ({ reportData }) => {
     }
   }, [data, navigate]);
 
-  const onSubmit = (data: z.infer<typeof updateReportSchema>) => {
-    if (!category) return;
+  const [updatedCategories, setUpdatedCategories] = useState<number[]>([]);
+  const [updatedSdgs, setUpdatedSdgs] = useState<number[]>([]);
 
-    const sdgObjects = selectedSDGs.map((sdg) => ({ id: sdg.id }));
+  const onSubmit = (data: z.infer<typeof updateReportSchema>) => {
+
+    if (category.length === 0) {
+      setUpdatedCategories((prev) => [...prev, reportData.reportCategory.category_id]);
+    } else {
+      setUpdatedCategories((prev) => [...prev, ...category.map(item => item.id)]);
+    }
+
+    if (selectedSDGs.length === 0) {
+      setUpdatedSdgs((prev) => [...prev, ...reportData.reportSDGs.map(item => item.sdg_id)]);
+    } else {
+      setUpdatedSdgs((prev) => [...prev, ...selectedSDGs.map(item => item.id)]);
+    }
 
     const payload = {
       ...data,
-      sdgs: sdgObjects,
-      categories: category,
-      report_id: reportData.id, // Include report ID if needed in mutation
+      sdgs: updatedSdgs,
+      categories: updatedCategories,
+      id: reportData.id, // Include report ID if needed in mutation
     };
 
     mutate(payload);
@@ -81,7 +104,7 @@ const UpdateReport: React.FC<UpdateReportProps> = ({ reportData }) => {
         <div className="flex items-center justify-between ">
           <p className="text-subtle_text">Category (Optional)</p>
           <div className="w-full max-w-[380px]">
-            <FormSelectCategory setCategory={setCategory} categoryId={category} />
+            <FormSelectCategory setCategory={setCategory} category={category} currentCategories={reportData.reportCategory} />
           </div>
         </div>
 
@@ -91,6 +114,7 @@ const UpdateReport: React.FC<UpdateReportProps> = ({ reportData }) => {
             <SDGMultiSelect
               selected={selectedSDGs}
               setSelected={setSelectedSDGs}
+              currentSDGs={reportData.reportSDGs}
               isWhite
             />
           </div>

@@ -13,7 +13,7 @@ import FormSelectCategory from "../Democracy/common/FormSelectCategories";
 import { useNavigate } from "react-router-dom";
 
 interface CreateSurveyProps {
-  next: () => void;
+  next: (data: any) => void;
 }
 
 export default function CreateSurvey({ next }: CreateSurveyProps) {
@@ -40,12 +40,12 @@ export default function CreateSurvey({ next }: CreateSurveyProps) {
 
   useEffect(() => {
     if (data && data.status === "success") {
+      next(data);
       navigate("/response/create-survey", {
         state: { survey_id: data.data.id },
       });
-      next();
     }
-  }, [data]);
+  }, [data, next]);
 
   const onSubmit = (data: z.infer<typeof createSurveySchema>) => {
     if (!selectedLocation) {

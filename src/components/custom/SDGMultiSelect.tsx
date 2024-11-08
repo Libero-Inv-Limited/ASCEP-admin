@@ -19,12 +19,14 @@ import { IoClose } from "react-icons/io5";
 interface SDGMultiSelectProps {
   selected: SDGData[];
   setSelected: React.Dispatch<React.SetStateAction<SDGData[]>>;
+  currentSDGs?: any;
   isWhite: boolean;
 }
 
 export default function SDGMultiSelect({
   selected,
   setSelected,
+  currentSDGs,
   isWhite
 }: SDGMultiSelectProps) {
   const [open, setOpen] = React.useState(false);
@@ -36,6 +38,12 @@ export default function SDGMultiSelect({
       setRenderedItems(sdgData);
     }
   }, [sdgData, selected]);
+
+  const handleSDGData = (): string => {
+    const data = currentSDGs.map((sdg: any) => `${sdg.sdg.title},`);
+    return data;
+  };
+  const sdg_data = handleSDGData();
 
   const handleSelect = (id: number) => {
     const selectedItem = renderedItems.find((item) => item.id === id);
@@ -64,7 +72,8 @@ export default function SDGMultiSelect({
               isWhite ? "bg-white" : "bg-[#f5f5f5]"
             } `}
           >
-            {fetchingSdgs ? "Fetching SDGs" : "Select SDG"}
+            {fetchingSdgs && `Fetching SDGs...`}
+            {selected.length > 0 ? `Selected (${selected.length})` : `${sdg_data}`}
             <ChevronsUpDown className="w-4 h-4 ml-2 opacity-50 shrink-0" />
           </Button>
         </PopoverTrigger>

@@ -13,6 +13,7 @@ import { useGetReportTrendOverTime } from "@/api/main";
 import { useEffect, useState } from "react";
 import { getPastDays } from "@/utils/helper";
 import { FilterDropdown } from "../custom";
+import { Link } from "react-router-dom";
 
 const dateRange: FilterOption[] = [
   {
@@ -29,7 +30,7 @@ const dateRange: FilterOption[] = [
   },
   {
     label: "Past One Year",
-    value: getPastDays(100),
+    value: getPastDays(366),
   },
 ];
 
@@ -42,19 +43,19 @@ export default function ResponseChart() {
     if (data) {
       const categories = [
         {
+          title: "Total Reports",
+          total: data.reduce((acc, cur) => acc + cur.total_reports, 0),
+          color: "#FFC334",
+        },
+        {
           title: "Approved Reports",
           total: data.reduce((acc, cur) => acc + cur.approved_reports, 0),
           color: "#111211",
         },
         {
-          title: "Total Reports",
+          title: "Rejected Reports",
           total: data.reduce((acc, cur) => acc + cur.rejected_reports, 0),
           color: "#ED4A4A",
-        },
-        {
-          title: "Rejected Reports",
-          total: data.reduce((acc, cur) => acc + cur.total_reports, 0),
-          color: "#FFC334",
         },
         {
           title: "Comments",
@@ -73,7 +74,7 @@ export default function ResponseChart() {
   return (
     <div className="bg-white w-full py-5 px-7 space-y-8 rounded-[30px]">
       <div className="flex items-center gap-6">
-        <h3 className="mr-8 text-lg text-dark">Response</h3>
+        <Link to='/response/reports' className="mr-8 text-lg text-dark">Response</Link>
 
         {categories.map((category) => (
           <div key={category.title} className="flex items-center gap-4 ">
