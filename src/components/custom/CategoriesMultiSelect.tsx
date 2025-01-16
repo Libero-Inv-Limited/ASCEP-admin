@@ -70,9 +70,8 @@ export default function CategoriesMultiSelect({
           <Button
             role="combobox"
             aria-expanded={open}
-            className={` text-base text-text focus-visible:ring-0 focus-visible:ring-primary border-none focus:border-none focus-visible:ring-offset-0 rounded-[20px] h-[50px] placeholder:text-base placeholder:text-subtle_text/30 placeholder:font-medium w-full hover:bg-[#f5f5f5] justify-between ${
-              isWhite ? "bg-white" : "bg-[#f5f5f5]"
-            } `}
+            className={` text-base text-text focus-visible:ring-0 focus-visible:ring-primary border-none focus:border-none focus-visible:ring-offset-0 rounded-[20px] h-[50px] placeholder:text-base placeholder:text-subtle_text/30 placeholder:font-medium w-full hover:bg-[#f5f5f5] justify-between ${isWhite ? "bg-white" : "bg-[#f5f5f5]"
+              } `}
           >
             {isLoading ? "Fetching Categories" : "Select Categories"}
             <ChevronsUpDown className="w-4 h-4 ml-2 opacity-50 shrink-0" />

@@ -23,20 +23,28 @@ export default function SelectLocation({
 }: SelectLocationProps) {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState<WardsType | null>(null);
-
-  const handleSelect = (selectedWard: WardsType) => {
-    setSelected(selectedWard);
-    if (onSelect) onSelect(selectedWard);
-
-  };
+  const [renderedItems, setRenderedItems] = useState<WardsType[]>([]);
 
   const { wards, fetchingWards } = useAppContext();
+
+  useEffect(() => {
+    if (wards) {
+      setRenderedItems(wards);
+    }
+  }, [wards]);
 
   useEffect(() => {
     if (onSelect && selected) onSelect(selected);
   }, [selected]);
 
 
+  const handleSelect = (id: number) => {
+    const selectedItem = renderedItems.find((item) => item.id === id);
+    if (selectedItem) {
+      setSelected(selectedItem);
+      setRenderedItems(renderedItems.filter((item) => item.id !== id));
+    }
+  };
 
   return (
     <div className="flex justify-between gap-3">
@@ -67,7 +75,7 @@ export default function SelectLocation({
                     key={ward.id}
                     value={`${ward.longitude}, ${ward.latitude}`}
                     onSelect={() => {
-                      handleSelect(ward);
+                      handleSelect(Number(ward.id));
                       setOpen(false);
                     }}
                   >
