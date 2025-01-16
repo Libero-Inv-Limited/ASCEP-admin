@@ -86,9 +86,9 @@ export default function CreateSurvey({ next }: CreateSurveyProps) {
         </div>
         <div className="flex items-center justify-between ">
           <p className="text-subtle_text">Category</p>
-          <div className=" w-full max-w-[380px]">
+          {/* <div className=" w-full max-w-[380px]">
             <FormSelectCategory setCategory={setCategory} />
-          </div>
+          </div> */}
         </div>
         <div className="flex items-center justify-between ">
           <p className="text-subtle_text">Location</p>
@@ -101,13 +101,13 @@ export default function CreateSurvey({ next }: CreateSurveyProps) {
         </div>
         <div className="flex items-center justify-between ">
           <p className="text-subtle_text">Link to SDG (Optional)</p>
-          <div className=" w-full max-w-[380px]">
+          {/* <div className=" w-full max-w-[380px]">
             <SDGMultiSelect
               selected={selectedSDGs}
               setSelected={setSelectedSDGs}
               isWhite
             />
-          </div>
+          </div> */}
         </div>
 
         <div className="flex items-center justify-between ">
