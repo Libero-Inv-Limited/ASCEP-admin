@@ -17,7 +17,7 @@ interface CreateSurveyProps {
 }
 
 export default function CreateSurvey({ next }: CreateSurveyProps) {
-  const [category, setCategory] = useState<number | null>(null);
+  const [category, setCategory] = useState<CategoryType[]>([]);
   const [selectedSDGs, setSelectedSDGs] = useState<SDGData[]>([]);
   const [selectedLocation, setSelectedLocation] = useState<WardsType | null>(
     null
@@ -59,7 +59,7 @@ export default function CreateSurvey({ next }: CreateSurveyProps) {
     const payload = {
       ...data,
       sdgs: selectedSDGs.map((sdg) => sdg.id),
-      category: category,
+      category: category[0].id,
       location_meta: selectedLocation?.ward,
       latitude: selectedLocation?.latitude,
       longitude: selectedLocation?.longitude,
@@ -86,9 +86,9 @@ export default function CreateSurvey({ next }: CreateSurveyProps) {
         </div>
         <div className="flex items-center justify-between ">
           <p className="text-subtle_text">Category</p>
-          {/* <div className=" w-full max-w-[380px]">
+          <div className=" w-full max-w-[380px]">
             <FormSelectCategory setCategory={setCategory} />
-          </div> */}
+          </div>
         </div>
         <div className="flex items-center justify-between ">
           <p className="text-subtle_text">Location</p>
@@ -101,13 +101,13 @@ export default function CreateSurvey({ next }: CreateSurveyProps) {
         </div>
         <div className="flex items-center justify-between ">
           <p className="text-subtle_text">Link to SDG (Optional)</p>
-          {/* <div className=" w-full max-w-[380px]">
+          <div className=" w-full max-w-[380px]">
             <SDGMultiSelect
               selected={selectedSDGs}
               setSelected={setSelectedSDGs}
               isWhite
             />
-          </div> */}
+          </div>
         </div>
 
         <div className="flex items-center justify-between ">

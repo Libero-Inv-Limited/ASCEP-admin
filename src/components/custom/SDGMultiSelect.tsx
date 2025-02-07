@@ -40,7 +40,7 @@ export default function SDGMultiSelect({
   }, [sdgData, selected]);
 
   const handleSDGData = (): string => {
-    const data = currentSDGs.map((sdg: any) => `${sdg.sdg.title},`);
+    const data = currentSDGs?.map((sdg: any) => `${sdg.sdg.title},`);
     return data;
   };
   const sdg_data = handleSDGData();
@@ -73,7 +73,7 @@ export default function SDGMultiSelect({
             } `}
           >
             {fetchingSdgs && `Fetching SDGs...`}
-            {selected.length > 0 ? `Selected (${selected.length})` : `${sdg_data}`}
+            {selected.length > 0 ? `Selected (${selected.length})` : ( !fetchingSdgs ? `Select SDGs` : ``)}
             <ChevronsUpDown className="w-4 h-4 ml-2 opacity-50 shrink-0" />
           </Button>
         </PopoverTrigger>
@@ -83,7 +83,7 @@ export default function SDGMultiSelect({
             <CommandEmpty>No SDG found.</CommandEmpty>
             <CommandGroup className="h-full overflow-y-auto max-h-80">
               {renderedItems?.length > 0 &&
-                renderedItems.map((renderedItem) => (
+                renderedItems?.map((renderedItem) => (
                   <CommandItem
                     key={renderedItem.id}
                     value={renderedItem.title}
@@ -102,7 +102,7 @@ export default function SDGMultiSelect({
 
       <div className="flex gap-2 ">
         {selected?.length > 0 &&
-          selected.map((item) => (
+          selected?.map((item) => (
             <SelectedSdg
               item={item}
               key={item.id}

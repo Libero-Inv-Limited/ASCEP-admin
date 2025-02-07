@@ -15,36 +15,37 @@ import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { useGetAllCategories } from "@/api/category";
 
-// interface CategoryType {
-//   id: number;
-//   name: string;
-//   description: string;
-//   type: string;
-// }
+interface CategoryType {
+  id: number;
+  name: string;
+  description: string;
+  type: string;
+}
 
 interface FormSelectCategoryProps {
   setCategory: React.Dispatch<React.SetStateAction<CategoryType[]>>;
   category?: CategoryType[];
-  currentCategories?: any | undefined;
+  currentCategories?: { categoryDetail: { name: string } };
 }
 
 const FormSelectCategory: React.FC<FormSelectCategoryProps> = ({
   setCategory,
   category = [],
-  currentCategories
+  currentCategories,
 }) => {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState<CategoryType[]>(category);
   const { data: categories, isLoading } = useGetAllCategories();
 
-  console.log(category);
+  // console.log(categories);  // Logging correct data
 
   // Handler for selecting a category
   const handleSelect = (category: CategoryType) => {
-    if (!selected.some((item) => item.id === category.id)) {
+    if (selected.length < 1 || selected.length > 1) {
       const updatedSelected = [...selected, category];
+      console.log(updatedSelected);
       setSelected(updatedSelected);
-      setCategory(updatedSelected);
+      setCategory(updatedSelected);  // Updating the parent state
       setOpen(false);
     }
   };
@@ -53,7 +54,7 @@ const FormSelectCategory: React.FC<FormSelectCategoryProps> = ({
   const handleRemove = (id: number) => {
     const updatedSelected = selected.filter((item) => item.id !== id);
     setSelected(updatedSelected);
-    setCategory(updatedSelected);
+    setCategory(updatedSelected);  // Updating the parent state
   };
 
   return (
@@ -67,7 +68,7 @@ const FormSelectCategory: React.FC<FormSelectCategoryProps> = ({
           >
             {selected.length > 0
               ? `Selected (${selected.length})`
-              : `${currentCategories.categoryDetail.name}`}
+              : `${currentCategories?.categoryDetail?.name || "Select Category"}`}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-full p-0">
@@ -109,7 +110,7 @@ const FormSelectCategory: React.FC<FormSelectCategoryProps> = ({
 };
 
 interface SelectedSdgProps {
-  item: { id: number; name: string };
+  item: CategoryType;
   handleRemove: () => void;
 }
 
