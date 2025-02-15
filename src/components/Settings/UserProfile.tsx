@@ -2,6 +2,7 @@ import { useGetUserProfile } from "@/api/auth";
 
 export default function UserProfile() {
   const { data } = useGetUserProfile();
+
   return (
     <div className="space-y-6">
       <ProfileRow
