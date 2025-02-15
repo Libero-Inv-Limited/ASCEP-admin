@@ -5,10 +5,10 @@ export default function UserProfile() {
   const { fetchingUserObj, userObj } = useUserSettingsContext();
   return (
     <div className="space-y-8">
-      <div className="py-4 border-b border-[#F0F0F0] text-dark">
+      {/* <div className="py-4 border-b border-[#F0F0F0] text-dark">
         Admin's Profile
-      </div>
-      <div className="space-y-6">
+      </div> */}
+      <div className="space-y-6 py-4">
         {fetchingUserObj ? (
           Array.from({ length: 6 }).map((_, i) => (
             <Skeleton key={i} className="w-full h-3 rounded-md bg-slate-200" />

@@ -58,37 +58,17 @@ const CustomMultiSelect = React.forwardRef<HTMLDivElement, CustomMultiSelectProp
       }
     }, [data, selected]);
 
-    const handleSelect = (selectedJson: string) => {
-      const selectedItem = JSON.parse(selectedJson);
-
-      setSelected([
-        ...selected,
-        renderedItems.filter(
-          (option) =>
-            option.id.toString().toLowerCase() ===
-            selectedItem.id.toString().toLowerCase()
-        )[0],
-      ]);
-      setRenderedItems(
-        renderedItems.filter(
-          (renderedItem) =>
-            renderedItem.id.toString().toLowerCase() !==
-            selectedItem.id.toString().toLowerCase()
-        )
-      );
+    const handleSelect = (selectedItem: MultiSelectData) => {
+      setSelected([...selected, selectedItem]);
+      setRenderedItems(renderedItems.filter((item) => item.id !== selectedItem.id));
     };
 
-    const handleRemove = (collectionsJson: string) => {
-      const collection = JSON.parse(collectionsJson);
 
-      setRenderedItems([
-        ...renderedItems,
-        selected.filter((option) => option.id === collection.id)[0],
-      ]);
-      setSelected(
-        selected.filter((selectedItem) => selectedItem.id !== collection.id)
-      );
+    const handleRemove = (collection: MultiSelectData) => {
+      setRenderedItems([...renderedItems, collection]);
+      setSelected(selected.filter((selectedItem) => selectedItem.id !== collection.id));
     };
+
 
     return (
       <div className="relative w-full space-y-4" ref={ref}>
@@ -113,14 +93,15 @@ const CustomMultiSelect = React.forwardRef<HTMLDivElement, CustomMultiSelectProp
                 {renderedItems.map((renderedItem) => (
                   <CommandItem
                     key={renderedItem.id}
-                    value={JSON.stringify(renderedItem)}
-                    onSelect={(currentValue) => {
-                      handleSelect(currentValue);
+                    value={renderedItem.id.toString()} // Use id instead of JSON string
+                    onSelect={() => {
+                      handleSelect(renderedItem); // Pass object directly
                       setOpen(false);
                     }}
                   >
                     {renderedItem.name}
                   </CommandItem>
+
                 ))}
               </CommandGroup>
             </Command>
@@ -151,7 +132,7 @@ const SelectedItem = ({ item, handleRemove }: SelectedSdgProps) => {
 
       <IoClose
         className="text-base cursor-pointer"
-        onClick={() => handleRemove(JSON.stringify(item))}
+        onClick={() => handleRemove(item)} // Pass object directly
       />
     </div>
   );

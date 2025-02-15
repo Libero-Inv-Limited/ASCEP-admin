@@ -7,7 +7,7 @@ export default function Permissions() {
 
   return (
     <div>
-      <div className="py-4 border-b border-t border-[#F0F0F0] text-dark">
+      <div className="py-4 border-b border-t border-[#F0F0F0] text-dark font-semibold text-lg">
         Permissions
       </div>
 

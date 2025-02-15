@@ -15,7 +15,15 @@ const Header = () => {
         {activeModule === "main" ? (
           <h2 className="text-2xl font-bold">Dashboard</h2>
         ) : (
-          <h2 className="text-2xl font-bold capitalize">{activeModule}</h2>
+          activeModule === "response" ? (
+            <h2 className="text-2xl font-bold capitalize">Updates</h2>
+          ) : (
+            activeModule === "democracy" ? (
+              <h2 className="text-2xl font-bold capitalize">{activeModule}</h2>
+            ) : (
+              <h2 className="text-2xl font-bold capitalize">{activeModule}</h2>
+            )
+          )
         )}
         <p className="text-lg text-subtle_text">
           {activeModule === "main" ? (

@@ -1,21 +1,19 @@
-import { User } from "lucide-react";
 import { StatsCard } from "../custom";
 import { Messages1, Profile2User, TickSquare } from "iconsax-react";
+import DialogueTotalRequests from "./DialogueTotalRequests";
+
 
 export default function DialogueAnalytics() {
+
   return (
     <div className="grid grid-cols-4 gap-6 ">
-      <StatsCard icon={<User />} title="Total Requests" count={"32k"} />
+      <DialogueTotalRequests />
       <StatsCard
         icon={<Messages1 />}
         title="Inactive Requests"
-        count={"3.2k"}
+        count={"0"}
       />
-      <StatsCard
-        icon={<Profile2User />}
-        title="Active Requests"
-        count={"1.2k"}
-      />
+      <DialogueTotalRequests />
       <StatsCard icon={<TickSquare />} title="Engagements" count={"1.9k"} />
     </div>
   );

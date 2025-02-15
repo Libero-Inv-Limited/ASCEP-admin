@@ -25,7 +25,7 @@ export default function ViewInitiativePage() {
         link: "/main",
       },
       {
-        label: "response",
+        label: "updates",
         link: "/response",
       },
       {

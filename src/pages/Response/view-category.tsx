@@ -26,7 +26,7 @@ export default function ViewCategoryPage() {
         link: "/main",
       },
       {
-        label: "response",
+        label: "updates",
         link: "/response",
       },
       {

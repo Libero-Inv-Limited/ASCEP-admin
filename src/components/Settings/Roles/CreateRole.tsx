@@ -29,6 +29,8 @@ export default function CreateRole({ setActiveRoleOption }: CreateRoleProps) {
   }, []);
 
   const { data: permissions, isLoading } = useGetAllPermissions();
+  console.log(permissions);
+
   const form = useForm<z.infer<typeof createRoleSchema>>({
     resolver: zodResolver(createRoleSchema),
   });
@@ -46,6 +48,10 @@ export default function CreateRole({ setActiveRoleOption }: CreateRoleProps) {
       permission.id.toString()
     );
     mutate({ ...values, permissions: rolePermissions });
+  }
+
+  function returnToRoles() {
+    setActiveRoleOption("Roles");
   }
 
   useEffect(() => {
@@ -112,7 +118,9 @@ export default function CreateRole({ setActiveRoleOption }: CreateRoleProps) {
             </div>
           </div>
 
-          <div className="flex items-center justify-end">
+          <div className="flex items-center justify-between">
+            <Button className="bg-gray-600 text-white hover:bg-red-500" onClick={returnToRoles}>Back</Button>
+
             <Button isLoading={creating}>Create Role</Button>
           </div>
         </form>

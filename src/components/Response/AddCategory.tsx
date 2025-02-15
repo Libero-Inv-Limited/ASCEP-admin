@@ -10,16 +10,22 @@ import {
 } from "@/schemas/responseSchemas";
 import FormTextArea from "../custom/FormTextArea";
 import { useAddNewCategory } from "@/api/category";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 interface AddCategoryProps {
   isOpen: boolean;
   onClose: () => void;
+  categoryData: CollectionData | undefined;
 }
 
-export default function AddCategory({ isOpen, onClose }: AddCategoryProps) {
+export default function AddCategory({ isOpen, onClose, categoryData }: AddCategoryProps) {
+  const [category, setCategory] = useState<CreateCategorySchema | undefined>(
+    categoryData
+  );
+
   const form = useForm<CreateCategorySchema>({
     resolver: zodResolver(createCategorySchema),
+    defaultValues: category || {}
   });
 
   const {
@@ -32,10 +38,17 @@ export default function AddCategory({ isOpen, onClose }: AddCategoryProps) {
 
   useEffect(() => {
     if (data) onClose();
-  }, [data]);
+    if (isOpen && categoryData) {
+      setCategory(categoryData);
+    }
+  }, [data, isOpen, categoryData]);
 
   const onSubmit = (values: CreateCategorySchema) => {
-    mutate({ ...values, type: "any" });
+    if (category?.id) {
+      mutate({ ...values, id: category?.id, type: "any" });
+    } else {
+      mutate({ ...values, type: "any" });
+    }
   };
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -69,7 +82,7 @@ export default function AddCategory({ isOpen, onClose }: AddCategoryProps) {
 
             <div className="flex items-center justify-end">
               <Button isLoading={isLoading} className="w-[175px]">
-                Create
+                {category ? `Edit` : `Create`}
               </Button>
             </div>
           </form>

@@ -23,7 +23,7 @@ export default function ViewDebatePage() {
         link: "/main",
       },
       {
-        label: "response",
+        label: "updates",
         link: "/response",
       },
       {

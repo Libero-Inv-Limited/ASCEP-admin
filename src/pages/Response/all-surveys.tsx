@@ -12,7 +12,7 @@ export default function AllSurveys() {
         link: "/main",
       },
       {
-        label: "response",
+        label: "updates",
         link: "/response",
       },
       {

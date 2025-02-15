@@ -53,6 +53,10 @@ export default function UpdateRole({
     defaultValues: selectedRole!,
   });
 
+  function returnToRoles() {
+    setActiveRoleOption("Roles");
+  }
+
   const {
     control,
     handleSubmit,
@@ -146,7 +150,9 @@ export default function UpdateRole({
             </div>
           </div>
 
-          <div className="flex items-center justify-end">
+          <div className="flex items-center justify-between">
+            <Button className="bg-gray-600 text-white hover:bg-red-500" onClick={returnToRoles}>Back</Button>
+
             <Button isLoading={updating}>Update Role</Button>
           </div>
         </form>

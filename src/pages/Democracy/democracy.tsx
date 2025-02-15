@@ -18,7 +18,7 @@ export default function DemocracyPage() {
         link: "/main",
       },
       {
-        label: "democracy",
+        label: "governance",
         link: "/democracy",
       },
     ]);
@@ -26,9 +26,9 @@ export default function DemocracyPage() {
   return (
     <div className="space-y-8 page-wrapper ">
       <DemocracyStats />
-      <DemocracyActions />
+      {/* <DemocracyActions /> */}
       <DemocracySDG />
-      <DemocracyDebateCategories />
+      {/* <DemocracyDebateCategories /> */}
       <DemocracyTableSection />
     </div>
   );

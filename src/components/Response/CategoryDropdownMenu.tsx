@@ -8,12 +8,17 @@ import {
 } from "../ui/dropdown-menu";
 import DeleteCategory from "./DeleteCategory";
 import { Link } from "react-router-dom";
+import useDisclosure from "@/hooks/useDisclosure";
+import AddCategory from "./AddCategory";
 
 export default function CategoryDropdownMenu({
   category,
 }: {
   category: CollectionData;
 }) {
+  const { isOpen, onClose, onOpen } = useDisclosure();
+
+
   return (
     <div className="ml-auto">
       <DropdownMenu>
@@ -33,6 +38,11 @@ export default function CategoryDropdownMenu({
             </Link>
           </DropdownMenuLabel>
           <DropdownMenuLabel>
+            <Link to="" onClick={onOpen}>
+              Edit Category
+            </Link>
+          </DropdownMenuLabel>
+          <DropdownMenuLabel>
             <DeleteCategory
               trigger={<p>Delete Category</p>}
               categoryid={category.id}
@@ -40,6 +50,8 @@ export default function CategoryDropdownMenu({
           </DropdownMenuLabel>
         </DropdownMenuContent>
       </DropdownMenu>
+
+      <AddCategory isOpen={isOpen} onClose={onClose} categoryData={category || undefined} />
     </div>
   );
 }

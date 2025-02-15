@@ -14,7 +14,7 @@ export default function UpdateReportPage() {
         link: "/main",
       },
       {
-        label: "response",
+        label: "updates",
         link: "/response",
       },
       {

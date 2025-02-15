@@ -25,7 +25,7 @@ export default function ViewReportPage() {
         link: "/main",
       },
       {
-        label: "response",
+        label: "updates",
         link: "/response",
       },
       {

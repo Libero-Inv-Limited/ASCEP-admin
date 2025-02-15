@@ -45,13 +45,13 @@ export default function AssignPermssion() {
   }, [isSuccess]);
   return (
     <div>
-      <Button onClick={onOpen}>Edit Role & Permissions</Button>
+      <Button onClick={onOpen}>Add / Edit Permissions</Button>
       <Dialog open={isOpen} onOpenChange={onClose}>
         <DialogContent
           className="min-w-[700px]"
           style={{ borderRadius: 40, padding: 32 }}
         >
-          <h4 className="pb-3 border-b border-dark/10 ">Change Role</h4>
+          <h4 className="pb-3 border-b border-dark/10 ">Change Permissions</h4>
           <div className="space-y-6">
             {isLoading ? (
               <div className="h-[200px] flex justify-center items-center">
@@ -84,7 +84,7 @@ export default function AssignPermssion() {
 
             <div onClick={onSubmit} className="flex justify-end">
               <Button isLoading={assigning} className="">
-                Update Role
+                Update Permissions
               </Button>
             </div>
           </div>

@@ -50,7 +50,7 @@ const MobileNavigation = () => {
                       to={link.path}
                     >
                       <button className="inline-flex text-[18px] duration-300 font-[500] gap-[14px] pb-2">
-                        {link.title}
+                        {`Governance`}
                       </button>
                     </Link>
                   );

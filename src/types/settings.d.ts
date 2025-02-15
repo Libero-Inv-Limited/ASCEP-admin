@@ -13,7 +13,7 @@ type SettingsOption =
   | "System Configurations"
   | "Manage Modules";
 
-type RolesOption = "Roles" | "Update Role" | "New Role";
+type RolesOption = "Roles" | "Update Role" | "New Role" | "Permissions" | "New Permission" | "Update Permission";
 
 type APIIntegrationOption = "API Integration" | "New API";
 
@@ -104,6 +104,12 @@ interface Role {
   description: string;
   type: string;
   rolePermission: RolePermission[];
+}
+
+interface Permission {
+  id: number;
+  name: string;
+  description: string;
 }
 
 interface RolePermission {

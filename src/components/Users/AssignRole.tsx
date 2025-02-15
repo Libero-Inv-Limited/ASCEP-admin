@@ -55,7 +55,7 @@ export default function AssignRole() {
   return (
     <div>
       <div onClick={onOpen} className="table-menu">
-        Assign role / privilege
+        Assign Role
       </div>
 
       <Dialog open={isOpen} onOpenChange={onClose}>
@@ -94,7 +94,9 @@ export default function AssignRole() {
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between ">
+                      <div className="space-y-3"></div>
+
+                      {/* <div className="flex items-center justify-between ">
                         <p className="text-subtle_text">Permissions</p>
 
                         <div className=" w-full max-w-[350px] flex flex-wrap gap-2">
@@ -111,7 +113,7 @@ export default function AssignRole() {
                               </div>
                             ))}
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   )
                 )}

@@ -100,7 +100,7 @@ const routes: RouterType[] = [
   {
     path: "/democracy",
     element: <DemocracyPage />,
-    title: "democracy",
+    title: "Governance",
   },
   {
     path: "/democracy/debates",
@@ -161,7 +161,7 @@ const routes: RouterType[] = [
   {
     path: "/response",
     element: <ResponsePage />,
-    title: "response",
+    title: "updates",
   },
   {
     path: "/response/reports",

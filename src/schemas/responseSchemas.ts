@@ -8,7 +8,7 @@ export const surveyQuestionSchema = z.object({
 
 export const createCategorySchema = z.object({
   name: z.string().min(1, "Name is required"),
-  // type: z.enum(["any"]),
+  id: z.number().optional(),
   description: z.string().min(1, "Description is required"),
 });
 

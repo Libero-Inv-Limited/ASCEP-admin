@@ -67,7 +67,7 @@ export const sidebarLinks: NavLinkType[] = [
     module: "users",
   },
   {
-    title: "Response",
+    title: "Updates",
     Icon: <Messages1 size={25} />,
     path: "/response",
     module: "response",
@@ -79,7 +79,7 @@ export const sidebarLinks: NavLinkType[] = [
     module: "dialogue",
   },
   {
-    title: "Democracy",
+    title: "Governance",
     Icon: <TickSquare size={25} />,
     path: "/democracy",
     module: "democracy",

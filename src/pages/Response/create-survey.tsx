@@ -18,7 +18,7 @@ export default function CreateSurveyPage() {
         link: "/main",
       },
       {
-        label: "response",
+        label: "updates",
         link: "/response",
       },
       {

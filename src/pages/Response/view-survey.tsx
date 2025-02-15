@@ -18,7 +18,7 @@ export default function ViewSurveyPage() {
         link: "/main",
       },
       {
-        label: "response",
+        label: "updates",
         link: "/response",
       },
       {

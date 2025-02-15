@@ -38,7 +38,7 @@ export default function ResponseCategories() {
             categories.map((category) => <CategoryCard category={category} />)}
       </div>
 
-      <AddCategory isOpen={isOpen} onClose={onClose} />
+      <AddCategory isOpen={isOpen} onClose={onClose} categoryData={undefined} />
     </div>
   );
 }

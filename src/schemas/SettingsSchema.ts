@@ -81,6 +81,15 @@ export const createRoleSchema = z.object({
   }),
 });
 
+export const createPermissionSchema = z.object({
+  name: z.string({ required_error: "TItle is required" }).min(3, {
+    message: "Title must be at least 3 characters."
+  }), 
+  description: z.string({ required_error: "Description is required" }).min(3, {
+    message: "Description must be at least 3 characters.",
+  }),
+})
+
 export const newApiSchema = z.object({
   title: z.string({ required_error: "Title is required" }).min(1, {
     message: "Title is required.",
