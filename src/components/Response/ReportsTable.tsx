@@ -10,6 +10,7 @@ import { TableSkeleton } from "../custom";
 import { Link } from "react-router-dom";
 import ResponsePostActions from "./ResponsePostActions";
 import UserAvatar from "../custom/UserAvatar";
+import ReportsPagination from "../custom/ReportsPagination";
 
 export const columns: ColumnDef<ReportData>[] = [
   {
@@ -108,13 +109,12 @@ export const columns: ColumnDef<ReportData>[] = [
       const status = row.original.reportStatus.name;
       return (
         <div
-          className={` rounded-[10px] text-xs font-semibold text-center w-fit px-2 py-[6px] capitalize ${
-            status === "Completed"
-              ? "bg-[#27AE60]/10 text-[#27AE60]"
-              : status === "Public"
+          className={` rounded-[10px] text-xs font-semibold text-center w-fit px-2 py-[6px] capitalize ${status === "Completed"
+            ? "bg-[#27AE60]/10 text-[#27AE60]"
+            : status === "Public"
               ? "bg-[#9747FF]/10 text-[#9747FF]"
               : "bg-[#F2994A]/10 text-[#F2994A]"
-          } `}
+            } `}
         >
           {status}
         </div>
@@ -132,16 +132,37 @@ export default function ReportsTable({ isSummary }: { isSummary?: boolean }) {
   const [tableData, setTableData] = useState<ReportData[]>([]);
   const [filtersString, setFiltersString] = useState("");
   const [isUpdated, setIsUpdated] = useState(0);
+  const [page, setPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(6);
 
-  const { data, isLoading } = useGetAllReports({ filtersString });
+  const { data: reports, isLoading } = useGetAllReports({ filtersString });
+
+  // Arrange according to date-time
+  const sortedReports = tableData.sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
+
+  const filteredReports = sortedReports.filter((report) => report.status_id != 14);
+
+  // Calculate the total number of pages
+  const totalPages = Math.ceil(filteredReports.length / itemsPerPage);
+  console.log(filteredReports.length);
+
+  // Calculate the start and end index for slicing the reports
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  // Get the current page data
+  const paginatedReports = filteredReports.slice(startIndex, endIndex);
 
   useEffect(() => {
-    if (data) {
+    if (reports) {
       if (isSummary) {
-        setTableData(data.slice(0, 3));
-      } else setTableData(data);
+        setTableData(reports);
+        setItemsPerPage(3)
+      } else setTableData(reports);
     }
-  }, [data, isSummary, isUpdated]);
+  }, [reports, isSummary, isUpdated]);
 
   return (
     <div className="space-y-4">
@@ -164,9 +185,20 @@ export default function ReportsTable({ isSummary }: { isSummary?: boolean }) {
       </div>
       <div className="p-4 bg-white rounded-lg">
         {isLoading ? (
-          <TableSkeleton count={30} />
+          <TableSkeleton count={itemsPerPage} />
         ) : (
-          <DataTable columns={columns} data={tableData} />
+          <>
+            {
+              <DataTable columns={columns} data={paginatedReports} />
+            }
+
+            {/* Reports Pagination */}
+            <ReportsPagination
+              currentPage={page}
+              totalPages={totalPages}
+              onPageChange={(newPage) => setPage(newPage)}
+            />
+          </>
         )}
       </div>
     </div>

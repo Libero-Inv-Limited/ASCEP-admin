@@ -33,7 +33,7 @@ const CustomPagination = ({
     <Pagination className="relative my-8">
       <PaginationContent className="flex flex-wrap items-center justify-between w-full list-none">
         <p className="text-base text-text">
-          {page} - {numberOfPages} pages
+          <b>{page} - {numberOfPages}</b> pages
         </p>
 
         <div className="flex items-center gap-3">

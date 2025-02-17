@@ -27,11 +27,15 @@ export default function SearchSelect({
 }: SearchSelectProps) {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState<SelectOption | null>(null);
-  const select = (id: string) => {
+
+  const select = (id: number) => {
     setSelected(options.filter((option) => option.value == id)[0]);
     handleSelect(id);
     setOpen(false);
   };
+
+  console.log(options);
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -50,12 +54,14 @@ export default function SearchSelect({
         <Command>
           <CommandInput placeholder="Search..." />
           <CommandEmpty>No data found.</CommandEmpty>
-          <CommandGroup>
+          <CommandGroup className="h-full overflow-y-auto max-h-80">
             {options.map((option) => (
               <CommandItem
                 key={option.value}
-                value={option.value.toString()}
-                onSelect={select}
+                value={option.label}
+                onSelect={() => {
+                  select(Number(option.value));
+                }}
               >
                 {option.label}
               </CommandItem>

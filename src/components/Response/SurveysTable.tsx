@@ -7,6 +7,7 @@ import { TableSkeleton } from "../custom";
 // import { Link } from "react-router-dom";
 import SurveyActions from "./SurveyActions";
 import { Link } from "react-router-dom";
+import ReportsPagination from "../custom/ReportsPagination";
 
 export const columns: ColumnDef<SurveyData>[] = [
   {
@@ -89,13 +90,12 @@ export const columns: ColumnDef<SurveyData>[] = [
       const status = row.original.status;
       return (
         <div
-          className={` rounded-[10px] text-xs font-semibold text-center w-fit px-2 py-[6px] capitalize ${
-            status === "Completed"
-              ? "bg-[#27AE60]/10 text-[#27AE60]"
-              : status === "Public"
+          className={` rounded-[10px] text-xs font-semibold text-center w-fit px-2 py-[6px] capitalize ${status === "Completed"
+            ? "bg-[#27AE60]/10 text-[#27AE60]"
+            : status === "Public"
               ? "bg-[#9747FF]/10 text-[#9747FF]"
               : "bg-[#F2994A]/10 text-[#F2994A]"
-          } `}
+            } `}
         >
           {status}
         </div>
@@ -112,15 +112,39 @@ export const columns: ColumnDef<SurveyData>[] = [
 export default function SurveysTable({ isSummary }: { isSummary?: boolean }) {
   const [tableData, setTableData] = useState<SurveyData[]>([]);
 
-  const { data, isLoading } = useGetAllSurveys();
+  const { data: surveys, isLoading } = useGetAllSurveys();
+
+  const [page, setPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(6);
+
+  console.log(surveys);
+
+  // Arrange according to date-time
+  const sortedSurveys = tableData.sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
+
+  // const filteredSurveys = sortedSurveys.filter((report) => report.status_id != 14);
+
+  // Calculate the total number of pages
+  const totalPages = Math.ceil(sortedSurveys.length / itemsPerPage);
+  // console.log(filteredReports.length);
+
+  // Calculate the start and end index for slicing the reports
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  // Get the current page data
+  const paginatedSurveys = sortedSurveys.slice(startIndex, endIndex);
 
   useEffect(() => {
-    if (data) {
+    if (surveys) {
       if (isSummary) {
-        setTableData(data.slice(0, 3));
-      } else setTableData(data);
+        setTableData(surveys);
+        setItemsPerPage(3)
+      } else setTableData(surveys);
     }
-  }, [data, isSummary]);
+  }, [surveys, isSummary]);
 
   return (
     <div className="space-y-4">
@@ -139,9 +163,20 @@ export default function SurveysTable({ isSummary }: { isSummary?: boolean }) {
       </div>
       <div className="p-4 bg-white rounded-lg">
         {isLoading ? (
-          <TableSkeleton count={30} />
+          <TableSkeleton count={itemsPerPage} />
         ) : (
-          <DataTable columns={columns} data={tableData} />
+          <>
+            {
+              <DataTable columns={columns} data={paginatedSurveys} />
+            }
+
+            {/* Reports Pagination */}
+            <ReportsPagination
+              currentPage={page}
+              totalPages={totalPages}
+              onPageChange={(newPage) => setPage(newPage)}
+            />
+          </>
         )}
       </div>
     </div>

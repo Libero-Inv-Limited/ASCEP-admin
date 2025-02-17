@@ -7,10 +7,12 @@ interface DownloadReportProps {
   onComplete: () => void;
 }
 
+interface ReportImage {
+  image_url: string;
+}
+
 export default function DownloadReport({ reportId, onComplete }: DownloadReportProps) {
   const { data: reportData, isLoading, error } = useGetReportInfo(String(reportId));
-
-  console.log(reportData);
 
   function extractTextFromJSXString(jsxString: string) {
     const parser = new DOMParser();
@@ -19,19 +21,50 @@ export default function DownloadReport({ reportId, onComplete }: DownloadReportP
   }
 
   async function addImageToPDF(pdf: jsPDF, imageUrl: string, x: number, y: number, width: number, height: number) {
-    const response = await fetch(imageUrl);
-    const blob = await response.blob();
-    const reader = new FileReader();
+    try {
+      const response = await fetch(imageUrl);
+      if (!response.ok) throw new Error("Failed to fetch image");
 
-    return new Promise<void>((resolve, reject) => {
-      reader.onload = function() {
-        const base64Image = reader.result as string;
-        pdf.addImage(base64Image, "PNG", x, y, width, height);
-        resolve();
-      };
-      reader.onerror = reject;
-      reader.readAsDataURL(blob);
-    });
+      const blob = await response.blob();
+      const reader = new FileReader();
+
+      return new Promise<void>((resolve, reject) => {
+        reader.onload = function () {
+          const base64Image = reader.result as string;
+          pdf.addImage(base64Image, "PNG", x, y, width, height);
+          resolve();
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+    } catch (error) {
+      console.error("Error loading image:", error);
+    }
+  }
+
+  async function accessAllImages(pdf: jsPDF, images: ReportImage[], yPosition: number) {
+    for (const image of images) {
+      if (yPosition + 90 > 280) {
+        pdf.addPage();
+        yPosition = 20; // Reset to top margin
+      }
+      await addImageToPDF(pdf, image.image_url, 10, yPosition, 180, 90);
+      yPosition += 100; // Adjust for image height and spacing
+    }
+    return yPosition;
+  }
+
+  function addText(pdf: jsPDF, content: string, yPositionRef: { value: number }, yOffset = 10) {
+    const pageHeight = 280;
+    const lines = pdf.splitTextToSize(content, 180);
+
+    if (yPositionRef.value + lines.length * 10 > pageHeight) {
+      pdf.addPage();
+      yPositionRef.value = 20; // Reset to top margin
+    }
+
+    pdf.text(lines, 10, yPositionRef.value);
+    yPositionRef.value += lines.length * 10 + yOffset;
   }
 
   useEffect(() => {
@@ -39,42 +72,36 @@ export default function DownloadReport({ reportId, onComplete }: DownloadReportP
       if (reportData && !isLoading) {
         const pdf = new jsPDF();
         pdf.setFontSize(14);
+        const yPositionRef = { value: 20 }; // Using object to pass by reference
 
-        pdf.text("REPORT:", 10, 10);
-        const titleLines = pdf.splitTextToSize(reportData.title, 180);
-        pdf.text(titleLines, 10, 20);
+        pdf.text("REPORT:", 10, yPositionRef.value);
+        yPositionRef.value += 10;
 
-        let yPosition = 20 + titleLines.length * 10;
+        addText(pdf, reportData.title, yPositionRef);
 
-        // Add Image if available
-        const imageUrl = reportData.reportImages[0].image_url;
-        await addImageToPDF(pdf, imageUrl, 10, yPosition, 180, 90); // Adjust position and size as needed
-        yPosition += 100; // Adjust for image height and spacing
+        // Add Images if available
+        if (reportData.reportImages && reportData.reportImages.length > 0) {
+          yPositionRef.value = await accessAllImages(pdf, reportData.reportImages, yPositionRef.value);
+        }
 
-        // Add Date
         pdf.setFontSize(12);
-        pdf.text(`Date: ${new Date(reportData.createdAt).toDateString()}`, 10, yPosition);
-        // yPosition += 10;
+        addText(pdf, `Date: ${new Date(reportData.createdAt).toDateString()}`, yPositionRef);
 
-        // Add Location
-        const locationLines = pdf.splitTextToSize(reportData.location_meta, 180);
-        pdf.text(`Location: ${locationLines}`, 10, yPosition + 10);
-        yPosition += locationLines.length * 10 + 10;
+        addText(pdf, `Location: ${reportData.location_meta}`, yPositionRef);
 
         // Add SDGs if available
         if (reportData.reportSDGs && reportData.reportSDGs.length > 0) {
-          pdf.text("SDGs:", 10, yPosition);
-          reportData.reportSDGs.forEach((sdg, index) => {
-            pdf.text(`- ${sdg.sdg.title}`, 15, yPosition + (index + 1) * 10);
-          });
-          yPosition += reportData.reportSDGs.length * 10 + 10;
+          pdf.text("SDGs:", 10, yPositionRef.value);
+          yPositionRef.value += 10;
+          for (const sdg of reportData.reportSDGs) {
+            addText(pdf, `- ${sdg.sdg.title}`, yPositionRef, 5);
+          }
         }
 
         // Add Description
-        pdf.text("Description:", 10, yPosition);
-        const descriptionLines = pdf.splitTextToSize(extractTextFromJSXString(reportData.description), 180);
-        pdf.text(descriptionLines, 10, yPosition + 10);
-        yPosition += descriptionLines.length * 10 + 10;
+        pdf.text("Description:", 10, yPositionRef.value);
+        yPositionRef.value += 10;
+        addText(pdf, extractTextFromJSXString(reportData.description), yPositionRef);
 
         // Save the PDF
         pdf.save(`report_${reportId}.pdf`);

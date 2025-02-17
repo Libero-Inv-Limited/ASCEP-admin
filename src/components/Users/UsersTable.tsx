@@ -14,6 +14,8 @@ import { Link } from "react-router-dom";
 import { useGetUsersAnalytics } from "@/api/user";
 import DeactivateAccount from "./DeactivateAccount";
 import DeleteAccount from "./DeleteAccount";
+import RoleFiltersButton from "../custom/RoleFiltersButton";
+import UsersFilters from "./UsersFilter";
 
 export type Post = {
   id: string;
@@ -24,13 +26,6 @@ export type Post = {
 };
 
 export const columns: ColumnDef<UserObj>[] = [
-  {
-    accessorKey: "id",
-    header: "ID",
-    cell: ({ row }) => {
-      return <div className="capitalize">{row.getValue("id")}</div>;
-    },
-  },
   {
     accessorKey: "username",
     header: "Username",
@@ -124,17 +119,37 @@ export const columns: ColumnDef<UserObj>[] = [
 
 export default function UsersTable() {
   const [tableData, setTableData] = useState<UserObj[]>([]);
+  const [roleId, setRoleId] = useState("");
   const [page, setPage] = useState(1);
 
   const { data, isLoading } = useGetUsersAnalytics(page);
 
   useEffect(() => {
-    if (data?.users) {
+    if (!data?.users) return;
+
+    if (roleId !== "") {
+      setTableData((data?.users ?? []).filter((item) => item.role === Number(roleId)));
+    } else {
       setTableData(data.users);
     }
-  }, [data]);
+  }, [data, roleId]);
+
+  // console.log(tableData);
+  // console.log("Role Id:", roleId);
+
   return (
     <div className="space-y-4">
+      <div className="flex justify-between">
+        <p className="text-xl font-medium text-dark">
+          Users
+        </p>
+
+        <div className="flex items-center gap-3">
+          <RoleFiltersButton variant="pill">
+            <UsersFilters setRoleId={setRoleId} />
+          </RoleFiltersButton>
+        </div>
+      </div>
       <div className="bg-white  rounded-lg p-4 min-h-[65vh]">
         {isLoading ? (
           <TableSkeleton />
