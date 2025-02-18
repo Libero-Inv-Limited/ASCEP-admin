@@ -60,12 +60,12 @@ export const sidebarLinks: NavLinkType[] = [
     path: "/main",
     module: "main",
   },
-  // {
-  //   title: "Users",
-  //   Icon: <User size={25} />,
-  //   path: "/users",
-  //   module: "users",
-  // },
+  {
+    title: "Users",
+    Icon: <User size={25} />,
+    path: "/users",
+    module: "users",
+  },
   {
     title: "Updates",
     Icon: <Messages1 size={25} />,
