@@ -25,7 +25,9 @@ export default function DemocracyBarChart() {
   return (
     <div className="w-full py-5 space-y-8 bg-white rounded-lg px-7">
       <div className="flex items-center justify-between">
-        <Link to='/response/all-surveys' className="mr-8 text-lg text-dark">Surveys</Link>
+        {/* <Link to='/response/all-surveys' className="mr-8 text-lg text-dark"> */}
+        Surveys
+        {/* </Link> */}
 
         <div className="flex gap-2 ml-auto -mr-12 scale-75 ">
           <FilterDropdown

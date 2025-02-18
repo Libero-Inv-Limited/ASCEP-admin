@@ -74,7 +74,9 @@ export default function ResponseChart() {
   return (
     <div className="bg-white w-full py-5 px-7 space-y-8 rounded-[30px]">
       <div className="flex items-center gap-6">
-        <Link to='/response/reports' className="mr-8 text-lg text-dark">Reports</Link>
+        {/* <Link to='/response/reports' className="mr-8 text-lg text-dark"> */}
+        Reports
+        {/* </Link> */}
 
         {categories.map((category) => (
           <div key={category.title} className="flex items-center gap-4 ">

@@ -24,51 +24,53 @@ export default function MainAnalytics() {
         ))
         : data && (
           <>
-            <Link to='/response/reports'><StatsCard
+            {/* <Link to='/response/reports'> */}
+            <StatsCard
               icon={<GoReport />}
               title="Govt. Reports"
               count={data?.reports}
-            /></Link>
-            <Link to='/democracy/debates'>
+            />
+            {/* </Link> */}
+            {/* <Link to='/democracy/debates'> */}
               <StatsCard
                 icon={<Messages1 />}
                 title="Total Debates"
                 count={data?.debates}
               />
-            </Link>
-            <Link to='/democracy/initiatives'>
+            {/* </Link> */}
+            {/* <Link to='/democracy/initiatives'> */}
               <StatsCard
                 icon={<HiOutlineLightBulb />}
                 title="Total Initiatives "
                 count={data?.initiatives}
               />
-            </Link>
+            {/* </Link> */}
             <StatsCard
               icon={<LiaPollSolid />}
               title="Total Polls"
               count={data?.polls}
             />
-            <Link to='/democracy/proposals'>
+            {/* <Link to='/democracy/proposals'> */}
               <StatsCard
                 icon={<IoDocumentTextOutline />}
                 title="Total Proposals"
                 count={data?.proposals}
               />
-            </Link>
-            <Link to='/democracy'>
+            {/* </Link> */}
+            {/* <Link to='/democracy'> */}
               <StatsCard
                 icon={<SiUnitednations />}
                 title="Total SDGs"
                 count={data?.sdgs}
               />
-            </Link>
-            <Link to='/response/all-surveys'>
+            {/* </Link> */}
+            {/* <Link to='/response/all-surveys'> */}
               <StatsCard
                 icon={<RiSurveyLine />}
                 title="Total Surveys"
                 count={data?.surveys}
               />
-            </Link>
+            {/* </Link> */}
 
           </>
         )}

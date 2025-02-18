@@ -25,7 +25,9 @@ export default function DialogueBarChart() {
   return (
     <div className="w-full py-5 space-y-8 bg-white rounded-lg px-7">
       <div className="flex items-center justify-between">
-        <Link to='/democracy/proposals' className="text-lg text-dark">Proposals</Link>
+        {/* <Link to='/democracy/proposals' className="text-lg text-dark"> */}
+        Proposals
+        {/* </Link> */}
 
         <div className="flex gap-2 -mr-12 scale-75 ">
           <FilterDropdown
