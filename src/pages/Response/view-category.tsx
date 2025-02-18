@@ -54,7 +54,7 @@ export default function ViewCategoryPage() {
           <ArrowLeft2 size="20" />
           Go Back
         </Button>
-
+      <div className="text-xl font-semibold ps-2 mb-2">Moderators</div>
       <CategoryModeratorTable id={categoryId!} />
     </div>
   );
