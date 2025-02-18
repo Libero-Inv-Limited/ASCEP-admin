@@ -1,3 +1,4 @@
+import GoBackButton from "@/components/custom/GoBackButton";
 import InitiativesTable from "@/components/Democracy/initiatives/InitiativesTable";
 import InitiativeProvider from "@/contexts/InitiativeContext";
 import { useNavigationContext } from "@/contexts/NavigationContext";
@@ -13,7 +14,7 @@ export default function ViewAllInitiativesPage() {
         link: "/main",
       },
       {
-        label: "democracy",
+        label: "governance",
         link: "/democracy",
       },
       {
@@ -24,6 +25,7 @@ export default function ViewAllInitiativesPage() {
   }, [activeLink]);
   return (
     <div className="page-wrapper">
+      <GoBackButton link="/democracy" />
       <InitiativeProvider>
         <InitiativesTable />
       </InitiativeProvider>

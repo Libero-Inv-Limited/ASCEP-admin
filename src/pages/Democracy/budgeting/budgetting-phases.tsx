@@ -1,3 +1,4 @@
+import GoBackButton from "@/components/custom/GoBackButton";
 import BudgetingPhasesTable from "@/components/Democracy/budgeting/BudgetingPhasesTable";
 import { useNavigationContext } from "@/contexts/NavigationContext";
 import { useEffect } from "react";
@@ -13,7 +14,7 @@ export default function BudgetingPhasesPage() {
       },
       {
         label: "dialogue",
-        link: "/democracy",
+        link: "/dialogue",
       },
       {
         label: "Requests",
@@ -23,6 +24,8 @@ export default function BudgetingPhasesPage() {
   }, [activeLink]);
   return (
     <div className="page-wrapper">
+      <GoBackButton link="/dialogue" />
+
       <BudgetingPhasesTable />
     </div>
   );

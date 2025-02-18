@@ -7,7 +7,7 @@ import { useNavigationContext } from "@/contexts/NavigationContext";
 import { ColumnDef } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
 import DialogueAuthorityDropdownMenu from "./DialogueAuthorityDropdownMenu";
-// import { Link } from "react-router-dom";
+import GoBackButton from "../custom/GoBackButton";
 
 export const columns: ColumnDef<AuthorityType>[] = [
   {
@@ -92,7 +92,11 @@ export default function DialogueAuthoritiesTable() {
       {isLoading ? (
         <TableSkeleton />
       ) : tableData ? (
-        <DataTable columns={columns} data={tableData} />
+        <>
+          <GoBackButton link="/dialogue" />
+          <div className="text-xl font-medium text-dark my-2 pl-2">MDAs</div>
+          <DataTable columns={columns} data={tableData} />
+        </>
       ) : (
         <EmptyState height={"60vh"} />
       )}

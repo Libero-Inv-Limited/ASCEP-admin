@@ -146,7 +146,6 @@ export default function ReportsTable({ isSummary }: { isSummary?: boolean }) {
 
   // Calculate the total number of pages
   const totalPages = Math.ceil(filteredReports.length / itemsPerPage);
-  console.log(filteredReports.length);
 
   // Calculate the start and end index for slicing the reports
   const startIndex = (page - 1) * itemsPerPage;
@@ -168,7 +167,7 @@ export default function ReportsTable({ isSummary }: { isSummary?: boolean }) {
     <div className="space-y-4">
       <div className="flex justify-between">
         <p className="text-xl font-medium text-dark">
-          {isSummary ? "Reports" : ""}
+          {"Reports"}
         </p>
 
         <div className="flex items-center gap-3">

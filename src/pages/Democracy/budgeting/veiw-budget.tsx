@@ -2,6 +2,7 @@ import { useGetBudgetInfo } from "@/api/democracy/budgeting";
 import { BudgetingPhasesTable } from "@/components/Democracy";
 import EditBudget from "@/components/Democracy/budgeting/EditBudget";
 import { PageLoader } from "@/components/custom";
+import GoBackButton from "@/components/custom/GoBackButton";
 import { useNavigationContext } from "@/contexts/NavigationContext";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -19,7 +20,7 @@ export default function ViewBudgetPage() {
         link: "/main",
       },
       {
-        label: "democracy",
+        label: "governance",
         link: "/democracy",
       },
       {
@@ -34,21 +35,21 @@ export default function ViewBudgetPage() {
   if (data)
     return (
       <div className="space-y-6 page-wrapper">
+        <GoBackButton link="/democracy" />
         <h5 className="font-medium text-text">Budget Details</h5>
         <div className="flex items-center justify-between">
           <h2>{data.title}</h2>
 
           <div className="flex items-center gap-4">
             <div
-              className={`px-6 py-1 rounded-full text-sm font-medium capitalize ${
-                data.status === "approved"
+              className={`px-6 py-1 rounded-full text-sm font-medium capitalize ${data.status === "approved"
                   ? "bg-green-200 text-green-500"
                   : data.status === "current"
-                  ? "bg-blue-100 text-blue-500"
-                  : data.status === "rejected"
-                  ? "bg-red-100 text-red-500"
-                  : "bg-yellow-200 text-yellow-500"
-              } `}
+                    ? "bg-blue-100 text-blue-500"
+                    : data.status === "rejected"
+                      ? "bg-red-100 text-red-500"
+                      : "bg-yellow-200 text-yellow-500"
+                } `}
             >
               {data.status}
             </div>

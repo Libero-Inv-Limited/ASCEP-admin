@@ -1,4 +1,5 @@
 import { useGetAuthorityInfo } from "@/api/authorities";
+import GoBackButton from "@/components/custom/GoBackButton";
 import { AddDialogueModerator } from "@/components/Dialogue";
 import AddAuthority from "@/components/Dialogue/AddAuthority";
 import DialogeAuthorityModeratorTable from "@/components/Dialogue/DialogueAuthorityModeratorsTable";
@@ -51,9 +52,12 @@ export default function ViewAuthorityPage() {
   }, [activeLink]);
 
   return (
-    <div className="space-y-8 page-wrapper">
+    <div className="space-y-3 page-wrapper">
+      <GoBackButton link="/dialogue" />
       <h3>{data?.information.name}</h3>
       <p>{data?.information.description}</p>
+
+      <div className="font-semibold text-xl">Moderators</div>
 
       <DialogeAuthorityModeratorTable
         data={data?.moderators}

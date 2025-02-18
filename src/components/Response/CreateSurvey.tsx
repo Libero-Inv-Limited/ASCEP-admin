@@ -150,9 +150,9 @@ export default function CreateSurvey({ next }: CreateSurveyProps) {
         </div>
 
         <div className="flex items-center justify-end gap-4">
-          <Button variant="outline-primary" className="w-[175px]">
+          {/* <Button variant="outline-primary" className="w-[175px]">
             Save as draft
-          </Button>
+          </Button> */}
           <Button isLoading={isLoading} className="w-[175px]">
             Next
           </Button>

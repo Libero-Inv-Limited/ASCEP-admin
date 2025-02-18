@@ -1,3 +1,4 @@
+import GoBackButton from "@/components/custom/GoBackButton";
 import ProjectProposals from "@/components/Democracy/budgeting/ProjectProposals";
 import { useNavigationContext } from "@/contexts/NavigationContext";
 import { useEffect } from "react";
@@ -14,7 +15,7 @@ export default function SelectProjectPage() {
         link: "/main",
       },
       {
-        label: "democracy",
+        label: "governance",
         link: "/democracy",
       },
       {
@@ -26,6 +27,7 @@ export default function SelectProjectPage() {
 
   return (
     <div className="page-wrapper">
+      <GoBackButton link="/democracy" />
       <h4>Projects</h4>
 
       <ProjectProposals />

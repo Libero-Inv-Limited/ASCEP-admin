@@ -145,8 +145,10 @@ export default function InitiativesTable({
     }
   }, [fetchedInitiativeData]);
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-end gap-3 ml-auto">
+    <div className="space-y-4 mt-4">
+      <div className="flex items-center justify-between gap-3 ml-auto">
+        {!isSummary && (<div className="text-xl font-semibold">Initiatives</div>
+        )}
         <AdvancedSearch
           filterButtonOptions={initiativeFilterButtonOptions}
           filterByButton={filterByButton}

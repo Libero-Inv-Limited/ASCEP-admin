@@ -14,7 +14,7 @@ export default function ResponseCategories() {
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between text-lg">
-        <p className="text-subtle_text">Categories</p>
+        <p className="text-dark text-xl font-medium">Categories</p>
 
         <div className="flex items-center gap-4">
           <Button onClick={onOpen} variant="primary" size="xs">
@@ -29,13 +29,13 @@ export default function ResponseCategories() {
       <div className="grid grid-cols-5 gap-5">
         {fetchingCategories
           ? Array.from({ length: 8 }).map((_, i) => (
-              <Skeleton
-                key={i}
-                className="w-full h-20 bg-slate-200 rounded-xl"
-              />
-            ))
+            <Skeleton
+              key={i}
+              className="w-full h-20 bg-slate-200 rounded-xl"
+            />
+          ))
           : categories &&
-            categories.map((category) => <CategoryCard category={category} />)}
+          categories.map((category) => <CategoryCard category={category} />)}
       </div>
 
       <AddCategory isOpen={isOpen} onClose={onClose} categoryData={undefined} />

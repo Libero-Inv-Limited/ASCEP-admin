@@ -63,20 +63,20 @@ const tabs = [
       </ProposalProvider>
     ),
   },
-  {
-    value: "budgeting",
-    label: "Budgeting",
-    table: <BudgetsTable isSummary />,
-  },
-  {
-    value: "Voting",
-    label: "Voting",
-    table: (
-      <VotingProvider>
-        <VotingTable isSummary />
-      </VotingProvider>
-    ),
-  },
+  // {
+  //   value: "budgeting",
+  //   label: "Budgeting",
+  //   table: <BudgetsTable isSummary />,
+  // },
+  // {
+  //   value: "Voting",
+  //   label: "Voting",
+  //   table: (
+  //     <VotingProvider>
+  //       <VotingTable isSummary />
+  //     </VotingProvider>
+  //   ),
+  // },
 
   {
     value: "SDG",

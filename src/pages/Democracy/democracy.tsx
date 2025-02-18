@@ -1,3 +1,4 @@
+import GoBackButton from "@/components/custom/GoBackButton";
 import {
   DemocracyActions,
   DemocracyDebateCategories,
@@ -25,6 +26,8 @@ export default function DemocracyPage() {
   }, [activeLink]);
   return (
     <div className="space-y-8 page-wrapper ">
+      <GoBackButton link="/main" />
+
       <DemocracyStats />
       {/* <DemocracyActions /> */}
       <DemocracySDG />

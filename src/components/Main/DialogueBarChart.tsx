@@ -15,7 +15,7 @@ import { FilterDropdown } from "../custom";
 import { Link } from "react-router-dom";
 
 export default function DialogueBarChart() {
-  const [date, setDate] = useState(getPastDays(0));
+  const [date, setDate] = useState(getPastDays(366));
   const { data, isLoading } = useGetProposalsOverTime(date);
   const [dataKey, setDataKey] = useState("total_proposals");
 
@@ -69,7 +69,7 @@ export default function DialogueBarChart() {
             <YAxis opacity={0.6} tickFormatter={(value) => `${value}`} />
 
             <XAxis
-              interval={1}
+              interval={0}
               angle={-40}
               className="text-xs"
               dataKey="month"

@@ -168,7 +168,7 @@ export default function DialogueRequests({
   return (
     <div className="space-y-4">
       <div className="flex justify-between">
-        <p className="text-lg text-subtle_text">Requests</p>
+        <p className="text-lg text-dark font-medium">Requests</p>
         <div className="flex items-center gap-3 ml-auto">
           <SearchDialogueRequests
             isLoading={isLoading}

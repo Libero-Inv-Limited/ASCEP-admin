@@ -15,9 +15,9 @@ import { FilterDropdown } from "../custom";
 import { Link } from "react-router-dom";
 
 export default function DemocracyBarChart() {
-  const [date, setDate] = useState(getPastDays(0));
+  const [date, setDate] = useState(getPastDays(366));
   const { data, isLoading } = useGetSurveyTrendOverTime(date);
-  const [dataKey, setDataKey] = useState("completed_surveys");
+  const [dataKey, setDataKey] = useState("total_surveys");
 
   const handleSetDateRange = (date: FilterOption) => {
     setDate(date.value as string);
@@ -69,7 +69,7 @@ export default function DemocracyBarChart() {
             <YAxis opacity={0.6} tickFormatter={(value) => `${value}`} />
 
             <XAxis
-              interval={1}
+              interval={0}
               angle={-40}
               className="text-xs"
               dataKey="month"

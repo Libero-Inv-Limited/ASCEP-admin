@@ -69,7 +69,7 @@ const SideNavigation: React.FC<SideNavigationProps> = () => {
                         className="ml-2 border-none bg-primary text-dark"
                       >
                         <p className="text-[14px] font-[500] capitalize">
-                          {links.module === "democracy" ? "governance" : links.module}
+                          {links.module === "democracy" ? "governance" : (links.module === "response" ? "Updates" : links.module)}
                         </p>
                       </TooltipContent>
                     )}

@@ -1,3 +1,4 @@
+import GoBackButton from "@/components/custom/GoBackButton";
 import { AddBudget } from "@/components/Democracy";
 import BudgetsTable from "@/components/Democracy/budgeting/BudgetsTable";
 import { Button } from "@/components/ui/button";
@@ -16,7 +17,7 @@ export default function BudgetingPage() {
         link: "/main",
       },
       {
-        label: "democracy",
+        label: "governance",
         link: "/democracy",
       },
       {
@@ -28,6 +29,8 @@ export default function BudgetingPage() {
 
   return (
     <div className="page-wrapper">
+      <GoBackButton link="/democracy" />
+
       <div className="flex items-center justify-between">
         <h3>Budgets</h3>
 

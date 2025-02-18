@@ -1,3 +1,4 @@
+import GoBackButton from "@/components/custom/GoBackButton";
 import {
   DialogueActions,
   DialogueAnalytics,
@@ -24,6 +25,7 @@ export default function DialoguePage() {
   }, [activeLink]);
   return (
     <div className="space-y-8 page-wrapper">
+      <GoBackButton link="/main" />
       <DialogueAnalytics />
       <DialogueActions />
       <DialogueAuthorities />

@@ -6,11 +6,12 @@ import {
   DebateTagsSection,
 } from "@/components/Democracy";
 import { PageLoader } from "@/components/custom";
+import GoBackButton from "@/components/custom/GoBackButton";
 import UserAvatar from "@/components/custom/UserAvatar";
 import { useNavigationContext } from "@/contexts/NavigationContext";
 import { useEffect } from "react";
 import { MdOutlineMessage } from "react-icons/md";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 export default function ViewDebatePage() {
   const { debateId } = useParams();
@@ -23,8 +24,8 @@ export default function ViewDebatePage() {
         link: "/main",
       },
       {
-        label: "updates",
-        link: "/response",
+        label: "governance",
+        link: "/democracy",
       },
       {
         label: `Debate - ${debateId}`,
@@ -36,18 +37,22 @@ export default function ViewDebatePage() {
 
   if (isLoading) return <PageLoader />;
 
+  console.log(data);
+
   if (data)
     return (
       <div className="space-y-8 page-wrapper ">
+        <GoBackButton link="/democracy" />
+
         <h3>{data.title}</h3>
 
         <div className="flex items-center gap-8">
-          <div className="flex items-center gap-2">
+          <Link to={`/users/${data.user_id}`} className="flex items-center gap-2 cursor-pointer">
             {/* @ts-ignore */}
             <UserAvatar user={data.author} size={40} />
 
             <p className="text-lg font-bold">{data.author.username}</p>
-          </div>
+          </Link>
           <p className="text-subtle_text">
             {new Date(data.createdAt).toDateString()}
           </p>

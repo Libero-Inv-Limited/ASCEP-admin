@@ -89,11 +89,11 @@ const CustomMultiSelect = React.forwardRef<HTMLDivElement, CustomMultiSelectProp
             <Command>
               {showSearch && <CommandInput placeholder={searchPlaceholder} />}
               <CommandEmpty>No item found</CommandEmpty>
-              <CommandGroup>
+              <CommandGroup className="h-full overflow-y-auto max-h-80">
                 {renderedItems.map((renderedItem) => (
                   <CommandItem
                     key={renderedItem.id}
-                    value={renderedItem.id.toString()} // Use id instead of JSON string
+                    value={String(renderedItem.name)} // Use id instead of JSON string
                     onSelect={() => {
                       handleSelect(renderedItem); // Pass object directly
                       setOpen(false);

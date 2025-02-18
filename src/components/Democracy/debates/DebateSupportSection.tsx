@@ -12,12 +12,12 @@ export default function DebateSupportSection({ data }: { data: DebateType }) {
         </div>
         <div className="flex flex-col items-center justify-center w-[90px] h-[90px] gap-2 text-sm text-red-600 bg-red-100 rounded-2xl">
           <Dislike />
-          {data.likePercentage}% ({data.likes})
+          {data.dislikePercentage}% ({data.dislikes})
         </div>
 
-        <div className="px-4 py-[6px] text-sm underline cursor-pointer rounded-xl bg-black/10">
-          View Votes
-        </div>
+      </div>
+      <div className="px-4 py-[6px] text-sm cursor-pointer rounded-xl bg-black/10 w-fit">
+        Total Votes: {data.total_votes_cache}
       </div>
     </>
   );

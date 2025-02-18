@@ -53,7 +53,7 @@ export default function SelectLocation({
           <div className="relative w-full">
             <Input
               className={`bg-[#F5F5F5] capitalize w-full text-base text-text focus-visible:ring-0 focus-visible:ring-primary border-none focus:border-none focus-visible:ring-offset-0 rounded-[20px] h-11 sm:h-[50px] placeholder:text-base placeholder:text-subtle_text/30 placeholder:font-medium ${className}`}
-              value={selected?.ward || "Select Location"}
+              value={`${selected?.ward}, ${selected?.lga}` || "Select Location"}
             />
             <div className="absolute rounded-r-[20px] bg-[#f5f5f5] top-0 flex items-center h-full pr-4 pl-1 right-0 ">
               <Gps size={24} color="#000" />
@@ -73,13 +73,13 @@ export default function SelectLocation({
                 {wards.map((ward) => (
                   <CommandItem
                     key={ward.id}
-                    value={`${ward.longitude}, ${ward.latitude}`}
+                    value={`${ward.ward}, ${ward.lga}`}
                     onSelect={() => {
                       handleSelect(Number(ward.id));
                       setOpen(false);
                     }}
                   >
-                    {ward.ward}
+                    {`${ward.ward}, ${ward.lga}`}
                   </CommandItem>
                 ))}
               </CommandGroup>

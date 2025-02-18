@@ -4,6 +4,7 @@ import baseUrl from "./baseUrl";
 import { useToast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../utils/routesNames";
+import config from "@/utils/config";
 
 export const useGetResponseAnalytics = () => {
   return useQuery(
@@ -61,8 +62,13 @@ export const useUpdateReport = () => {
 
   return useMutation(
     (values: UpdateReportDetailsPayload) => {
+      const token = localStorage.getItem(config.key.accessToken);
       return axios
-        .patch(`${baseUrl}/report/update`, values)
+        .patch(`${baseUrl}/report/update`, values, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        })
         .then((res) => res.data);
     },
     {

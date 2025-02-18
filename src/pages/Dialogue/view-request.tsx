@@ -1,3 +1,4 @@
+import GoBackButton from "@/components/custom/GoBackButton";
 import {
   AddCategoryModerator,
   CategoryModeratorTable,
@@ -39,6 +40,7 @@ export default function ViewRequestPage() {
   return (
     <div className="page-wrapper">
       {/* <h3>{}</h3> */}
+      <GoBackButton link="/dialogue" />
 
       <CategoryModeratorTable id={requestId!} />
     </div>

@@ -8,6 +8,7 @@ import {
   InitiavativeSupportSection,
 } from "@/components/Democracy";
 import { PageLoader } from "@/components/custom";
+import GoBackButton from "@/components/custom/GoBackButton";
 import UserAvatar from "@/components/custom/UserAvatar";
 import { useNavigationContext } from "@/contexts/NavigationContext";
 import { useEffect } from "react";
@@ -25,8 +26,8 @@ export default function ViewInitiativePage() {
         link: "/main",
       },
       {
-        label: "updates",
-        link: "/response",
+        label: "governance",
+        link: "/democracy",
       },
       {
         label: `Initiative - ${initiativeId}`,
@@ -41,6 +42,8 @@ export default function ViewInitiativePage() {
   if (data)
     return (
       <div className="relative space-y-8 page-wrapper ">
+        <GoBackButton link="/democracy" />
+
         <h3>{data.title}</h3>
 
         <div className="flex items-center gap-8">

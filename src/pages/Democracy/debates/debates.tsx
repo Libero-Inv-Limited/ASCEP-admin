@@ -1,3 +1,4 @@
+import GoBackButton from "@/components/custom/GoBackButton";
 import DebatesTable from "@/components/Democracy/debates/DebatesTable";
 import DebateProvider from "@/contexts/DebateContext";
 import { useNavigationContext } from "@/contexts/NavigationContext";
@@ -13,7 +14,7 @@ export default function ViewAllDebatesPage() {
         link: "/main",
       },
       {
-        label: "democracy",
+        label: "governance",
         link: "/democracy",
       },
       {
@@ -24,6 +25,7 @@ export default function ViewAllDebatesPage() {
   }, [activeLink]);
   return (
     <div className="page-wrapper">
+      <GoBackButton link="/democracy" />
       <DebateProvider>
         <DebatesTable />
       </DebateProvider>

@@ -9,7 +9,7 @@ export default function ResponseCategories() {
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between text-lg">
-        <p className="text-subtle_text">Authorities</p>
+        <p className="text-dark font-medium">Authorities</p>
 
         <div className="flex items-center gap-4">
           <Link to="/dialogue/authorities" className="underline text-dark">

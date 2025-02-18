@@ -35,7 +35,7 @@ const dateRange: FilterOption[] = [
 ];
 
 export default function ResponseChart() {
-  const [date, setDate] = useState(getPastDays(0));
+  const [date, setDate] = useState(getPastDays(366));
   const { data, isLoading, isRefetching } = useGetReportTrendOverTime(date);
   const [categories, setCategories] = useState<ChartCategory[]>([]);
 

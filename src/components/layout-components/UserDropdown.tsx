@@ -25,9 +25,9 @@ export default function UserDropdown() {
             <SearchNormal1 size="20" color="black" />
           </IconWrapper> */}
 
-          <IconWrapper className="rounded-full cursor-pointer">
+          {/* <IconWrapper className="rounded-full cursor-pointer">
             <Notification size="20" color="black" />
-          </IconWrapper>
+          </IconWrapper> */}
 
           {user && (
             <div className="flex items-center gap-3 cursor-pointer">

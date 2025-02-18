@@ -1,3 +1,4 @@
+import GoBackButton from "@/components/custom/GoBackButton";
 import { DialogueRequests } from "@/components/Dialogue";
 import { useNavigationContext } from "@/contexts/NavigationContext";
 import { useEffect } from "react";
@@ -23,6 +24,8 @@ export default function ViewAllRequestsPage() {
   }, [activeLink]);
   return (
     <div className="page-wrapper">
+      <GoBackButton link="/dialogue" />
+
       <DialogueRequests />
     </div>
   );

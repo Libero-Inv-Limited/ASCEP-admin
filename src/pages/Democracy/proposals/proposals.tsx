@@ -1,3 +1,4 @@
+import GoBackButton from "@/components/custom/GoBackButton";
 import ProposalsTable from "@/components/Democracy/proposals/ProposalsTable";
 import { useNavigationContext } from "@/contexts/NavigationContext";
 import ProposalProvider from "@/contexts/ProposalContext";
@@ -13,7 +14,7 @@ export default function ViewAllProposalsPage() {
         link: "/main",
       },
       {
-        label: "democracy",
+        label: "governance",
         link: "/democracy",
       },
       {
@@ -24,6 +25,7 @@ export default function ViewAllProposalsPage() {
   }, [activeLink]);
   return (
     <div className="page-wrapper">
+      <GoBackButton link="/democracy" />
       <ProposalProvider>
         <ProposalsTable />
       </ProposalProvider>

@@ -6,6 +6,7 @@ import { useGetSurveyInfo } from "@/api/response";
 import { PageLoader } from "@/components/custom";
 import { useEffect } from "react";
 import { useNavigationContext } from "@/contexts/NavigationContext";
+import GoBackButton from "@/components/custom/GoBackButton";
 
 export default function ViewSurveyPage() {
   const { setBreadcrumbs, activeLink } = useNavigationContext();
@@ -41,6 +42,7 @@ export default function ViewSurveyPage() {
         className="relative space-y-6 page-wrapper"
         style={{ paddingBottom: 100 }}
       >
+        <GoBackButton link="/response" />
         <h3 className="text-2xl">View Response</h3>
         <ResponseDetails
           description={data?.description}

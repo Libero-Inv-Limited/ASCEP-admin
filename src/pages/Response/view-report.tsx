@@ -5,7 +5,7 @@ import {
   ResponseImageSelect,
 } from "@/components/Response";
 // import { Button } from "@/components/ui/button";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useNavigationContext } from "@/contexts/NavigationContext";
 import { useEffect, useState} from "react";
 import { useGetReportComments, useGetReportInfo } from "@/api/response";
@@ -13,10 +13,17 @@ import { CustomPagination, EmptyState, PageLoader } from "@/components/custom";
 import { Skeleton } from "@/components/ui/skeleton";
 import RejectPost from "@/components/Response/RejectPost";
 import AcceptPost from "@/components/Response/AcceptPost"
+import { Button } from "@/components/ui/button";
+import { ArrowLeft2 } from "iconsax-react";
 
 export default function ViewReportPage() {
   const { reportId } = useParams();
   const { setBreadcrumbs, activeLink } = useNavigationContext();
+  const navigate = useNavigate();
+
+  const handleGoBack = () => {
+    navigate("/response");
+  };
 
   useEffect(() => {
     setBreadcrumbs([
@@ -48,6 +55,13 @@ export default function ViewReportPage() {
         className="relative space-y-6 page-wrapper"
         style={{ paddingBottom: 100 }}
       >
+        <Button
+          className="text-[14px] capitalize gap-1 bg-[#ebe5f0] w-fit  h-fit hover:bg-[#363636] hover:text-white text-dark px-2 mb-4"
+          onClick={handleGoBack}
+        >
+          <ArrowLeft2 size="20" />
+          Go Back
+        </Button>
         <h3 className="text-2xl">View Response</h3>
         <ResponseImageSelect images={data?.reportImages} />
         <ResponseDetails

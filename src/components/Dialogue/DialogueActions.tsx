@@ -18,7 +18,7 @@ export default function DialogueActions() {
 
   return (
     <div>
-      <p className="mb-4 text-lg text-subtle_text">Actions</p>
+      <p className="mb-4 text-lg text-dark font-medium">Actions</p>
       <div className="flex gap-4">
         {/* <ActionCard
           icon={<Timer />}
