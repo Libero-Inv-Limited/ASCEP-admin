@@ -20,7 +20,7 @@ export default function MainPage() {
           <DemocracyBarChart />
         </div>
 
-        {/* <RecentPosts /> */}
+        <RecentPosts />
       </div>
     </div>
   );
