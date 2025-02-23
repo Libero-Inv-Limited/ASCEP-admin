@@ -15,6 +15,7 @@ import { TableSkeleton } from "../../custom";
 import { useGetAllSDGs } from "@/api/sdg";
 import DeleteSDG from "./DeleteSDG";
 import AddSDGTarget from "./AddSDGTarget";
+import { useAppContext } from "@/contexts/AppContext";
 
 const columns: ColumnDef<SDGData>[] = [
   {
@@ -80,6 +81,8 @@ const columns: ColumnDef<SDGData>[] = [
     id: "actions",
     header: "Actions",
     cell: ({ row }) => {
+      const { user } = useAppContext();
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -89,12 +92,20 @@ const columns: ColumnDef<SDGData>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="px-2" align="end">
-            <DropdownMenuLabel>
-              <AddSDGTarget id={row.original.id} />
-            </DropdownMenuLabel>
-            <DropdownMenuLabel>
-              <DeleteSDG id={row.original.id} />
-            </DropdownMenuLabel>
+            {
+              user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'add sdg target') &&
+              (<DropdownMenuLabel>
+                <AddSDGTarget id={row.original.id} />
+              </DropdownMenuLabel>)
+            }
+
+            {
+              user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'delete sdg') &&
+              (<DropdownMenuLabel>
+                <DeleteSDG id={row.original.id} />
+              </DropdownMenuLabel>)
+            }
+
           </DropdownMenuContent>
         </DropdownMenu>
       );

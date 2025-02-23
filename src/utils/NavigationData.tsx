@@ -53,43 +53,51 @@ export const FooterLinks: NavLinkType[] = [
     path: "#",
   },
 ];
+
+// DO NOT CHANGE WITHOUT CAREFUL REVIEW
 export const sidebarLinks: NavLinkType[] = [
   {
     title: "Main",
     Icon: <TrendUp size={25} />,
     path: "/main",
     module: "main",
+    privilege: 'access dashboard module',
   },
   {
     title: "Users",
     Icon: <User size={25} />,
     path: "/users",
     module: "users",
+    privilege: 'access users module'
   },
   {
     title: "Updates",
     Icon: <Messages1 size={25} />,
     path: "/response",
     module: "response",
+    privilege: 'access updates module'
   },
   {
     title: "Dialogue",
     Icon: <Profile2User size={25} />,
     path: "/dialogue",
     module: "dialogue",
+    privilege: 'access dialogue module'
   },
   {
     title: "Governance",
     Icon: <TickSquare size={25} />,
     path: "/democracy",
     module: "democracy",
+    privilege: 'access governance module'
   },
-  // {
-  //   title: "Settings",
-  //   Icon: <Setting2 size={25} />,
-  //   path: "/settings",
-  //   module: "settings",
-  // },
+  {
+    title: "Settings",
+    Icon: <Setting2 size={25} />,
+    path: "/settings",
+    module: "settings",
+    privilege: 'access settings module'
+  },
 ];
 export const SocialLinks: NavLinkType[] = [
   {

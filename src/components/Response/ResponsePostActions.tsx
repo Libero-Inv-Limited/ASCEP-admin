@@ -10,6 +10,7 @@ import { Button } from "../ui/button";
 import { MoreHorizontal } from "lucide-react";
 import DownloadReport from "./DownloadReport"; // Import the new component
 import DeleteReport from "./DeleteReport";
+import { useAppContext } from "@/contexts/AppContext";
 
 export default function ResponsePostActions({
   report,
@@ -18,6 +19,9 @@ export default function ResponsePostActions({
 }) {
   const [isDownloading, setIsDownloading] = useState(false);
   const navigate = useNavigate();
+  const { user } = useAppContext();
+
+
 
   return (
     <DropdownMenu>
@@ -28,30 +32,41 @@ export default function ResponsePostActions({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="px-2" align="end">
-        <DropdownMenuLabel
-          onClick={() =>
-            navigate(`/response/reports/${report.id}`, {
-              state: { status: report.reportStatus.name, type: report.report_type },
-            })
-          }
-        >
-          <div className="table-menu">View</div>
-        </DropdownMenuLabel>
+        {user?.permissions && user?.permissions?.some((perm) => perm === 'view report details') &&
+          (<DropdownMenuLabel
+            onClick={() =>
+              navigate(`/response/reports/${report.id}`, {
+                state: { status: report.reportStatus.name, type: report.report_type },
+              })
+            }
+          >
+            <div className="table-menu">View Report</div>
+          </DropdownMenuLabel>)
+        }
 
-        <DropdownMenuLabel onClick={() => setIsDownloading(true)}>
-          <div className="table-menu">
-            {isDownloading ? "Downloading..." : "Download"}
-          </div>
-        </DropdownMenuLabel>
+        {
+          user?.permissions && user?.permissions?.some((perm) => perm === 'download report') &&
+          (<DropdownMenuLabel onClick={() => setIsDownloading(true)}>
+            <div className="table-menu">
+              {isDownloading ? "Downloading..." : "Download"}
+            </div>
+          </DropdownMenuLabel>)
+        }
 
-        <DropdownMenuLabel onClick={() => navigate("/response/reports/update-report", { state: { reportData: report } })}>
-          <div className="table-menu">Edit</div>
-        </DropdownMenuLabel>
-        <DropdownMenuLabel >
-          <div className="table-menu">
-            <DeleteReport id={report.id} />
-          </div>
-        </DropdownMenuLabel>
+        {
+          user?.permissions && user?.permissions?.some((perm) => perm === 'edit report') &&
+          <DropdownMenuLabel onClick={() => navigate("/response/reports/update-report", { state: { reportData: report } })}>
+            <div className="table-menu">Edit</div>
+          </DropdownMenuLabel>
+        }
+
+        {user?.permissions && user?.permissions?.some((perm) => perm === 'delete report') &&
+          <DropdownMenuLabel >
+            <div className="table-menu">
+              <DeleteReport id={report.id} />
+            </div>
+          </DropdownMenuLabel>
+        }
       </DropdownMenuContent>
 
       {/* Conditionally render DownloadReport component */}

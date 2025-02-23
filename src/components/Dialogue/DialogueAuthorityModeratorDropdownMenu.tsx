@@ -11,6 +11,7 @@ import { ConfirmAction } from "../custom";
 import useDisclosure from "@/hooks/useDisclosure";
 import { useEffect } from "react";
 import { useDeleteDialogueAuthorityModerator } from "@/api/dialogue";
+import { useAppContext } from "@/contexts/AppContext";
 
 interface DialogueAuthorityModeratorDropdownMenuProps {
   authrority: CategoryModeratorType;
@@ -23,6 +24,7 @@ export default function DialogueAuthorityModeratorDropdownMenu({
 }: DialogueAuthorityModeratorDropdownMenuProps) {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const { data, isLoading, mutate } = useDeleteDialogueAuthorityModerator();
+  const { user } = useAppContext();
 
   useEffect(() => {
     data && onClose();
@@ -44,15 +46,23 @@ export default function DialogueAuthorityModeratorDropdownMenu({
           className="px-2 font-normal text-subtle_text"
           align="end"
         >
-          <DropdownMenuLabel className="cursor-pointer">
-            <Link to={`/users/${authrority.user_id}`}>View user</Link>
-          </DropdownMenuLabel>
+          {
+            user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'view user detail') &&
+            (<DropdownMenuLabel className="cursor-pointer">
+              <Link to={`/users/${authrority.user_id}`}>View user</Link>
+            </DropdownMenuLabel>)
+          }
+
           {/* <DropdownMenuLabel>
             <p>Edit authrority</p>
           </DropdownMenuLabel> */}
-          <DropdownMenuLabel className="cursor-pointer" onClick={onOpen}>
-            <p>Delete Moderator</p>
-          </DropdownMenuLabel>
+
+          {
+            user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'delete authority') &&
+            (<DropdownMenuLabel className="cursor-pointer" onClick={onOpen}>
+              <p>Delete Moderator</p>
+            </DropdownMenuLabel>)
+          }
         </DropdownMenuContent>
       </DropdownMenu>
 

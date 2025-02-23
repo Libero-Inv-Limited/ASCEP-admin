@@ -12,6 +12,7 @@ import { useDeleteAuthority } from "@/api/authorities";
 import { useEffect } from "react";
 import { ConfirmAction } from "../custom";
 import AddAuthority from "./AddAuthority";
+import { useAppContext } from "@/contexts/AppContext";
 
 export default function DialogueAuthorityDropdownMenu({
   authority,
@@ -25,6 +26,7 @@ export default function DialogueAuthorityDropdownMenu({
     onClose: onEditClose,
   } = useDisclosure();
 
+  const { user } = useAppContext();
   const { mutate, isLoading, data } = useDeleteAuthority();
 
   useEffect(() => {
@@ -44,17 +46,28 @@ export default function DialogueAuthorityDropdownMenu({
           className="px-2 font-normal text-subtle_text"
           align="end"
         >
-          <DropdownMenuLabel>
-            <Link to={`/dialogue/authorities/${authority.id}`}>
-              View Authority
-            </Link>
-          </DropdownMenuLabel>
-          <DropdownMenuLabel onClick={onEditOpen} className="cursor-pointer">
-            <p>Edit Authority</p>
-          </DropdownMenuLabel>
-          <DropdownMenuLabel className="cursor-pointer" onClick={onOpen}>
-            <p>Delete Authority</p>
-          </DropdownMenuLabel>
+          {
+            user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'view authority details') &&
+            (<DropdownMenuLabel>
+              <Link to={`/dialogue/authorities/${authority.id}`}>
+                View Authority
+              </Link>
+            </DropdownMenuLabel>)
+          }
+
+          {
+            user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'edit authority') &&
+            (<DropdownMenuLabel onClick={onEditOpen} className="cursor-pointer">
+              <p>Edit Authority</p>
+            </DropdownMenuLabel>)
+          }
+
+          {
+            user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'delete authority') &&
+            (<DropdownMenuLabel className="cursor-pointer" onClick={onOpen}>
+              <p>Delete Authority</p>
+            </DropdownMenuLabel>)
+          }
         </DropdownMenuContent>
       </DropdownMenu>
 

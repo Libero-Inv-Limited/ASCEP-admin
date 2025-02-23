@@ -11,6 +11,7 @@ import { ConfirmAction } from "../custom";
 import useDisclosure from "@/hooks/useDisclosure";
 import { useEffect, useState } from "react";
 import { UseMutateFunction } from "react-query";
+import { useAppContext } from "@/contexts/AppContext";
 
 interface DialogueRequestActionsProps {
   dialogue: FOIRequest;
@@ -35,6 +36,7 @@ export default function DialogueRequestActions({
   const [message, setMessage] = useState<string>("");
   const [payload, setPayload] =
     useState<UpdateDialogueRequestStatusPayload | null>(null);
+  const { user } = useAppContext();
 
   const handleOpen = (action: FIORequestAction) => {
     setPayload({
@@ -78,32 +80,48 @@ export default function DialogueRequestActions({
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="px-2" align="end">
-          <DropdownMenuLabel>
-            <Link to={`/dialogue/requests/${id}`} className="table-menu">
-              View Request
-            </Link>
-          </DropdownMenuLabel>
+          {
+            user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'view request details') &&
+            (<DropdownMenuLabel>
+              <Link to={`/dialogue/requests/${id}`} className="table-menu">
+                View Request
+              </Link>
+            </DropdownMenuLabel>)
+          }
+
           {/* <DropdownMenuLabel>
               <div className="table-menu">Edit Request</div>
             </DropdownMenuLabel> */}
-          {dialogue.public_identifier === "private" && (
-            <DropdownMenuLabel onClick={() => handleOpen("set_to_public")}>
-              <div className="table-menu">Set to Public</div>
-            </DropdownMenuLabel>
-          )}
-          <DropdownMenuLabel onClick={() => handleOpen("publish")}>
-            <div className="table-menu">Publish</div>
-          </DropdownMenuLabel>
-          {dialogue.status !== "rejected" && (
-            <DropdownMenuLabel onClick={() => handleOpen("decline")}>
-              <div className="table-menu">Decline</div>
-            </DropdownMenuLabel>
-          )}
-          {dialogue.status !== "closed" && (
-            <DropdownMenuLabel onClick={() => handleOpen("close")}>
-              <div className="table-menu">Close</div>
-            </DropdownMenuLabel>
-          )}
+          {
+            user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'set authority to public') &&
+            (dialogue.public_identifier === "private" && (
+              <DropdownMenuLabel onClick={() => handleOpen("set_to_public")}>
+                <div className="table-menu">Set to Public</div>
+              </DropdownMenuLabel>
+            ))
+          }
+          {
+            user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'publish request') &&
+            (<DropdownMenuLabel onClick={() => handleOpen("publish")}>
+              <div className="table-menu">Publish</div>
+            </DropdownMenuLabel>)
+          }
+          {
+            user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'decline request') &&
+            (dialogue.status !== "rejected" && (
+              <DropdownMenuLabel onClick={() => handleOpen("decline")}>
+                <div className="table-menu">Decline</div>
+              </DropdownMenuLabel>
+            ))
+          }
+          {
+            user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'close request') &&
+            (dialogue.status !== "closed" && (
+              <DropdownMenuLabel onClick={() => handleOpen("close")}>
+                <div className="table-menu">Close</div>
+              </DropdownMenuLabel>
+            ))
+          }
         </DropdownMenuContent>
       </DropdownMenu>
       <ConfirmAction

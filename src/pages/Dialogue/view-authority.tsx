@@ -8,13 +8,14 @@ import { useNavigationContext } from "@/contexts/NavigationContext";
 import useDisclosure from "@/hooks/useDisclosure";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useAppContext } from "@/contexts/AppContext";
 
 export default function ViewAuthorityPage() {
   const { setBreadcrumbs, activeLink, setActiveLink, SetTopBarComponents } =
     useNavigationContext();
   const { authorityId } = useParams();
   const { data, isLoading } = useGetAuthorityInfo(authorityId!);
-
+  const { user } = useAppContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
@@ -23,10 +24,17 @@ export default function ViewAuthorityPage() {
     SetTopBarComponents(
       data && (
         <div className="flex gap-4">
-          <Button onClick={onOpen} variant={"outline-primary"}>
-            Edit Authority
-          </Button>
-          <AddDialogueModerator authorityId={authorityId} />
+          {
+            user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'edit authority') &&
+            (<Button onClick={onOpen} variant={"outline-primary"}>
+              Edit Authority
+            </Button>)
+          }
+          {
+            user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'add authority moderator') &&
+            (<AddDialogueModerator authorityId={authorityId} />)
+          }
+
         </div>
       )
     );

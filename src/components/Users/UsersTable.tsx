@@ -17,6 +17,10 @@ import DeleteAccount from "./DeleteAccount";
 import RoleFiltersButton from "../custom/RoleFiltersButton";
 import UsersFilters from "./UsersFilter";
 
+import { useAppContext } from "@/contexts/AppContext";
+
+// const { user } = useAppContext();
+
 export type Post = {
   id: string;
   email: string;
@@ -78,6 +82,9 @@ export const columns: ColumnDef<UserObj>[] = [
     accessorKey: "id",
     header: "Actions",
     cell: ({ row }) => {
+      const { user } = useAppContext();
+      console.log(user);
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -87,11 +94,15 @@ export const columns: ColumnDef<UserObj>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="px-2" align="end">
-            <DropdownMenuLabel>
-              <Link to={`/users/${row.getValue("id")}`}>
-                <div className="table-menu">View User</div>
-              </Link>
-            </DropdownMenuLabel>
+            {
+              user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'view user detail') &&
+              (<DropdownMenuLabel>
+                <Link to={`/users/${row.getValue("id")}`}>
+                  <div className="table-menu">View User Details</div>
+                </Link>
+              </DropdownMenuLabel>)
+            }
+
             {/* <DropdownMenuLabel>
               <div className="table-menu">Assign role / privilege</div>
             </DropdownMenuLabel>
@@ -101,15 +112,23 @@ export const columns: ColumnDef<UserObj>[] = [
             <DropdownMenuLabel>
               <div className="table-menu">Reset 2FA</div>
             </DropdownMenuLabel> */}
-            <DropdownMenuLabel>
-              <DeactivateAccount
-                status={row.original.status}
-                id={row.getValue("id")}
-              />
-            </DropdownMenuLabel>
-            <DropdownMenuLabel>
-              <DeleteAccount id={row.getValue("id")} />
-            </DropdownMenuLabel>
+            {
+              user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'deactivate user account') &&
+              (<DropdownMenuLabel>
+                <DeactivateAccount
+                  status={row.original.status}
+                  id={row.getValue("id")}
+                />
+              </DropdownMenuLabel>)
+            }
+
+            {
+              user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'delete user account') &&
+              (<DropdownMenuLabel>
+                <DeleteAccount id={row.getValue("id")} />
+              </DropdownMenuLabel>)
+            }
+
           </DropdownMenuContent>
         </DropdownMenu>
       );

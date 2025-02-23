@@ -3,6 +3,7 @@ interface NavLinkType {
   path: string;
   Icon?: JSX.Element;
   module?: string;
+  privilege?: string;
 }
 
 interface Breadcrumb {

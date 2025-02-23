@@ -12,6 +12,8 @@ import UserAvatar from "../custom/UserAvatar";
 export default function ActiveSettingsOption() {
   const { activeOption, fetchingUserObj, userObj } = useUserSettingsContext();
 
+  
+
   return (
     <div className="col-span-8 bg-white p-6 rounded-[24px] h-fit">
       <div className="flex  border-b border-[#F0F0F0] pb-8 items-center gap-3 cursor-pointer">

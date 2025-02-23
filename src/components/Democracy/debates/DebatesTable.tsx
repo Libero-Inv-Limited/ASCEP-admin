@@ -15,6 +15,7 @@ import { useDebateContext } from "@/contexts/DebateContext";
 import { debateFilterButtonOptions } from "@/utils/Democracy/Debates";
 import { CustomPagination, TableSkeleton } from "../../custom";
 import AdvancedSearch from "../AdvancedSearch";
+import { useAppContext } from "@/contexts/AppContext";
 
 const columns: ColumnDef<DebateType>[] = [
   {
@@ -78,6 +79,7 @@ const columns: ColumnDef<DebateType>[] = [
     header: "Actions",
     cell: ({ row }) => {
       const debate = row.original;
+      const { user } = useAppContext();
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -87,16 +89,20 @@ const columns: ColumnDef<DebateType>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="px-2" align="end">
-            <DropdownMenuLabel>
-              <Link to={`/democracy/debates/${debate.id}`}>
-                <div className="table-menu">View Debate</div>
-              </Link>
-            </DropdownMenuLabel>
+            {
+              user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'view debate details') &&
+              (<DropdownMenuLabel>
+                <Link to={`/democracy/debates/${debate.id}`}>
+                  <div className="table-menu">View Debate</div>
+                </Link>
+              </DropdownMenuLabel>)
+            }
+
             {/* <DropdownMenuLabel>
               <div className="table-menu">Edit Survey</div>
             </DropdownMenuLabel>
             <DropdownMenuLabel>
-              <div className="table-menu">Delete Survey</div>
+              <div className="table-menu">Delete Debate</div>
             </DropdownMenuLabel> */}
           </DropdownMenuContent>
         </DropdownMenu>
@@ -127,7 +133,7 @@ export default function DebatesTable({ isSummary }: { isSummary?: boolean }) {
   return (
     <div className="space-y-4 mt-4">
       <div className="flex items-center justify-between gap-3 ml-auto">
-        
+
         {!isSummary && (<div className="text-xl font-semibold">Debates</div>)}
         <AdvancedSearch
           filterButtonOptions={debateFilterButtonOptions}

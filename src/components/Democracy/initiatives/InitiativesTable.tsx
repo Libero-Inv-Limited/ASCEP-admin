@@ -17,6 +17,7 @@ import { DataTable } from "@/components/custom/DataTable";
 import ChangeInitiativeStatus from "./ChangeInitiativeStatus";
 import { initiativeFilterButtonOptions } from "@/utils/Democracy/Initiatives";
 import AdvancedSearch from "../AdvancedSearch";
+import { useAppContext } from "@/contexts/AppContext";
 
 const columns: ColumnDef<InitiativeType>[] = [
   {
@@ -98,6 +99,8 @@ const columns: ColumnDef<InitiativeType>[] = [
     header: "Actions",
     cell: ({ row }) => {
       const initiatives = row.original;
+      const { user } = useAppContext();
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -107,14 +110,22 @@ const columns: ColumnDef<InitiativeType>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="px-2" align="end">
-            <DropdownMenuLabel>
-              <Link to={`/democracy/initiatives/${initiatives.id}`}>
-                <div className="table-menu">View Initiative</div>
-              </Link>
-            </DropdownMenuLabel>
-            <DropdownMenuLabel>
-              <ChangeInitiativeStatus id={row.original.id} />
-            </DropdownMenuLabel>
+            {
+              user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'view initiative details') &&
+              (<DropdownMenuLabel>
+                <Link to={`/democracy/initiatives/${initiatives.id}`}>
+                  <div className="table-menu">View Initiative</div>
+                </Link>
+              </DropdownMenuLabel>)
+            }
+
+            {
+              user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'change initiative status') &&
+              (<DropdownMenuLabel>
+                <ChangeInitiativeStatus id={row.original.id} />
+              </DropdownMenuLabel>)
+            }
+
           </DropdownMenuContent>
         </DropdownMenu>
       );

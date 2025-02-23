@@ -41,6 +41,8 @@ export default function DialogueRequests({
     reset,
   } = useUpdateRequstStatus();
 
+  console.log(successResp);
+
   const columns: ColumnDef<FOIRequest>[] = [
     {
       accessorKey: "title",

@@ -7,12 +7,13 @@ import { useNavigationContext } from "@/contexts/NavigationContext";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useGetDialogueRequestInfo } from "@/api/dialogue";
+import { useAppContext } from "@/contexts/AppContext";
 
 export default function ViewRequestPage() {
   const { setBreadcrumbs, activeLink, setActiveLink, SetTopBarComponents } =
     useNavigationContext();
   const { requestId } = useParams();
-
+  const { user } = useAppContext();
   const { data, isLoading } = useGetDialogueRequestInfo(requestId!);
 
   console.log(data);
@@ -20,7 +21,10 @@ export default function ViewRequestPage() {
   useEffect(() => {
     setActiveLink(`/response/categories/${requestId}`);
 
-    SetTopBarComponents(<AddCategoryModerator categoryId={requestId!} />);
+    {
+      user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'create authority') &&
+        (SetTopBarComponents(<AddCategoryModerator categoryId={requestId!} />))
+    }
 
     return () => SetTopBarComponents(null);
   }, [requestId]);

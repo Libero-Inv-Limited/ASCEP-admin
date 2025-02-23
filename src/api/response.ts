@@ -91,16 +91,16 @@ export const useDeleteReport = () => {
   return useMutation(async (id: number): Promise<ResponseDataType> => {
     return axios.delete(`${baseUrl}/report/delete-report/${id}`).then((res) => res.data);
   },
-  {
-    onSuccess: (res) => {
-      toast({
-        title: "Success!",
-        variant: "success",
-        description: res.message,
-      });
-      navigate(ROUTES.RESPONSE_REPORTS_ROUTE, { replace: true });
-    }
-  })
+    {
+      onSuccess: (res) => {
+        toast({
+          title: "Success!",
+          variant: "success",
+          description: res.message,
+        });
+        navigate(ROUTES.RESPONSE_REPORTS_ROUTE, { replace: true });
+      }
+    })
 }
 
 // UPDATE REPORT STATUS
@@ -220,6 +220,7 @@ export const useCreateSurvey = () => {
     }
   );
 };
+
 export const useAddSurveyQuestion = () => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -243,3 +244,21 @@ export const useAddSurveyQuestion = () => {
     }
   );
 };
+
+export const useDeleteSurvey = () => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  return useMutation(async (id: number) => {
+    return axios.delete(`${baseUrl}/survey/delete-survey/${id}`).then((res) => res.data);
+  },
+    {
+      onSuccess: (res) => {
+        toast({
+          title: "Success!",
+          variant: "success",
+          description: res.message,
+        });
+        navigate(ROUTES.RESPONSE_SURVEY_ROUTE, { replace: true });
+      }
+    })
+}

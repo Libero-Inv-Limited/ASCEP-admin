@@ -7,6 +7,9 @@ const ROUTES = {
   RESPONSE_REPORTS_ROUTE: "/response/reports",
   RESPONSE_REPORTS_INFO_ROUTE: (id: number) => `/response/reports/${id}`,
 
+  // SURVEY
+  RESPONSE_SURVEY_ROUTE: "/response/all-surveys",
+
   // DEBATE
   DEBATES_HOME_ROUTE: "/democracy/debates",
   DEBATE_INFO_ROUTE: (id: number) => `/democracy/debates/${id}`,

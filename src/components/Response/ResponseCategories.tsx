@@ -7,7 +7,7 @@ import AddCategory from "./AddCategory";
 import useDisclosure from "@/hooks/useDisclosure";
 
 export default function ResponseCategories() {
-  const { categories, fetchingCategories } = useAppContext();
+  const { categories, fetchingCategories, user } = useAppContext();
 
   const { isOpen, onClose, onOpen } = useDisclosure();
 
@@ -17,9 +17,13 @@ export default function ResponseCategories() {
         <p className="text-dark text-xl font-medium">Categories</p>
 
         <div className="flex items-center gap-4">
-          <Button onClick={onOpen} variant="primary" size="xs">
-            + Create Category
-          </Button>
+          {
+            user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'create category') &&
+            (<Button onClick={onOpen} variant="primary" size="xs">
+              + Create Category
+            </Button>)
+          }
+
           <Link to="/response/categories" className="underline text-dark">
             See all
           </Link>

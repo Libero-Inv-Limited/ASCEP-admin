@@ -264,3 +264,8 @@ interface UpdateReportStatusPayload {
   report_id: number;
   status_id: number;
 }
+
+interface PermissionsType {
+  name: string,
+  section: string,
+};

@@ -7,11 +7,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "../ui/button";
 import { MoreHorizontal } from "lucide-react";
+import DeleteSurvey from "./DeleteSurvey";
+import { useAppContext } from "@/contexts/AppContext";
 
 export default function SurveyActions({ survey }: { survey: SurveyData }) {
   const status = survey.status;
-  //   const type = survey.ty;
   const navigate = useNavigate();
+  const { user } = useAppContext();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -21,22 +24,30 @@ export default function SurveyActions({ survey }: { survey: SurveyData }) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="px-2" align="end">
-        <DropdownMenuLabel
-          onClick={() =>
-            navigate(`/response/surveys/${survey.id}`, { state: { status } })
-          }
-        >
-          <div className="table-menu">View</div>
-        </DropdownMenuLabel>
+        {
+          user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'view survey details') &&
+          (<DropdownMenuLabel
+            onClick={() =>
+              navigate(`/response/surveys/${survey.id}`, { state: { status } })
+            }
+          >
+            <div className="table-menu">View Survey</div>
+          </DropdownMenuLabel>)
+        }
+
         {/* <DropdownMenuLabel>
           <div className="table-menu">Download</div>
         </DropdownMenuLabel>
         <DropdownMenuLabel>
           <div className="table-menu">Edit </div>
-        </DropdownMenuLabel>
-        <DropdownMenuLabel>
-          <div className="table-menu">Delete </div>
         </DropdownMenuLabel> */}
+        {
+          user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'delete survey') &&
+          (<DropdownMenuLabel>
+            <DeleteSurvey id={survey?.id} />
+          </DropdownMenuLabel>)
+        }
+
       </DropdownMenuContent>
     </DropdownMenu>
   );

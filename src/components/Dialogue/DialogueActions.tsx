@@ -3,6 +3,7 @@ import { ActionCard } from "@/components/custom";
 import AddAuthority from "./AddAuthority";
 import useDisclosure from "@/hooks/useDisclosure";
 import { AddCircle } from "iconsax-react";
+import { useAppContext } from "@/contexts/AppContext";
 
 export default function DialogueActions() {
   // const {
@@ -15,6 +16,7 @@ export default function DialogueActions() {
     onClose: onAuthorityClose,
     onOpen: onAuthorityOpen,
   } = useDisclosure();
+  const { user } = useAppContext();
 
   return (
     <div>
@@ -26,11 +28,15 @@ export default function DialogueActions() {
           title="3days"
           subtitle="Status Update"
         /> */}
-        <ActionCard
-          icon={<AddCircle />}
-          onClick={onAuthorityOpen}
-          title="Add Authority"
-        />
+        {
+          user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'create authority') &&
+          (<ActionCard
+            icon={<AddCircle />}
+            onClick={onAuthorityOpen}
+            title="Add Authority"
+          />)
+        }
+
       </div>
       {/* MODALS */}
       {/* <StatusUpdate isOpen={isUpdateOpen} onClose={onUpdateClose} /> */}

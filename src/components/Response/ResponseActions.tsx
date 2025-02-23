@@ -4,6 +4,7 @@ import { AddCircle } from "iconsax-react";
 // import { ImportCSV } from ".";
 import { ActionCard } from "../custom";
 import { useNavigate } from "react-router-dom";
+import { useAppContext } from "@/contexts/AppContext";
 
 export default function ActionCards() {
   // const {
@@ -11,6 +12,8 @@ export default function ActionCards() {
   //   onOpen: onImportOpen,
   //   onClose: onImportClose,
   // } = useDisclosure();
+  const { user } = useAppContext();
+  console.log(user)
 
   const navigate = useNavigate();
   return (
@@ -25,11 +28,15 @@ export default function ActionCards() {
         icon={<Export />}
         onClick={() => {}}
       /> */}
-      <ActionCard
-        title="Create Survey"
-        icon={<AddCircle />}
-        onClick={() => navigate("/response/create-survey")}
-      />
+      {
+        user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'create survey') &&
+        (<ActionCard
+          title="Create Survey" 
+          icon={<AddCircle />}
+          onClick={() => navigate("/response/create-survey")}
+        />)
+      }
+
 
       {/* <ImportCSV isOpen={isImportOpen} onClose={onImportClose} /> */}
     </div>

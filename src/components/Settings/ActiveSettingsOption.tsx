@@ -15,6 +15,7 @@ import ManageModules from "./ManageModules";
 export default function ActiveSettingsOption() {
   const { activeOption, actionButton } = useSettingsContext();
   const { data } = useGetUserProfile();
+  // console.log(data);
 
   return (
     <div className="col-span-7 bg-white p-6 rounded-[40px] h-fit">
@@ -38,11 +39,27 @@ export default function ActiveSettingsOption() {
       )}
       {activeOption === "Enable 2FA" && <TwoFactorAuth />}
       {activeOption === "Verify 2FA OTP" && <TwoFactorAuthOTP />}
-      {activeOption === "Activities" && <Activities />}
+      {
+        data?.roleDetail && data?.roleDetail?.name === "Super Admin" &&
+        (activeOption === "Activities" && <Activities />)
+      }
+      {/* {
+        data?.roleDetail && data?.roleDetail?.name === "Super Admin" &&
+        ()
+      } */}
       {activeOption === "Roles & Permissions" && <RolesSteps />}
-      {activeOption === "API Integration" && <ApiIntegrationSteps />}
-      {activeOption === "System Configurations" && <SystemConfigurations />}
-      {activeOption === "Manage Modules" && <ManageModules />}
+      {
+        data?.roleDetail && data?.roleDetail?.name === "Super Admin" &&
+        (activeOption === "API Integration" && <ApiIntegrationSteps />)
+      }
+      {
+        data?.roleDetail && data?.roleDetail?.name === "Super Admin" &&
+        (activeOption === "System Configurations" && <SystemConfigurations />)
+      }
+      {
+        data?.roleDetail && data?.roleDetail?.name === "Super Admin" &&
+        (activeOption === "Manage Modules" && <ManageModules />)
+      }
     </div>
   );
 }

@@ -16,6 +16,7 @@ import { useProposalContext } from "@/contexts/ProposalContext";
 import UserAvatar from "@/components/custom/UserAvatar";
 import AdvancedSearch from "../AdvancedSearch";
 import { proposalFilterButtonOptions } from "@/utils/Democracy/Proposals";
+import { useAppContext } from "@/contexts/AppContext";
 
 const columns: ColumnDef<ProposalType>[] = [
   {
@@ -103,6 +104,8 @@ const columns: ColumnDef<ProposalType>[] = [
     header: "Actions",
     cell: ({ row }) => {
       const proposal = row.original;
+      const { user } = useAppContext();
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -112,11 +115,15 @@ const columns: ColumnDef<ProposalType>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="px-2" align="end">
-            <DropdownMenuLabel>
-              <Link to={`/democracy/proposals/${proposal.id}`}>
-                <div className="table-menu">View Proposal</div>
-              </Link>
-            </DropdownMenuLabel>
+            {
+              user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'view proposal details') &&
+              (<DropdownMenuLabel>
+                <Link to={`/democracy/proposals/${proposal.id}`}>
+                  <div className="table-menu">View Proposal</div>
+                </Link>
+              </DropdownMenuLabel>)
+            }
+
           </DropdownMenuContent>
         </DropdownMenu>
       );

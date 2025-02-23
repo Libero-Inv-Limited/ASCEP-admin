@@ -56,6 +56,7 @@ interface UserData {
   analytic: any;
   twoFA: TwoFA | null;
   roleDetail: RoleDetail;
+  permissions?: string[];
 }
 
 interface TwoFA {
