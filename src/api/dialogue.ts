@@ -4,6 +4,8 @@ import baseUrl from "./baseUrl";
 import { z } from "zod";
 import { getFioRequestsSchema } from "../schemas/dialogueSchemas";
 import { useToast } from "@/components/ui/use-toast";
+import { configOptions } from "@/api/config";
+
 
 // GET ALL REQUESTS
 export const useGetAllDialogueRequests = () => {
@@ -33,6 +35,7 @@ export const useGetDialogueRequestInfo = (id: string) => {
     }
   );
 };
+
 export const useGetDialogueRequestResponses = (queries: PaginationWithId) => {
   return useQuery(
     ["dialogue-request-responses", queries],
@@ -49,6 +52,35 @@ export const useGetDialogueRequestResponses = (queries: PaginationWithId) => {
     {
       retry: false,
       // refetchOnWindowFocus: false,
+    }
+  );
+};
+
+// CREATE REQUEST RESPONSE
+export const useCreateRequestResponse = () => {
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    (values: FormData): Promise<ResponseDataType> => {
+      return axios
+        .post(`${baseUrl}/dialogue/compose-response`, values, {
+          headers: {
+            ...configOptions(),
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => res.data);
+    },
+    {
+      onSuccess: (res) => {
+        toast({
+          title: "Success!",
+          variant: "success",
+          description: res.message,
+        });
+        queryClient.invalidateQueries("get-request-responses");
+      },
     }
   );
 };

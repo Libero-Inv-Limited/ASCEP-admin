@@ -8,7 +8,6 @@ import AllPermissions from "../Permissions/AllPermissions";
 import CreatePermission from "../Permissions/CreatePermission";
 import UpdatePermission from "../Permissions/UpdatePermission";
 
-
 export default function RolesSteps() {
   const [selectedRole, setSelectedRole] = useState<Role | null>(null);
   const [selectedPermission, setSelectedPermission] = useState<Permission | null>(null);

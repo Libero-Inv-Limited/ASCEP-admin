@@ -43,11 +43,10 @@ export default function ActiveSettingsOption() {
         data?.roleDetail && data?.roleDetail?.name === "Super Admin" &&
         (activeOption === "Activities" && <Activities />)
       }
-      {/* {
-        data?.roleDetail && data?.roleDetail?.name === "Super Admin" &&
-        ()
-      } */}
-      {activeOption === "Roles & Permissions" && <RolesSteps />}
+      {
+        data?.roleDetail && (data?.roleDetail?.name === "Super Admin" || data?.roleDetail.name === "Admin") &&
+        (activeOption === "Roles & Permissions" && <RolesSteps />)
+      }
       {
         data?.roleDetail && data?.roleDetail?.name === "Super Admin" &&
         (activeOption === "API Integration" && <ApiIntegrationSteps />)

@@ -56,5 +56,15 @@ export const getFioRequestsSchema = z.object({
   }),
 });
 
+export const CreateRequestResponseSchema = z.object({
+  content: z
+    .string({ required_error: "Please enter your request title" })
+    .refine((value) => value.trim() !== "", {
+      message: "Please enter your request title",
+    }),
+  request_id: z.string({ required_error: "Request Id is required" }),
+});
+
+
 export type GetFIORequestsFilters = z.infer<typeof getFioRequestsSchema>;
 export type CreateAuthoritySchema = z.infer<typeof createAuthoritySchema>;

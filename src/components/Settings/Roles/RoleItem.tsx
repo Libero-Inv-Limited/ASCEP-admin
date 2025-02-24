@@ -7,6 +7,7 @@ import {
 import { ConfirmAction, EmptyState } from "@/components/custom";
 import { useDeleteRole } from "@/api/roles";
 import useDisclosure from "@/hooks/useDisclosure";
+import { useAppContext } from "@/contexts/AppContext";
 
 interface RoleItemProps {
   role: Role;
@@ -21,6 +22,7 @@ export default function RoleItem({
 }: RoleItemProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { mutate, isLoading } = useDeleteRole();
+  const { user } = useAppContext();
 
   const handleEdit = () => {
     setSelectedRole(role);
@@ -50,22 +52,29 @@ export default function RoleItem({
         </div>
 
         <div className="flex justify-end gap-6 mt-10">
-          <Button
-            onClick={handleEdit}
-            disabled={isLoading}
-            className="w-[130px] h-[46px]"
-          >
-            Edit Role
-          </Button>
-          <Button
-            onClick={onOpen}
-            className="w-[130px] h-[46px]"
-            variant="outline-primary"
-            isLoading={isLoading}
-            disabled={isLoading}
-          >
-            Delete Role
-          </Button>
+          {
+            user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'update roles') &&
+            (<Button
+              onClick={handleEdit}
+              disabled={isLoading}
+              className="w-[130px] h-[46px]"
+            >
+              Edit Role
+            </Button>)}
+
+          {
+            user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'delete roles') &&
+            (<Button
+              onClick={onOpen}
+              className="w-[130px] h-[46px]"
+              variant="outline-primary"
+              isLoading={isLoading}
+              disabled={isLoading}
+            >
+              Delete Role
+            </Button>)
+          }
+
         </div>
       </AccordionContent>
 

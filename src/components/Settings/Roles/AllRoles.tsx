@@ -4,6 +4,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useSettingsContext } from "@/providers/SettingsProvider";
 import { useEffect } from "react";
 import RoleItem from "./RoleItem";
+import { useAppContext } from "@/contexts/AppContext";
 
 interface AllRolesProps {
   setActiveRoleOption: React.Dispatch<React.SetStateAction<RolesOption>>;
@@ -15,15 +16,19 @@ export default function AllRoles({
   setSelectedRole,
 }: AllRolesProps) {
   const { setActionButton, setActiveTitle } = useSettingsContext();
+  const { user } = useAppContext();
 
   useEffect(() => {
-    setActionButton({
-      text: "+ New Role",
-      function: () => {
-        setActiveTitle("New Role");
-        setActiveRoleOption("New Role");
-      },
-    });
+    {
+      user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'create roles') &&
+        (setActionButton({
+          text: "+ New Role",
+          function: () => {
+            setActiveTitle("New Role");
+            setActiveRoleOption("New Role");
+          },
+        }))
+    }
 
     return () => setActionButton(null);
   }, []);

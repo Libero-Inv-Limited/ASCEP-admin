@@ -9,14 +9,13 @@ export default function UserSettingsOptions() {
       {options?.map((option) => (
         <div
           key={option.title}
-          className={`flex cursor-pointer items-center justify-between py-4 border-b border-[#F0F0F0] ${
-            activeOption === option.title ? "opacity-100" : "opacity-30"
-          } `}
+          className={`flex cursor-pointer items-center justify-between py-4 border-b border-[#F0F0F0] ${activeOption === option.title ? "bg-dark rounded-xl px-2 text-primary my-1 shadow" : "opacity-100"
+            } `}
           onClick={() => setActiveOption(option.title)}
         >
           <div className=" spacey-y-8">
-            <p className="text-sm font-bold text-dark">{option.title}</p>
-            <p className="text-[12px] text-dark/40">{option.subtitle}</p>
+            <p className="text-sm font-bold">{option.title}</p>
+            <p className={`text-[12px] ${activeOption === option.title ? "text-white " : "text-dark/40 "}`}  >{option.subtitle}</p>
           </div>
           {activeOption === option.title && <ArrowRight2 size={16} />}
         </div>

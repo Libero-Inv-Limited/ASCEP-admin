@@ -13,10 +13,13 @@ import ResetPassword from "./ResetPassword";
 // import Reset2FA from "./Reset2FA";
 import { useParams } from "react-router-dom";
 import { useUserSettingsContext } from "@/providers/UserSettingsProvider";
+import { useAppContext } from "@/contexts/AppContext";
 
 export default function UserSettingsDropdownMenu() {
   const { userId } = useParams();
   const { userObj } = useUserSettingsContext();
+  const { user } = useAppContext();
+
   return (
     <div className="ml-auto">
       {userId && userObj && (
@@ -31,21 +34,36 @@ export default function UserSettingsDropdownMenu() {
             className="px-2 font-normal text-subtle_text"
             align="end"
           >
-            <DropdownMenuLabel>
-              <AssignRole />
-            </DropdownMenuLabel>
-            <DropdownMenuLabel>
-              <ResetPassword />
-            </DropdownMenuLabel>
+            {
+              user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'assign roles') &&
+              (<DropdownMenuLabel>
+                <AssignRole />
+              </DropdownMenuLabel>)
+            }
+
+            {
+              user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'update user password') &&
+              (<DropdownMenuLabel>
+                <ResetPassword />
+              </DropdownMenuLabel>)
+            }
+
             {/* <DropdownMenuLabel>
               <Reset2FA />
             </DropdownMenuLabel> */}
-            <DropdownMenuLabel>
-              <DeactivateAccount id={userId} status={userObj.status} />
-            </DropdownMenuLabel>
-            <DropdownMenuLabel>
-              <DeleteAccount id={userId} />
-            </DropdownMenuLabel>
+            {
+              user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'deactivate user account') &&
+              (<DropdownMenuLabel>
+                <DeactivateAccount id={userId} status={userObj.status} />
+              </DropdownMenuLabel>)
+            }
+
+            {
+              user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'delete user account') &&
+              (<DropdownMenuLabel>
+                <DeleteAccount id={userId} />
+              </DropdownMenuLabel>)
+            }
           </DropdownMenuContent>
         </DropdownMenu>
       )}

@@ -7,6 +7,7 @@ import {
 import { ConfirmAction } from "@/components/custom";
 import useDisclosure from "@/hooks/useDisclosure";
 import { useDeletePermission } from "@/api/permissions";
+import { useAppContext } from "@/contexts/AppContext";
 
 interface PermissionItemProps {
   permission: Permission;
@@ -21,6 +22,7 @@ export default function PermissionItem({
 }: PermissionItemProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { mutate, isLoading } = useDeletePermission();
+  const { user } = useAppContext();
 
   const handleEdit = () => {
     setSelectedPermission(permission);
@@ -39,22 +41,29 @@ export default function PermissionItem({
         </div>
 
         <div className="flex justify-end gap-6 mt-10">
-          <Button
-            onClick={handleEdit}
-            disabled={isLoading}
-            className="w-[130px] h-[46px]"
-          >
-            Edit Permission
-          </Button>
-          <Button
-            onClick={onOpen}
-            className="w-[130px] h-[46px]"
-            variant="outline-primary"
-            isLoading={isLoading}
-            disabled={isLoading}
-          >
-            Delete Permission
-          </Button>
+          {
+            user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'update permissions') &&
+            (<Button
+              onClick={handleEdit}
+              disabled={isLoading}
+              className="px-2 h-[46px]"
+            >
+              Edit Permission
+            </Button>)
+          }
+
+          {
+            user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'delete permissions') &&
+            (<Button
+              onClick={onOpen}
+              className="px-2 h-[46px]"
+              variant="outline-primary"
+              isLoading={isLoading}
+              disabled={isLoading}
+            >
+              Delete Permission
+            </Button>)
+          }
         </div>
       </AccordionContent>
 

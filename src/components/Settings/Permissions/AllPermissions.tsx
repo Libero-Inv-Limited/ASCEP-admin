@@ -5,6 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useSettingsContext } from "@/providers/SettingsProvider";
 import { useEffect } from "react";
 import PermissionItem from './PermissionItem';
+import { useAppContext } from '@/contexts/AppContext';
 
 interface AllPermissionsProps {
   setActiveRoleOption: React.Dispatch<React.SetStateAction<RolesOption>>;
@@ -17,22 +18,26 @@ const AllPermissions = ({
 }: AllPermissionsProps) => {
 
   const { setActionButton, setActiveTitle } = useSettingsContext();
+  const { user } = useAppContext();
 
   useEffect(() => {
-    setActionButton({
-      text: "+ New Permission",
-      function: () => {
-        setActiveTitle("New Permission");
-        setActiveRoleOption("New Permission");
-      },
-    });
+    {
+      user?.permissions && user?.permissions?.some((perm) => perm.trim() === 'create permissions') &&
+        (setActionButton({
+          text: "+ New Permission",
+          function: () => {
+            setActiveTitle("New Permission");
+            setActiveRoleOption("New Permission");
+          },
+        }))
+    }
 
     return () => setActionButton(null);
   }, []);
 
   const { data, isLoading } = useGetAllPermissions();
 
-  console.log(data);  
+  console.log(data);
 
   return (
     <div className="">
