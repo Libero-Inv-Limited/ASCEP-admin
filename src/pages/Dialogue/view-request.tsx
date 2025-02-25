@@ -18,8 +18,6 @@ export default function ViewRequestPage() {
   const { data: responseData, isLoading: loadingResponses } =
     useGetDialogueRequestResponses({page, perPage, id: requestId!});
 
-  // console.log(data);
-
   const dateCreated = new Date(data?.createdAt).getDate();
   const monthCreated = new Date(data?.createdAt).getMonth() + 1;
   const yearCreated = new Date(data?.createdAt).getFullYear();

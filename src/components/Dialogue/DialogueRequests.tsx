@@ -41,8 +41,6 @@ export default function DialogueRequests({
     reset,
   } = useUpdateRequstStatus();
 
-  console.log(successResp);
-
   const columns: ColumnDef<FOIRequest>[] = [
     {
       accessorKey: "title",
@@ -166,7 +164,6 @@ export default function DialogueRequests({
     }
   }, [data]);
 
-  console.log(data);
   return (
     <div className="space-y-4">
       <div className="flex justify-between">

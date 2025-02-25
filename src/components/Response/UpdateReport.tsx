@@ -49,8 +49,6 @@ const UpdateReport: React.FC<UpdateReportProps> = ({ reportData }) => {
 
   const { mutate, isLoading, data } = useUpdateReport();
 
-  // console.log(reportData.category);
-
   useEffect(() => {
     if (data && data.status === "success") {
       navigate(`/response/reports/${data.data.id}`);

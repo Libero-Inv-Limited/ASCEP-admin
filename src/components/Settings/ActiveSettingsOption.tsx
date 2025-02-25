@@ -15,7 +15,6 @@ import ManageModules from "./ManageModules";
 export default function ActiveSettingsOption() {
   const { activeOption, actionButton } = useSettingsContext();
   const { data } = useGetUserProfile();
-  // console.log(data);
 
   return (
     <div className="col-span-7 bg-white p-6 rounded-[40px] h-fit">

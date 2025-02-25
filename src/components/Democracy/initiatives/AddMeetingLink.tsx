@@ -27,8 +27,6 @@ export default function AddMeetingLink() {
   const { toast } = useToast();
 
   const onSubmit = (data: AddMeetinLinkSchema) => {
-    console.log(data);
-
     toast({
       description: "Meeting Link Added",
       variant: "success",

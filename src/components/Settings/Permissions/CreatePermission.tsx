@@ -33,8 +33,7 @@ export default function CreatePermission({ setActiveRoleOption }: CreatePermissi
   } = form;
 
   const { isLoading: creating, mutate, isSuccess } = useCreatePermission();
-
-  console.log(creating);
+  
   function onSubmit(values: z.infer<typeof createPermissionSchema>) { 
     mutate({ ...values });
   }

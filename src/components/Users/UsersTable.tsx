@@ -19,8 +19,6 @@ import UsersFilters from "./UsersFilter";
 
 import { useAppContext } from "@/contexts/AppContext";
 
-// const { user } = useAppContext();
-
 export type Post = {
   id: string;
   email: string;
@@ -83,7 +81,6 @@ export const columns: ColumnDef<UserObj>[] = [
     header: "Actions",
     cell: ({ row }) => {
       const { user } = useAppContext();
-      console.log(user);
 
       return (
         <DropdownMenu>
@@ -152,9 +149,6 @@ export default function UsersTable() {
       setTableData(data.users);
     }
   }, [data, roleId]);
-
-  // console.log(tableData);
-  // console.log("Role Id:", roleId);
 
   return (
     <div className="space-y-4">

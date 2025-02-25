@@ -33,9 +33,7 @@ export default function RolesSteps() {
       return prev;
     });
   }
-
-  console.log(activeRoleOption);
-
+  
   return (
     <div>
       {/* {activeRoleOption === "Roles" && (

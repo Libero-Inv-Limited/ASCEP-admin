@@ -117,8 +117,6 @@ export default function SurveysTable({ isSummary }: { isSummary?: boolean }) {
   const [page, setPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(6);
 
-  console.log(surveys);
-
   // Arrange according to date-time
   const sortedSurveys = tableData.sort(
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
@@ -128,7 +126,6 @@ export default function SurveysTable({ isSummary }: { isSummary?: boolean }) {
 
   // Calculate the total number of pages
   const totalPages = Math.ceil(sortedSurveys.length / itemsPerPage);
-  // console.log(filteredReports.length);
 
   // Calculate the start and end index for slicing the reports
   const startIndex = (page - 1) * itemsPerPage;

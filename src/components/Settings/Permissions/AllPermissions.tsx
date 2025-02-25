@@ -37,8 +37,6 @@ const AllPermissions = ({
 
   const { data, isLoading } = useGetAllPermissions();
 
-  console.log(data);
-
   return (
     <div className="">
       {isLoading ? (

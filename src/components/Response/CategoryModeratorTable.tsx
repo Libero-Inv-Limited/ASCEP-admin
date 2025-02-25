@@ -59,8 +59,6 @@ export default function CategoryModeratorTable({ id }: { id: string }) {
 
   const { data, isLoading } = useGetCategoryModerators(id);
 
-  console.log(data);
-
   useEffect(() => {
     if (data) {
       setTableData(data);

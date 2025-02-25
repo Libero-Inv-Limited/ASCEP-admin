@@ -24,10 +24,6 @@
       return () => setActiveTitle(null);
     }, []);
 
-    // const { data: permissions, isLoading } = useGetAllPermissions();
-
-    // console.log(permissions);
-
     const form = useForm<z.infer<typeof createPermissionSchema>>({
       resolver: zodResolver(createPermissionSchema),
       defaultValues: {
@@ -52,8 +48,6 @@
     } = form;
 
     const { isLoading: updating, mutate, isSuccess } = useUpdatePermission();
-
-    console.log(selectedPermission);
 
     function onSubmit(values: z.infer<typeof createPermissionSchema>) { 
       mutate({ ...values, id: selectedPermission?.id });

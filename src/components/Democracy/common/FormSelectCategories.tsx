@@ -37,13 +37,10 @@ const FormSelectCategory: React.FC<FormSelectCategoryProps> = ({
   const [selected, setSelected] = useState<CategoryType[]>(category);
   const { data: categories, isLoading } = useGetAllCategories();
 
-  // console.log(categories);  // Logging correct data
-
   // Handler for selecting a category
   const handleSelect = (category: CategoryType) => {
     if (selected.length < 1 || selected.length > 1) {
       const updatedSelected = [...selected, category];
-      console.log(updatedSelected);
       setSelected(updatedSelected);
       setCategory(updatedSelected);  // Updating the parent state
       setOpen(false);

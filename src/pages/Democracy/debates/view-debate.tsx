@@ -37,8 +37,6 @@ export default function ViewDebatePage() {
 
   if (isLoading) return <PageLoader />;
 
-  console.log(data);
-
   if (data)
     return (
       <div className="space-y-8 page-wrapper ">

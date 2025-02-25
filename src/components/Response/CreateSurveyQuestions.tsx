@@ -27,10 +27,6 @@ export default function CreateSurvey({ surveyData }) {
     }
   }, [data]);
 
-  console.log(new Date(surveyData.data.start_date).toDateString());
-  console.log("State: ", state);
-  console.log("Survey Data: ", surveyData);
-
   const defaultValues: Question = {
     question: "",
     response_type: "text",
@@ -66,7 +62,6 @@ export default function CreateSurvey({ surveyData }) {
   };
 
   const handleAnswerTypeChange = (index: number, value: SurveyQuestionType) => {
-    console.log("CHANGE");
     setValue(`questions.${index}.response_type`, value);
     if (value === "text") {
       // setValue(`questions.${index}.options`, [""]); // Add an initial option

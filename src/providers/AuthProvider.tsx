@@ -35,8 +35,6 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     localStorage.setItem(config.key.expiresAt, args.expiresAt);
     localStorage.setItem(config.key.isLoggedIn, "true");
 
-    console.log(config.key.accessToken);
-
     setIsLoggedIn(true);
   };
 

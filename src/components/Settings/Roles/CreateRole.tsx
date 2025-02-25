@@ -29,7 +29,6 @@ export default function CreateRole({ setActiveRoleOption }: CreateRoleProps) {
   }, []);
 
   const { data: permissions, isLoading } = useGetAllPermissions();
-  console.log(permissions);
 
   const form = useForm<z.infer<typeof createRoleSchema>>({
     resolver: zodResolver(createRoleSchema),

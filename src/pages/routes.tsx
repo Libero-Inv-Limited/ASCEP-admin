@@ -14,11 +14,11 @@ import {
   DemocracyPage,
   SDGsHomePage,
   ViewAllDebatesPage,
-  // ViewAllInitiativesPage,
+  ViewAllInitiativesPage,
   ViewAllProposalsPage,
   ViewBudgetPage,
   ViewDebatePage,
-  // ViewInitiativePage,
+  ViewInitiativePage,
   // ViewAllProposalsPage,
 } from "./Democracy";
 import {
@@ -70,6 +70,8 @@ export const governanceRoutes = [
   { path: "democracy", element: <DemocracyPage />, title: "governance" },
   { path: "democracy/debates", element: <ViewAllDebatesPage />, title: "view-debates" },
   { path: "democracy/debates/:debateId", element: <ViewDebatePage />, title: "view-debate" },
+  {path: "democracy/initiatives", element: <ViewAllInitiativesPage />, title: "view-initiatives"},
+  {path: "democracy/initiatives/:initiativeId", element: <ViewInitiativePage />, title: "view-initiative"},
   { path: "democracy/proposals", element: <ViewAllProposalsPage />, title: "view-proposals" },
   { path: "democracy/proposals/:proposalId", element: <ViewProposalPage />, title: "view-proposal" },
   { path: "democracy/proposals/community/:proposalId", element: <ProposalCommuntityHomePage />, title: "proposal-community" },

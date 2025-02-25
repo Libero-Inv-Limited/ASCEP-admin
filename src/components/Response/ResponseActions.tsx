@@ -13,7 +13,6 @@ export default function ActionCards() {
   //   onClose: onImportClose,
   // } = useDisclosure();
   const { user } = useAppContext();
-  console.log(user)
 
   const navigate = useNavigate();
   return (

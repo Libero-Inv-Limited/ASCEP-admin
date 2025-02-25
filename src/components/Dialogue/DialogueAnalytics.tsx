@@ -5,7 +5,6 @@ import { useGetAllAuthorities } from "@/api/authorities";
 
 export default function DialogueAnalytics() {
   const { data, isLoading } = useGetAllAuthorities();
-  console.log("Authorities data:", data);
 
   return (
     <div className="grid grid-cols-4 gap-6 ">

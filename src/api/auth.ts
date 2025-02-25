@@ -84,6 +84,26 @@ export const useVerifyEmail = () => {
   );
 };
 
+export const useChangePassword = () => {
+  const { toast } = useToast();
+
+  return useMutation(
+    (values: ChangePasswordPayload) =>
+      axios
+        .patch(`${baseUrl}/user/change-password`, values)
+        .then((res) => res.data),
+    {
+      onSuccess: () => {
+        toast({
+          title: "Success",
+          description: "Password has been changed",
+          variant: "success",
+        });
+      },
+    }
+  );
+};
+
 export const useResendOTP = (email: string | null) => {
   const { toast } = useToast();
   const navigate = useNavigate();

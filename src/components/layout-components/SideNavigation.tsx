@@ -15,7 +15,6 @@ interface SideNavigationProps { }
 const SideNavigation: React.FC<SideNavigationProps> = () => {
   const { openSidebar, toggleSidebar, activeModule } = useNavigationContext();
   const { user } = useAppContext();
-  console.log(user);
 
   return (
     <div

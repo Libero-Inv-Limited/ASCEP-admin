@@ -34,8 +34,6 @@ export default function SearchSelect({
     setOpen(false);
   };
 
-  console.log(options);
-
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
