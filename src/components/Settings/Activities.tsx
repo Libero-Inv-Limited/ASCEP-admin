@@ -24,16 +24,11 @@ export const columns: ColumnDef<UserActivitiesType>[] = [
         <div className="flex items-start gap-1 w-full text-sm max-w-[200px] ">
           <div className="mt-1 text-subtle_text">
             <PiDeviceMobileCamera />
-            {/* {row.original.deviceType === "Mobile" ? (
-            ) : (
-              <PiDesktop />
-            )} */}
           </div>
           <div className="font-light ">
             <p className="uppercase line-clamp-1 text-ellipsis text-[#414141] p-0 m-0 ">
               {row.original.user_agent}
             </p>
-            {/* <p className="text-[#8F8F8F] ">{row.original.device}</p> */}
           </div>
         </div>
       );
