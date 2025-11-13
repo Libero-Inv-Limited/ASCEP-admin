@@ -1,5 +1,4 @@
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
-import axios from "axios";
 
 import {
   unauthenticatedRoutes,
@@ -11,10 +10,7 @@ import {
   settingsRoutes,
 } from "./routes";
 import { AuthPagesLayout, MainLayout } from "@/layouts";
-import config from "@/utils/config";
-import { useToast } from "@/components/ui/use-toast";
 import useAutoLogout from "@/hooks/useAuthoLogout";
-import { useAuthContext } from "@/providers/AuthProvider";
 import ProtectedRoute from "./ProtectedRoute";
 import ForbiddenPage from "./Forbidden/ForbiddenPage";
 
@@ -24,40 +20,18 @@ const Router = () => {
       <Route key={title} path={path} element={element} />
     ));
 
-  const { toast } = useToast();
-  const { logout } = useAuthContext();
-
   useAutoLogout();
 
-  axios.interceptors.request.use(
-    (axiosConfig) => {
-      const token = localStorage.getItem(config.key.accessToken);
-      axiosConfig.headers.Authorization = `Bearer ${token}`;
-      return axiosConfig;
-    },
-    (error) => Promise.reject(error)
-  );
-
-  axios.interceptors.response.use(
-    (response) => response,
-    (error) => {
-      if (error.response) {
-        if (error?.response?.status === 401) {
-          logout();
-        } else {
-          toast({
-            title: error?.response?.status === 500 ? "Sorry!" : "Error!",
-            description:
-              error?.response?.status === 500
-                ? "An error occurred on the server"
-                : error?.response?.data?.message,
-            variant: "error",
-          });
-        }
-      }
-      return Promise.reject(error);
-    }
-  );
+  /**
+   * NOTE: Axios interceptors have been moved to /src/lib/axios.ts
+   * Use apiClient from /src/lib/axios.ts for all API calls to get:
+   * - Automatic token injection
+   * - Global error handling
+   * - Request/response logging in development
+   *
+   * The old interceptors below have been removed to prevent duplicate setup.
+   * @see /src/lib/axios.ts for the centralized configuration
+   */
 
   return (
     <Routes>

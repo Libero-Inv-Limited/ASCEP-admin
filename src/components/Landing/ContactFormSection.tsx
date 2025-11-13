@@ -6,6 +6,7 @@ import { FormInput } from "../custom";
 import { Form } from "../ui/form";
 import FormTextArea from "../custom/FormTextArea";
 import { Button } from "../ui/button";
+import logger from "@/utils/logger";
 
 export default function ContactFormSection() {
   const form = useForm();
@@ -16,7 +17,7 @@ export default function ContactFormSection() {
   } = form;
 
   const submitForm = (e: any) => {
-    console.log(e);
+    logger.debug("Contact form submitted:", e, "Contact");
   };
   return (
     <div className="grid grid-cols-2 gap-16 px-[100px] ">

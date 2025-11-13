@@ -5,6 +5,7 @@ import { newApiSchema } from "@/schemas/SettingsSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import logger from "@/utils/logger";
 
 interface NewApiProps {
   setActiveIntegrationStep: React.Dispatch<
@@ -25,8 +26,8 @@ export default function NewApi({ setActiveIntegrationStep }: NewApiProps) {
   } = form;
 
   const onSubmit = (data: NewApiSchema) => {
-    console.log(data);
-    console.log(setActiveIntegrationStep);
+    logger.debug("API form data:", data, "ApiIntegrations");
+    logger.debug("Active integration step setter:", setActiveIntegrationStep, "ApiIntegrations");
   };
 
   return (

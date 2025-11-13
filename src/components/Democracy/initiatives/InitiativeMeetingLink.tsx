@@ -1,5 +1,6 @@
 import { useToast } from "@/components/ui/use-toast";
 import { Airdrop, Copy } from "iconsax-react";
+import logger from "@/utils/logger";
 
 //
 export default function InitiativeMeetingLink({
@@ -10,7 +11,7 @@ export default function InitiativeMeetingLink({
   const copyToClipboard = (text: string) => {
     // Check if the Clipboard API is available in the browser
     if (!navigator.clipboard) {
-      console.error("Clipboard API is not available");
+      logger.error("Clipboard API is not available", null, "InitiativeMeetingLink");
       return;
     }
 
@@ -18,10 +19,10 @@ export default function InitiativeMeetingLink({
     navigator.clipboard
       .writeText(text)
       .then(() => {
-        console.log("Text copied to clipboard:", text);
+        logger.debug("Text copied to clipboard:", text, "InitiativeMeetingLink");
       })
       .catch((error) => {
-        console.error("Error copying text to clipboard:", error);
+        logger.error("Error copying text to clipboard:", error, "InitiativeMeetingLink");
       });
   };
 

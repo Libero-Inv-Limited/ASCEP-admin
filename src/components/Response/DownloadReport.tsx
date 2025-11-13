@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useGetReportInfo } from "@/api/response";
 import jsPDF from "jspdf";
+import logger from "@/utils/logger";
 
 interface DownloadReportProps {
   reportId: number;
@@ -38,7 +39,7 @@ export default function DownloadReport({ reportId, onComplete }: DownloadReportP
         reader.readAsDataURL(blob);
       });
     } catch (error) {
-      console.error("Error loading image:", error);
+      logger.error("Error loading image:", error, "DownloadReport");
     }
   }
 

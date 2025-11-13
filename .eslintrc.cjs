@@ -14,6 +14,34 @@ module.exports = {
       "warn",
       { allowConstantExport: true },
     ],
-    "@typescript-eslint/no-explicit-any": "off",
+    // TypeScript Rules
+    "@typescript-eslint/no-explicit-any": "warn", // Changed from "off" to "warn" to encourage proper typing
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        argsIgnorePattern: "^_",
+        varsIgnorePattern: "^_",
+        caughtErrorsIgnorePattern: "^_",
+      },
+    ],
+
+    // Console & Debugging
+    "no-console": [
+      "warn",
+      {
+        allow: ["warn", "error"], // Allow console.warn and console.error, but warn on console.log
+      },
+    ],
+    "no-debugger": "warn",
+
+    // Code Quality
+    "no-var": "error", // Use const or let instead
+    "prefer-const": "warn",
+    "prefer-template": "warn",
+    "object-shorthand": "warn",
+
+    // React Best Practices
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
   },
 };

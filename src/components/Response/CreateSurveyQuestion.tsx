@@ -3,6 +3,7 @@ import { questionSchema } from "@/schemas/democracySchema";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
+import logger from "@/utils/logger";
 
 type Question = z.infer<typeof questionSchema>;
 
@@ -26,7 +27,7 @@ const CreateSurveyQuestion: React.FC = () => {
   const questions = watch("questions");
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log("Submitted data:", data);
+    logger.debug("Submitted data:", data, "Survey");
   };
 
   const handleAnswerTypeChange = (index: number, value: "Text" | "Option") => {

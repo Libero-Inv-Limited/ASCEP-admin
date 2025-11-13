@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  admin:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL}
+        VITE_FRONTEND_URL: ${VITE_FRONTEND_URL}
+        VITE_APP_NAME: ${VITE_APP_NAME}
+        VITE_APP_ENV: ${VITE_APP_ENV}
+    container_name: ascep-admin
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+      - "8443:443"
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - certbot-www:/var/www/certbot
+    environment:
+      - DOMAIN=adminlens.anambrastate.gov.ng
+      - EMAIL=admin@anambrastate.gov.ng
+    networks:
+      - ascep-network
+
+  certbot:
+    image: certbot/certbot:latest
+    container_name: ascep-admin-certbot
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - certbot-www:/var/www/certbot
+    command: certonly --webroot --webroot-path=/var/www/certbot --email admin@anambrastate.gov.ng --agree-tos --no-eff-email --keep-until-expiring -d adminlens.anambrastate.gov.ng
+    depends_on:
+      - admin
+    networks:
+      - ascep-network
+
+volumes:
+  certbot-etc:
+  certbot-var:
+  certbot-www:
+
+networks:
+  ascep-network:
+    driver: bridge

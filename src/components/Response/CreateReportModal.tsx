@@ -11,6 +11,7 @@ import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { ChangeEvent, useRef, useState } from "react";
 import { Gps } from "iconsax-react";
+import logger from "@/utils/logger";
 
 interface CreatePostModalProps {
   onClose: () => void;
@@ -42,7 +43,7 @@ export default function CreateReportModal({
   } = form;
 
   function onSubmit(values: z.infer<typeof createPostSchema>) {
-    console.log(values);
+    logger.debug("Report submission data:", values, "Reports");
 
     toast({
       title: "Success",

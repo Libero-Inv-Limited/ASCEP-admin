@@ -6,6 +6,7 @@ import { FormInput } from "@/components/custom";
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import logger from "@/utils/logger";
 
 interface RelatedDebatesProps {}
 const RelatedDebates: React.FC<RelatedDebatesProps> = () => {
@@ -25,7 +26,8 @@ const RelatedDebates: React.FC<RelatedDebatesProps> = () => {
   } = form;
   
   function onSubmit(values: z.infer<typeof addRelatedSchema>) {
-    console.log(values);
+    // TODO: Implement related content submission
+    logger.debug("Adding related content", values, "RelatedDebates");
   }
   return (
     <div>

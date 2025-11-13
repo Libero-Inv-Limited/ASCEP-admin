@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { usePublishDebate } from "@/api/democracy/debates";
 import { startProposalSchema } from "@/schemas/ProposalSchema";
 import FormTextArea from "@/components/Democracy/common/FormTextArea";
+import logger from "@/utils/logger";
 
 interface StartProposalPageProps {}
 const StartProposalPage: React.FC<StartProposalPageProps> = () => {
@@ -53,7 +54,7 @@ const StartProposalPage: React.FC<StartProposalPageProps> = () => {
   } = form;
 
   async function onSubmit(values: z.infer<typeof startProposalSchema>) {
-    console.log(values);
+    logger.debug("Proposal submission data:", values, "Proposal");
   }
 
   //   useEffect(() => {
